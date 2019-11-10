@@ -1,260 +1,333 @@
-import { Avatar, Card, Col, List, Skeleton, Row, Statistic } from 'antd';
+import {
+  Avatar,
+  Button,
+  Card,
+  Col,
+  DatePicker,
+  Dropdown,
+  Form,
+  Icon,
+  Input,
+  List,
+  Menu,
+  Modal,
+  Progress,
+  Radio,
+  Row,
+  Select,
+  Result,
+  Collapse,
+} from 'antd';
 import React, { Component } from 'react';
 
 import { Dispatch } from 'redux';
-import Link from 'umi/link';
+import { FormComponentProps } from 'antd/es/form';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { connect } from 'dva';
+import { findDOMNode } from 'react-dom';
 import moment from 'moment';
-import Radar from './components/Radar';
-import { ModalState } from './model';
-import EditableLinkGroup from './components/EditableLinkGroup';
+import { StateType } from './model';
+import { BasicListItemDataType } from './data.d';
 import styles from './style.less';
-import { ActivitiesType, CurrentUser, NoticeType, RadarDataType } from './data';
 
-const links = [
-  {
-    title: '操作一',
-    href: '',
-  },
-  {
-    title: '操作二',
-    href: '',
-  },
-  {
-    title: '操作三',
-    href: '',
-  },
-  {
-    title: '操作四',
-    href: '',
-  },
-  {
-    title: '操作五',
-    href: '',
-  },
-  {
-    title: '操作六',
-    href: '',
-  },
-];
+const FormItem = Form.Item;
+const RadioButton = Radio.Button;
+const RadioGroup = Radio.Group;
+const SelectOption = Select.Option;
+const { Search, TextArea } = Input;
+const { Panel } = Collapse;
 
-interface IndexProps {
-  currentUser: CurrentUser;
-  projectNotice: NoticeType[];
-  activities: ActivitiesType[];
-  radarData: RadarDataType[];
+interface DevelopProps extends FormComponentProps {
+  projectAnddevelop: StateType;
   dispatch: Dispatch<any>;
-  currentUserLoading: boolean;
-  projectLoading: boolean;
-  activitiesLoading: boolean;
+  loading: boolean;
 }
-
-const PageHeaderContent: React.FC<{ currentUser: CurrentUser }> = ({ currentUser }) => {
-  const loading = currentUser && Object.keys(currentUser).length;
-  if (!loading) {
-    return <Skeleton avatar paragraph={{ rows: 1 }} active />;
-  }
-  return (
-    <div className={styles.pageHeaderContent}>
-      <div className={styles.avatar}>
-        <Avatar size="large" src={currentUser.avatar} />
-      </div>
-      <div className={styles.content}>
-        <div className={styles.contentTitle}>米柜</div>
-        <div>米柜</div>
-      </div>
-    </div>
-  );
-};
-
-const ExtraContent: React.FC<{}> = () => (
-  <div className={styles.extraContent}>
-    <div className={styles.statItem}>
-      <Statistic title="产品数" value={2} />
-    </div>
-    <div className={styles.statItem}>
-      <Statistic title="模块数" value={10} />
-    </div>
-    <div className={styles.statItem}>
-      <Statistic title="功能数" value={120} />
-    </div>
-  </div>
-);
-
+interface DevelopState {
+  visible: boolean;
+  done: boolean;
+  current?: Partial<BasicListItemDataType>;
+}
 @connect(
   ({
-    projectAndproductAndindex: { currentUser, projectNotice, activities, radarData },
+    projectAnddevelop,
     loading,
   }: {
-    projectAndproductAndindex: ModalState;
-    loading: { effects: any };
+    projectAnddevelop: StateType;
+    loading: {
+      models: { [key: string]: boolean };
+    };
   }) => ({
-    currentUser,
-    projectNotice,
-    activities,
-    radarData,
-    currentUserLoading: loading.effects['projectAndproductAndindex/fetchUserCurrent'],
-    projectLoading: loading.effects['projectAndproductAndindex/fetchProjectNotice'],
-    activitiesLoading: loading.effects['projectAndproductAndindex/fetchActivitiesList'],
+    projectAnddevelop,
+    loading: loading.models.projectAnddevelop,
   }),
 )
-class Index extends Component<IndexProps> {
+class Develop extends Component<DevelopProps, DevelopState> {
+  state: DevelopState = { visible: false, done: false, current: undefined };
+
+  formLayout = {
+    labelCol: { span: 7 },
+    wrapperCol: { span: 13 },
+  };
+
+  addBtn: HTMLButtonElement | undefined | null = undefined;
+
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
-      type: 'projectAndproductAndindex/init',
+      type: 'projectAnddevelop/fetch',
+      payload: {
+        count: 5,
+      },
     });
   }
 
-  componentWillUnmount() {
+  showModal = () => {
+    this.setState({
+      visible: true,
+      current: undefined,
+    });
+  };
+
+  showEditModal = (item: BasicListItemDataType) => {
+    this.setState({
+      visible: true,
+      current: item,
+    });
+  };
+
+  handleDone = () => {
+    setTimeout(() => this.addBtn && this.addBtn.blur(), 0);
+    this.setState({
+      done: false,
+      visible: false,
+    });
+  };
+
+  handleCancel = () => {
+    setTimeout(() => this.addBtn && this.addBtn.blur(), 0);
+    this.setState({
+      visible: false,
+    });
+  };
+
+  handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const { dispatch, form } = this.props;
+    const { current } = this.state;
+    const id = current ? current.id : '';
+
+    setTimeout(() => this.addBtn && this.addBtn.blur(), 0);
+    form.validateFields((err: string | undefined, fieldsValue: BasicListItemDataType) => {
+      if (err) return;
+      this.setState({
+        done: true,
+      });
+      dispatch({
+        type: 'projectAnddevelop/submit',
+        payload: { id, ...fieldsValue },
+      });
+    });
+  };
+
+  deleteItem = (id: string) => {
     const { dispatch } = this.props;
     dispatch({
-      type: 'projectAndproductAndindex/clear',
+      type: 'projectAnddevelop/submit',
+      payload: { id },
     });
-  }
-
-  renderActivities = (item: ActivitiesType) => {
-    const events = item.template.split(/@\{([^{}]*)\}/gi).map(key => {
-      if (item[key]) {
-        return (
-          <a href={item[key].link} key={item[key].name}>
-            {item[key].name}
-          </a>
-        );
-      }
-      return key;
-    });
-    return (
-      <List.Item key={item.id}>
-        <List.Item.Meta
-          avatar={<Avatar src={item.user.avatar} />}
-          title={
-            <span>
-              <a className={styles.username}>{item.user.name}</a>
-              &nbsp;
-              <span className={styles.event}>{events}</span>
-            </span>
-          }
-          description={
-            <span className={styles.datetime} title={item.updatedAt}>
-              {moment(item.updatedAt).fromNow()}
-            </span>
-          }
-        />
-      </List.Item>
-    );
   };
 
   render() {
     const {
-      currentUser,
-      activities,
-      projectNotice,
-      projectLoading,
-      activitiesLoading,
-      radarData,
+      projectAnddevelop: { list },
+      loading,
+    } = this.props;
+    const {
+      form: { getFieldDecorator },
     } = this.props;
 
-    return (
-      <PageHeaderWrapper
-        content={<PageHeaderContent currentUser={currentUser} />}
-        extraContent={<ExtraContent />}
+    const { visible, done, current = {} } = this.state;
+
+    const editAndDelete = (key: string, currentItem: BasicListItemDataType) => {
+      if (key === 'edit') this.showEditModal(currentItem);
+      else if (key === 'delete') {
+        Modal.confirm({
+          title: '删除任务',
+          content: '确定删除该任务吗？',
+          okText: '确认',
+          cancelText: '取消',
+          onOk: () => this.deleteItem(currentItem.id),
+        });
+      }
+    };
+
+    const modalFooter = done
+      ? { footer: null, onCancel: this.handleDone }
+      : { okText: '保存', onOk: this.handleSubmit, onCancel: this.handleCancel };
+
+    const Info: React.FC<{
+      title: React.ReactNode;
+      value: React.ReactNode;
+      bordered?: boolean;
+    }> = ({ title, value, bordered }) => (
+      <div className={styles.headerInfo}>
+        <span>{title}</span>
+        <p>{value}</p>
+        {bordered && <em />}
+      </div>
+    );
+
+    const extraContent = (
+      <div className={styles.extraContent}>
+        <RadioGroup defaultValue="all">
+          <RadioButton value="all">全部</RadioButton>
+          <RadioButton value="progress">进行中</RadioButton>
+          <RadioButton value="waiting">等待中</RadioButton>
+        </RadioGroup>
+        <Search className={styles.extraContentSearch} placeholder="请输入" onSearch={() => ({})} />
+      </div>
+    );
+
+    const paginationProps = {
+      showSizeChanger: true,
+      showQuickJumper: true,
+      pageSize: 5,
+      total: 50,
+    };
+
+    const ListContent = ({
+      data: { owner, createdAt, percent, status },
+    }: {
+      data: BasicListItemDataType;
+    }) => (
+      <div className={styles.listContent}>
+        <div className={styles.listContentItem}>
+          <span>Owner</span>
+          <p>{owner}</p>
+        </div>
+        <div className={styles.listContentItem}>
+          <span>开始时间</span>
+          <p>{moment(createdAt).format('YYYY-MM-DD HH:mm')}</p>
+        </div>
+        <div className={styles.listContentItem}>
+          <Progress percent={percent} status={status} strokeWidth={6} style={{ width: 180 }} />
+        </div>
+      </div>
+    );
+
+    const MoreBtn: React.FC<{
+      item: BasicListItemDataType;
+    }> = ({ item }) => (
+      <Dropdown
+        overlay={
+          <Menu onClick={({ key }) => editAndDelete(key, item)}>
+            <Menu.Item key="edit">编辑</Menu.Item>
+            <Menu.Item key="delete">删除</Menu.Item>
+          </Menu>
+        }
       >
-        <Row gutter={24}>
-          <Col xl={12} lg={24} md={24} sm={24} xs={24}>
-            <Card
-              className={styles.projectList}
-              style={{ marginBottom: 24 }}
-              title="产品"
-              bordered={false}
-              extra={<Link to="/">添加产品</Link>}
-              loading={projectLoading}
-              bodyStyle={{ padding: 0 }}
-            >
-              {projectNotice.slice(0,1).map(item => (
-                <Card.Grid className={styles.projectGrid} key={item.id}>
-                  <Card bodyStyle={{ padding: 0 }} bordered={false}>
-                    <Card.Meta
-                      title={
-                        <div className={styles.cardTitle}>
-                          <Avatar size="small" src={item.logo} />
-                          <Link to={item.href}>{item.title}</Link>
-                        </div>
-                      }
-                      description={item.description}
-                    />
-                    <div className={styles.projectItemContent}>
-                      <Link to={item.memberLink}>{item.member || ''}</Link>
-                      {item.updatedAt && (
-                        <span className={styles.datetime} title={item.updatedAt}>
-                          {moment(item.updatedAt).fromNow()}
-                        </span>
-                      )}
-                    </div>
-                  </Card>
-                </Card.Grid>
-              ))}
+        <a>
+          更多 <Icon type="down" />
+        </a>
+      </Dropdown>
+    );
+
+    const getModalContent = () => {
+      if (done) {
+        return (
+          <Result
+            status="success"
+            title="操作成功"
+            subTitle="一系列的信息描述，很短同样也可以带标点。"
+            extra={
+              <Button type="primary" onClick={this.handleDone}>
+                知道了
+              </Button>
+            }
+            className={styles.formResult}
+          />
+        );
+      }
+      return (
+        <Form onSubmit={this.handleSubmit}>
+          <FormItem label="产品名称" {...this.formLayout}>
+            {getFieldDecorator('title', {
+              rules: [{ required: true, message: '请输入产品名称' }],
+              initialValue: current.title,
+            })(<Input placeholder="请输入" />)}
+          </FormItem>
+          <FormItem {...this.formLayout} label="产品描述">
+            {getFieldDecorator('subDescription', {
+              rules: [{ message: '请输入至少五个字符的产品描述！', min: 5 }],
+              initialValue: current.subDescription,
+            })(<TextArea rows={4} placeholder="请输入至少五个字符" />)}
+          </FormItem>
+        </Form>
+      );
+    };
+    return (
+      <>
+        <PageHeaderWrapper>
+          <div className={styles.standardList}>
+            <Card bordered={false}>
+              <Row>
+                <Col sm={8} xs={24}>
+                  <Info title="我的待办" value="8个任务" bordered />
+                </Col>
+                <Col sm={8} xs={24}>
+                  <Info title="本周任务平均处理时间" value="32分钟" bordered />
+                </Col>
+                <Col sm={8} xs={24}>
+                  <Info title="本周完成任务数" value="24个任务" />
+                </Col>
+              </Row>
             </Card>
+
             <Card
-              bodyStyle={{ padding: 0 }}
+              className={styles.listCard}
               bordered={false}
-              className={styles.activeCard}
-              title="动态"
-              loading={activitiesLoading}
+              title="产品列表"
+              style={{ marginTop: 24 }}
+              bodyStyle={{ padding: '0 32px 40px 32px' }}
+              extra={extraContent}
             >
-              <List<ActivitiesType>
-                loading={activitiesLoading}
-                renderItem={item => this.renderActivities(item)}
-                dataSource={activities}
-                className={styles.activitiesList}
-                size="large"
-              />
+              <Button
+                type="dashed"
+                style={{ width: '100%', marginBottom: 8 }}
+                icon="plus"
+                onClick={this.showModal}
+                ref={component => {
+                  // eslint-disable-next-line  react/no-find-dom-node
+                  this.addBtn = findDOMNode(component) as HTMLButtonElement;
+                }}
+              >
+                添加
+              </Button>
+              <Collapse bordered={false}>
+                {list.map(item => (
+                  <Panel key={item.id} header={<ListContent data={item} />}>
+                    
+                  </Panel>
+                ))}
+              </Collapse>
             </Card>
-          </Col>
-          <Col xl={12} lg={24} md={24} sm={24} xs={24}>
-            <Card
-              style={{ marginBottom: 24 }}
-              title="快速开始 / 便捷导航"
-              bordered={false}
-              bodyStyle={{ padding: 0 }}
-            >
-              <EditableLinkGroup onAdd={() => {}} links={links} linkElement={Link} />
-            </Card>
-            <Card
-              style={{ marginBottom: 24 }}
-              bordered={false}
-              title="XX 指数"
-              loading={radarData.length === 0}
-            >
-              <div className={styles.chart}>
-                <Radar hasLegend height={343} data={radarData} />
-              </div>
-            </Card>
-            <Card
-              bodyStyle={{ paddingTop: 12, paddingBottom: 12 }}
-              bordered={false}
-              title="团队"
-              loading={projectLoading}
-            >
-              <div className={styles.members}>
-                <Row gutter={48}>
-                  {projectNotice.map(item => (
-                    <Col span={12} key={`members-item-${item.id}`}>
-                      <Link to={item.href}>
-                        <Avatar src={item.logo} size="small" />
-                        <span className={styles.member}>{item.member}</span>
-                      </Link>
-                    </Col>
-                  ))}
-                </Row>
-              </div>
-            </Card>
-          </Col>
-        </Row>
-      </PageHeaderWrapper>
+          </div>
+        </PageHeaderWrapper>
+
+        <Modal
+          title={done ? null : `产品${current ? '编辑' : '添加'}`}
+          className={styles.standardListForm}
+          width={640}
+          bodyStyle={done ? { padding: '72px 0' } : { padding: '28px 0 0' }}
+          destroyOnClose
+          visible={visible}
+          {...modalFooter}
+        >
+          {getModalContent()}
+        </Modal>
+      </>
     );
   }
 }
 
-export default Index;
+export default Form.create<DevelopProps>()(Develop);

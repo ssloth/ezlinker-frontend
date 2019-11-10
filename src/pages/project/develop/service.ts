@@ -1,17 +1,54 @@
 import request from '@/utils/request';
+import { BasicListItemDataType } from './data.d';
 
-export async function queryProjectNotice() {
-  return request('/api/project/notice');
+interface ParamsType extends Partial<BasicListItemDataType> {
+  count?: number;
 }
 
-export async function queryActivities() {
-  return request('/api/activities');
+export async function queryFakeList(params: ParamsType) {
+  return request('/api/fake_list', {
+    params,
+  });
 }
 
-export async function fakeChartData() {
-  return request('/api/fake_chart_data');
+export async function removeFakeList(params: ParamsType) {
+  const { count = 5, ...restParams } = params;
+  return request('/api/fake_list', {
+    method: 'POST',
+    params: {
+      count,
+    },
+    data: {
+      ...restParams,
+      method: 'delete',
+    },
+  });
 }
 
-export async function queryCurrent() {
-  return request('/api/currentUser');
+export async function addFakeList(params: ParamsType) {
+  const { count = 5, ...restParams } = params;
+  return request('/api/fake_list', {
+    method: 'POST',
+    params: {
+      count,
+    },
+    data: {
+      ...restParams,
+      method: 'post',
+    },
+  });
+}
+
+export async function updateFakeList(params: ParamsType) {
+  const { count = 5, ...restParams } = params;
+  return request('/api/fake_list', {
+    method: 'POST',
+    params: {
+      count,
+    },
+    data: {
+      ...restParams,
+      method: 'update',
+    },
+  });
 }

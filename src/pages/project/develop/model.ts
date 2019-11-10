@@ -1,101 +1,80 @@
 import { AnyAction, Reducer } from 'redux';
 import { EffectsCommandMap } from 'dva';
-import { ActivitiesType, CurrentUser, NoticeType, RadarDataType } from './data';
-import { fakeChartData, queryActivities, queryCurrent, queryProjectNotice } from './service';
+import { addFakeList, queryFakeList, removeFakeList, updateFakeList } from './service';
 
-export interface ModalState {
-  currentUser: Partial<CurrentUser>;
-  projectNotice: NoticeType[];
-  activities: ActivitiesType[];
-  radarData: RadarDataType[];
+import { BasicListItemDataType } from './data.d';
+
+export interface StateType {
+  list: BasicListItemDataType[];
 }
 
 export type Effect = (
   action: AnyAction,
-  effects: EffectsCommandMap & { select: <T>(func: (state: ModalState) => T) => T },
+  effects: EffectsCommandMap & { select: <T>(func: (state: StateType) => T) => T },
 ) => void;
 
 export interface ModelType {
   namespace: string;
-  state: ModalState;
-  reducers: {
-    save: Reducer<ModalState>;
-    clear: Reducer<ModalState>;
-  };
+  state: StateType;
   effects: {
-    init: Effect;
-    fetchUserCurrent: Effect;
-    fetchProjectNotice: Effect;
-    fetchActivitiesList: Effect;
-    fetchChart: Effect;
+    fetch: Effect;
+    appendFetch: Effect;
+    submit: Effect;
+  };
+  reducers: {
+    queryList: Reducer<StateType>;
+    appendList: Reducer<StateType>;
   };
 }
 
 const Model: ModelType = {
-  namespace: 'ProjectDevelop',
+  namespace: 'projectAnddevelop',
+
   state: {
-    currentUser: {},
-    projectNotice: [],
-    activities: [],
-    radarData: [],
+    list: [],
   },
+
   effects: {
-    *init(_, { put }) {
-      yield put({ type: 'fetchUserCurrent' });
-      yield put({ type: 'fetchProjectNotice' });
-      yield put({ type: 'fetchActivitiesList' });
-      yield put({ type: 'fetchChart' });
-    },
-    *fetchUserCurrent(_, { call, put }) {
-      const response = yield call(queryCurrent);
+    *fetch({ payload }, { call, put }) {
+      const response = yield call(queryFakeList, payload);
       yield put({
-        type: 'save',
-        payload: {
-          currentUser: response,
-        },
+        type: 'queryList',
+        payload: Array.isArray(response) ? response : [],
       });
     },
-    *fetchProjectNotice(_, { call, put }) {
-      const response = yield call(queryProjectNotice);
+    *appendFetch({ payload }, { call, put }) {
+      const response = yield call(queryFakeList, payload);
       yield put({
-        type: 'save',
-        payload: {
-          projectNotice: Array.isArray(response) ? response : [],
-        },
+        type: 'appendList',
+        payload: Array.isArray(response) ? response : [],
       });
     },
-    *fetchActivitiesList(_, { call, put }) {
-      const response = yield call(queryActivities);
+    *submit({ payload }, { call, put }) {
+      let callback;
+      if (payload.id) {
+        callback = Object.keys(payload).length === 1 ? removeFakeList : updateFakeList;
+      } else {
+        callback = addFakeList;
+      }
+      const response = yield call(callback, payload); // post
       yield put({
-        type: 'save',
-        payload: {
-          activities: Array.isArray(response) ? response : [],
-        },
-      });
-    },
-    *fetchChart(_, { call, put }) {
-      const { radarData } = yield call(fakeChartData);
-      yield put({
-        type: 'save',
-        payload: {
-          radarData,
-        },
+        type: 'queryList',
+        payload: response,
       });
     },
   },
+
   reducers: {
-    save(state, { payload }) {
+    queryList(state, action) {
       return {
         ...state,
-        ...payload,
+        list: action.payload,
       };
     },
-    clear() {
+    appendList(state = { list: [] }, action) {
       return {
-        currentUser: {},
-        projectNotice: [],
-        activities: [],
-        radarData: [],
+        ...state,
+        list: state.list.concat(action.payload),
       };
     },
   },
