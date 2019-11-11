@@ -1,24 +1,5 @@
-import {
-  Avatar,
-  Button,
-  Card,
-  Col,
-  DatePicker,
-  Dropdown,
-  Form,
-  Icon,
-  Input,
-  List,
-  Menu,
-  Modal,
-  Progress,
-  Radio,
-  Row,
-  Select,
-  Result,
-  Collapse,
-} from 'antd';
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
+import { Button, Card, Col, Form, Input, Progress, Radio, Row, Collapse, Avatar } from 'antd';
 
 import { Dispatch } from 'redux';
 import { FormComponentProps } from 'antd/es/form';
@@ -27,27 +8,173 @@ import { connect } from 'dva';
 import { findDOMNode } from 'react-dom';
 import moment from 'moment';
 import { StateType } from './model';
-import { BasicListItemDataType } from './data.d';
+import useModal from '@/hook/useModal/index';
+import CreateProductFMC from './modules/CreateProductFMC';
 import styles from './style.less';
+import { BasicListItemDataType } from './data.d';
+import { Link } from 'umi';
 
-const FormItem = Form.Item;
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
-const SelectOption = Select.Option;
-const { Search, TextArea } = Input;
+const { Search } = Input;
 const { Panel } = Collapse;
+
+const Info: React.FC<{
+  title: React.ReactNode;
+  value: React.ReactNode;
+  bordered?: boolean;
+}> = ({ title, value, bordered }) => (
+  <div className={styles.headerInfo}>
+    <span>{title}</span>
+    <p>{value}</p>
+    {bordered && <em />}
+  </div>
+);
+
+const ListContent = ({
+  data: { owner, createdAt, percent, status },
+}: {
+  data: BasicListItemDataType;
+}) => (
+  <div className={styles.listContent}>
+    <div className={styles.listContentItem}>
+      <span>Owner</span>
+      <p>{owner}</p>
+    </div>
+    <div className={styles.listContentItem}>
+      <span>开始时间</span>
+      <p>{moment(createdAt).format('YYYY-MM-DD HH:mm')}</p>
+    </div>
+    <div className={styles.listContentItem}>
+      <Progress percent={percent} status={status} strokeWidth={6} style={{ width: 180 }} />
+    </div>
+  </div>
+);
+
+const ProductComponents = ({ components }: { components: any[] }) => (
+  <Card className={styles.projectList} style={{ marginBottom: 24 }} bodyStyle={{ padding: 0 }}>
+    {components.map((item: any) => (
+      <Card.Grid className={styles.projectGrid} key={item.id}>
+        <Card bodyStyle={{ padding: 0 }} bordered={false}>
+          <Card.Meta
+            title={
+              <div className={styles.cardTitle}>
+                <Avatar size="small" src={item.logo} />
+                <Link to={item.href}>{item.title}</Link>
+              </div>
+            }
+            description={item.description}
+          />
+          <div className={styles.projectItemContent}>
+            <Link to={item.memberLink}>{item.member || ''}</Link>
+            {item.updatedAt && (
+              <span className={styles.datetime} title={item.updatedAt}>
+                {moment(item.updatedAt).fromNow()}
+              </span>
+            )}
+          </div>
+        </Card>
+      </Card.Grid>
+    ))}
+  </Card>
+);
 
 interface DevelopProps extends FormComponentProps {
   projectAnddevelop: StateType;
   dispatch: Dispatch<any>;
   loading: boolean;
 }
-interface DevelopState {
-  visible: boolean;
-  done: boolean;
-  current?: Partial<BasicListItemDataType>;
-}
-@connect(
+
+const Develop: React.FC<DevelopProps> = props => {
+  const { dispatch, projectAnddevelop, form } = props;
+  const { list } = projectAnddevelop;
+
+  const [ProductModal, ProductModalMethods] = useModal(CreateProductFMC, {
+    title: '产品添加',
+    width: 640,
+  });
+
+  const handleAdd = () => {
+    ProductModalMethods.show();
+  };
+
+  useEffect(() => {
+    dispatch({
+      type: 'projectAnddevelop/fetch',
+      payload: {
+        count: 5,
+      },
+    });
+  }, []);
+
+  const extraContent = (
+    <div className={styles.extraContent}>
+      <RadioGroup defaultValue="all">
+        <RadioButton value="all">全部</RadioButton>
+        <RadioButton value="progress">进行中</RadioButton>
+        <RadioButton value="waiting">等待中</RadioButton>
+      </RadioGroup>
+      <Search className={styles.extraContentSearch} placeholder="请输入" onSearch={() => ({})} />
+    </div>
+  );
+
+  return (
+    <>
+      <PageHeaderWrapper>
+        <div className={styles.standardList}>
+          <Card bordered={false}>
+            <Row>
+              <Col sm={8} xs={24}>
+                <Info title="我的待办" value="8个任务" bordered />
+              </Col>
+              <Col sm={8} xs={24}>
+                <Info title="本周任务平均处理时间" value="32分钟" bordered />
+              </Col>
+              <Col sm={8} xs={24}>
+                <Info title="本周完成任务数" value="24个任务" />
+              </Col>
+            </Row>
+          </Card>
+
+          <Card
+            className={styles.listCard}
+            bordered={false}
+            title="产品列表"
+            style={{ marginTop: 24 }}
+            bodyStyle={{ padding: '0 32px 40px 32px' }}
+            extra={extraContent}
+          >
+            <Button
+              type="dashed"
+              style={{ width: '100%', marginBottom: 8 }}
+              icon="plus"
+              onClick={handleAdd}
+            >
+              添加
+            </Button>
+            <Collapse bordered={false}>
+              {list.map(item => (
+                <Panel key={item.id} header={<ListContent data={item} />}>
+                  <Row gutter={12}>
+                    <Col lg={16}>
+                      <ProductComponents components={list}></ProductComponents>
+                    </Col>
+                    <Col lg={8}>
+                      <Card></Card>
+                    </Col>
+                  </Row>
+                </Panel>
+              ))}
+            </Collapse>
+          </Card>
+        </div>
+      </PageHeaderWrapper>
+      {[ProductModal]}
+    </>
+  );
+};
+
+export default connect(
   ({
     projectAnddevelop,
     loading,
@@ -60,274 +187,4 @@ interface DevelopState {
     projectAnddevelop,
     loading: loading.models.projectAnddevelop,
   }),
-)
-class Develop extends Component<DevelopProps, DevelopState> {
-  state: DevelopState = { visible: false, done: false, current: undefined };
-
-  formLayout = {
-    labelCol: { span: 7 },
-    wrapperCol: { span: 13 },
-  };
-
-  addBtn: HTMLButtonElement | undefined | null = undefined;
-
-  componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch({
-      type: 'projectAnddevelop/fetch',
-      payload: {
-        count: 5,
-      },
-    });
-  }
-
-  showModal = () => {
-    this.setState({
-      visible: true,
-      current: undefined,
-    });
-  };
-
-  showEditModal = (item: BasicListItemDataType) => {
-    this.setState({
-      visible: true,
-      current: item,
-    });
-  };
-
-  handleDone = () => {
-    setTimeout(() => this.addBtn && this.addBtn.blur(), 0);
-    this.setState({
-      done: false,
-      visible: false,
-    });
-  };
-
-  handleCancel = () => {
-    setTimeout(() => this.addBtn && this.addBtn.blur(), 0);
-    this.setState({
-      visible: false,
-    });
-  };
-
-  handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const { dispatch, form } = this.props;
-    const { current } = this.state;
-    const id = current ? current.id : '';
-
-    setTimeout(() => this.addBtn && this.addBtn.blur(), 0);
-    form.validateFields((err: string | undefined, fieldsValue: BasicListItemDataType) => {
-      if (err) return;
-      this.setState({
-        done: true,
-      });
-      dispatch({
-        type: 'projectAnddevelop/submit',
-        payload: { id, ...fieldsValue },
-      });
-    });
-  };
-
-  deleteItem = (id: string) => {
-    const { dispatch } = this.props;
-    dispatch({
-      type: 'projectAnddevelop/submit',
-      payload: { id },
-    });
-  };
-
-  render() {
-    const {
-      projectAnddevelop: { list },
-      loading,
-    } = this.props;
-    const {
-      form: { getFieldDecorator },
-    } = this.props;
-
-    const { visible, done, current = {} } = this.state;
-
-    const editAndDelete = (key: string, currentItem: BasicListItemDataType) => {
-      if (key === 'edit') this.showEditModal(currentItem);
-      else if (key === 'delete') {
-        Modal.confirm({
-          title: '删除任务',
-          content: '确定删除该任务吗？',
-          okText: '确认',
-          cancelText: '取消',
-          onOk: () => this.deleteItem(currentItem.id),
-        });
-      }
-    };
-
-    const modalFooter = done
-      ? { footer: null, onCancel: this.handleDone }
-      : { okText: '保存', onOk: this.handleSubmit, onCancel: this.handleCancel };
-
-    const Info: React.FC<{
-      title: React.ReactNode;
-      value: React.ReactNode;
-      bordered?: boolean;
-    }> = ({ title, value, bordered }) => (
-      <div className={styles.headerInfo}>
-        <span>{title}</span>
-        <p>{value}</p>
-        {bordered && <em />}
-      </div>
-    );
-
-    const extraContent = (
-      <div className={styles.extraContent}>
-        <RadioGroup defaultValue="all">
-          <RadioButton value="all">全部</RadioButton>
-          <RadioButton value="progress">进行中</RadioButton>
-          <RadioButton value="waiting">等待中</RadioButton>
-        </RadioGroup>
-        <Search className={styles.extraContentSearch} placeholder="请输入" onSearch={() => ({})} />
-      </div>
-    );
-
-    const paginationProps = {
-      showSizeChanger: true,
-      showQuickJumper: true,
-      pageSize: 5,
-      total: 50,
-    };
-
-    const ListContent = ({
-      data: { owner, createdAt, percent, status },
-    }: {
-      data: BasicListItemDataType;
-    }) => (
-      <div className={styles.listContent}>
-        <div className={styles.listContentItem}>
-          <span>Owner</span>
-          <p>{owner}</p>
-        </div>
-        <div className={styles.listContentItem}>
-          <span>开始时间</span>
-          <p>{moment(createdAt).format('YYYY-MM-DD HH:mm')}</p>
-        </div>
-        <div className={styles.listContentItem}>
-          <Progress percent={percent} status={status} strokeWidth={6} style={{ width: 180 }} />
-        </div>
-      </div>
-    );
-
-    const MoreBtn: React.FC<{
-      item: BasicListItemDataType;
-    }> = ({ item }) => (
-      <Dropdown
-        overlay={
-          <Menu onClick={({ key }) => editAndDelete(key, item)}>
-            <Menu.Item key="edit">编辑</Menu.Item>
-            <Menu.Item key="delete">删除</Menu.Item>
-          </Menu>
-        }
-      >
-        <a>
-          更多 <Icon type="down" />
-        </a>
-      </Dropdown>
-    );
-
-    const getModalContent = () => {
-      if (done) {
-        return (
-          <Result
-            status="success"
-            title="操作成功"
-            subTitle="一系列的信息描述，很短同样也可以带标点。"
-            extra={
-              <Button type="primary" onClick={this.handleDone}>
-                知道了
-              </Button>
-            }
-            className={styles.formResult}
-          />
-        );
-      }
-      return (
-        <Form onSubmit={this.handleSubmit}>
-          <FormItem label="产品名称" {...this.formLayout}>
-            {getFieldDecorator('title', {
-              rules: [{ required: true, message: '请输入产品名称' }],
-              initialValue: current.title,
-            })(<Input placeholder="请输入" />)}
-          </FormItem>
-          <FormItem {...this.formLayout} label="产品描述">
-            {getFieldDecorator('subDescription', {
-              rules: [{ message: '请输入至少五个字符的产品描述！', min: 5 }],
-              initialValue: current.subDescription,
-            })(<TextArea rows={4} placeholder="请输入至少五个字符" />)}
-          </FormItem>
-        </Form>
-      );
-    };
-    return (
-      <>
-        <PageHeaderWrapper>
-          <div className={styles.standardList}>
-            <Card bordered={false}>
-              <Row>
-                <Col sm={8} xs={24}>
-                  <Info title="我的待办" value="8个任务" bordered />
-                </Col>
-                <Col sm={8} xs={24}>
-                  <Info title="本周任务平均处理时间" value="32分钟" bordered />
-                </Col>
-                <Col sm={8} xs={24}>
-                  <Info title="本周完成任务数" value="24个任务" />
-                </Col>
-              </Row>
-            </Card>
-
-            <Card
-              className={styles.listCard}
-              bordered={false}
-              title="产品列表"
-              style={{ marginTop: 24 }}
-              bodyStyle={{ padding: '0 32px 40px 32px' }}
-              extra={extraContent}
-            >
-              <Button
-                type="dashed"
-                style={{ width: '100%', marginBottom: 8 }}
-                icon="plus"
-                onClick={this.showModal}
-                ref={component => {
-                  // eslint-disable-next-line  react/no-find-dom-node
-                  this.addBtn = findDOMNode(component) as HTMLButtonElement;
-                }}
-              >
-                添加
-              </Button>
-              <Collapse bordered={false}>
-                {list.map(item => (
-                  <Panel key={item.id} header={<ListContent data={item} />}>
-                    
-                  </Panel>
-                ))}
-              </Collapse>
-            </Card>
-          </div>
-        </PageHeaderWrapper>
-
-        <Modal
-          title={done ? null : `产品${current ? '编辑' : '添加'}`}
-          className={styles.standardListForm}
-          width={640}
-          bodyStyle={done ? { padding: '72px 0' } : { padding: '28px 0 0' }}
-          destroyOnClose
-          visible={visible}
-          {...modalFooter}
-        >
-          {getModalContent()}
-        </Modal>
-      </>
-    );
-  }
-}
-
-export default Form.create<DevelopProps>()(Develop);
+)(Form.create<DevelopProps>()(Develop));

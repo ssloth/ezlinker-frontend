@@ -2,10 +2,14 @@ import React, { useState } from 'react';
 import { Modal, Button } from 'antd';
 
 export interface IUseModalProps {}
+interface ModalMethods {
+  show: Function;
+  cancle: Function;
+}
 
-const useModal = (ModalContent: any, opt: any): [JSX.Element, any] => {
+const useFormModal = (ModalContent: any, opt: any): [JSX.Element, ModalMethods] => {
   const [visible, setVisible] = useState<Boolean>(false);
-  const [content, setContent] = useState<React.ReactElement>();
+  const [content, setContent] = useState<JSX.Element>();
   const [options, setOptions] = useState<any>(opt);
 
   const methods = {
@@ -41,4 +45,4 @@ const useModal = (ModalContent: any, opt: any): [JSX.Element, any] => {
   return [CustomModal, methods];
 };
 
-export default useModal;
+export default useFormModal;
