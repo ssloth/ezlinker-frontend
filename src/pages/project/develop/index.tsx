@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react';
-import { Button, Card, Col, Form, Input, Progress, Radio, Row, Collapse, Avatar } from 'antd';
+import { Button, Card, Col, Form, Input, Progress, Radio, Row, Collapse, Avatar, Icon } from 'antd';
 
 import { Dispatch } from 'redux';
 import { FormComponentProps } from 'antd/es/form';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { connect } from 'dva';
-import { findDOMNode } from 'react-dom';
 import moment from 'moment';
 import { StateType } from './model';
 import useModal from '@/hook/useModal/index';
@@ -13,11 +12,39 @@ import CreateProductFMC from './modules/CreateProductFMC';
 import styles from './style.less';
 import { BasicListItemDataType } from './data.d';
 import { Link } from 'umi';
+import EditableLinkGroup from '../components/EditableLinkGroup';
 
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 const { Search } = Input;
 const { Panel } = Collapse;
+
+const features = [
+  {
+    title: '操作一',
+    href: '',
+  },
+  {
+    title: '操作二',
+    href: '',
+  },
+  {
+    title: '操作三',
+    href: '',
+  },
+  {
+    title: '操作四',
+    href: '',
+  },
+  {
+    title: '操作五',
+    href: '',
+  },
+  {
+    title: '操作六',
+    href: '',
+  },
+];
 
 const Info: React.FC<{
   title: React.ReactNode;
@@ -52,30 +79,37 @@ const ListContent = ({
 );
 
 const ProductComponents = ({ components }: { components: any[] }) => (
-  <Card className={styles.projectList} style={{ marginBottom: 24 }} bodyStyle={{ padding: 0 }}>
-    {components.map((item: any) => (
-      <Card.Grid className={styles.projectGrid} key={item.id}>
-        <Card bodyStyle={{ padding: 0 }} bordered={false}>
-          <Card.Meta
-            title={
-              <div className={styles.cardTitle}>
-                <Avatar size="small" src={item.logo} />
-                <Link to={item.href}>{item.title}</Link>
-              </div>
-            }
-            description={item.description}
-          />
-          <div className={styles.projectItemContent}>
-            <Link to={item.memberLink}>{item.member || ''}</Link>
-            {item.updatedAt && (
-              <span className={styles.datetime} title={item.updatedAt}>
-                {moment(item.updatedAt).fromNow()}
-              </span>
-            )}
+  <Card
+    title="模块"
+    className={styles.productCard}
+    style={{ marginBottom: 24 }}
+    bodyStyle={{ padding: 0 }}
+  >
+    {[...components, null].map((item: any) =>
+      item ? (
+        <Card.Grid style={{ width: '25%', padding: 10, textAlign: 'center', cursor: 'pointer' }}>
+          <div className={styles.component}>安卓</div>
+        </Card.Grid>
+      ) : (
+        <Card.Grid style={{ width: '25%', padding: 10, textAlign: 'center', cursor: 'pointer' }}>
+          <div className={styles.component}>
+            <Icon type="plus" style={{ fontSize: 20, color: '#616161' }} />
           </div>
-        </Card>
-      </Card.Grid>
-    ))}
+        </Card.Grid>
+      ),
+    )}
+  </Card>
+);
+
+const ProductFeature = ({ features }: { features: any[] }) => (
+  <Card
+    className={styles.productCard}
+    style={{ marginBottom: 24 }}
+    headStyle={{ borderBottom: '1px solid #e8e8e8' }}
+    bodyStyle={{ padding: 0 }}
+    title="功能"
+  >
+    <EditableLinkGroup onAdd={() => {}} links={features} linkElement={Link} />
   </Card>
 );
 
@@ -135,7 +169,6 @@ const Develop: React.FC<DevelopProps> = props => {
               </Col>
             </Row>
           </Card>
-
           <Card
             className={styles.listCard}
             bordered={false}
@@ -160,7 +193,7 @@ const Develop: React.FC<DevelopProps> = props => {
                       <ProductComponents components={list}></ProductComponents>
                     </Col>
                     <Col lg={8}>
-                      <Card></Card>
+                      <ProductFeature features={features}></ProductFeature>
                     </Col>
                   </Row>
                 </Panel>

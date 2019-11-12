@@ -6,9 +6,9 @@ import Link from 'umi/link';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { connect } from 'dva';
 import moment from 'moment';
-import Radar from './components/Radar';
+import Radar from '../components/Radar';
 import { ModalState } from './model';
-import EditableLinkGroup from './components/EditableLinkGroup';
+import EditableLinkGroup from '../components/EditableLinkGroup';
 import styles from './style.less';
 import { ActivitiesType, CurrentUser, NoticeType, RadarDataType } from './data';
 
