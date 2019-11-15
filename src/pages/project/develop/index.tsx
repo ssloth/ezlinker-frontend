@@ -1,20 +1,31 @@
+import moment from 'moment';
 import React from 'react';
-import { Button, Card, Col, Form, Input, Progress, Radio, Row, Collapse, Icon } from 'antd';
-import { Link } from 'umi';
+import {
+  Button,
+  Card,
+  Col,
+  Collapse,
+  Form,
+  Icon,
+  Input,
+  Progress,
+  Radio,
+  Row,
+  } from 'antd';
 import { Dispatch } from 'redux';
 import { FormComponentProps } from 'antd/es/form';
+import { Link } from 'umi';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import moment from 'moment';
-import useModal from '@/hook/useModal/index';
-import CreateProductFMC from './modules/CreateProductFMC';
-import styles from './style.less';
 import { BasicListItemDataType } from './data.d';
+import useModal from '@/hook/useModal/index';
+import styles from './style.less';
 import EditableLinkGroup from '../components/EditableLinkGroup';
+import CreateProductFMC from './modules/CreateProductFMC';
 
-const RadioButton = Radio.Button;
-const RadioGroup = Radio.Group;
-const { Search } = Input;
-const { Panel } = Collapse;
+const RadioButton = Radio.Button
+const RadioGroup = Radio.Group
+const { Search } = Input
+const { Panel } = Collapse
 
 const featureList = [
   {
@@ -41,29 +52,29 @@ const featureList = [
     title: '操作六',
     href: '',
   },
-];
+]
 
 interface DevelopProps extends FormComponentProps {
-  dispatch: Dispatch<any>;
-  loading: boolean;
+  dispatch: Dispatch<any>
+  loading: boolean
 }
 
 const Info: React.FC<{
-  title: React.ReactNode;
-  value: React.ReactNode;
-  bordered?: boolean;
+  title: React.ReactNode
+  value: React.ReactNode
+  bordered?: boolean
 }> = ({ title, value, bordered }) => (
   <div className={styles.headerInfo}>
     <span>{title}</span>
     <p>{value}</p>
     {bordered && <em />}
   </div>
-);
+)
 
 const ListContent = ({
   data: { owner, createdAt, percent, status },
 }: {
-  data: BasicListItemDataType;
+  data: BasicListItemDataType
 }) => (
   <div className={styles.listContent}>
     <div className={styles.listContentItem}>
@@ -78,7 +89,7 @@ const ListContent = ({
       <Progress percent={percent} status={status} strokeWidth={6} style={{ width: 180 }} />
     </div>
   </div>
-);
+)
 
 const ProductComponents = ({ components }: { components: any[] }) => (
   <Card
@@ -88,7 +99,7 @@ const ProductComponents = ({ components }: { components: any[] }) => (
     bodyStyle={{ padding: 0 }}
   >
     {[...components, null].map((item: any) =>
-      item ? (
+      (item ? (
         <Card.Grid style={{ width: '25%', padding: 10, textAlign: 'center', cursor: 'pointer' }}>
           <div className={styles.component}>安卓</div>
         </Card.Grid>
@@ -98,10 +109,10 @@ const ProductComponents = ({ components }: { components: any[] }) => (
             <Icon type="plus" style={{ fontSize: 20, color: '#616161' }} />
           </div>
         </Card.Grid>
-      ),
+      )),
     )}
   </Card>
-);
+)
 
 const ProductFeature = ({ features }: { features: any[] }) => (
   <Card
@@ -113,20 +124,20 @@ const ProductFeature = ({ features }: { features: any[] }) => (
   >
     <EditableLinkGroup onAdd={() => {}} links={features} linkElement={Link} />
   </Card>
-);
+)
 
 const Develop: React.FC<DevelopProps> = props => {
   const [ProductModal, ProductModalMethods] = useModal(CreateProductFMC, {
     title: '产品添加',
     width: 640,
     ...props,
-  });
+  })
 
-  const list: any = [];
+  const list: any = []
 
   const handleAdd = () => {
-    ProductModalMethods.show();
-  };
+    ProductModalMethods.show()
+  }
 
   const extraContent = (
     <div className={styles.extraContent}>
@@ -137,7 +148,7 @@ const Develop: React.FC<DevelopProps> = props => {
       </RadioGroup>
       <Search className={styles.extraContentSearch} placeholder="请输入" onSearch={() => ({})} />
     </div>
-  );
+  )
 
   return (
     <>
@@ -191,7 +202,7 @@ const Develop: React.FC<DevelopProps> = props => {
       </PageHeaderWrapper>
       {[ProductModal]}
     </>
-  );
-};
+  )
+}
 
-Form.create<DevelopProps>()(Develop);
+export default Form.create<DevelopProps>()(Develop)

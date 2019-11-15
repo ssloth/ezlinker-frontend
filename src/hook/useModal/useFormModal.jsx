@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, Form, message } from 'antd';
-import { connect } from 'dva';
 
-const FormModal = connect()(
-  Form.create()(props => {
+const FormModal = Form.create()(props => {
     const {
       form,
       options,
@@ -40,9 +38,9 @@ const FormModal = connect()(
       </Modal>
     );
   }),
-);
 
-export default function(ModalContent, dispatchType, opt = {}) {
+
+export default (ModalContent, dispatchType, opt = {}) => {
   const [visible, setVisible] = useState(false);
   const [content, setContent] = useState(false);
   const [options, setOptions] = useState(opt);
