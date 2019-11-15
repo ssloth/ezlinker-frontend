@@ -172,7 +172,7 @@ class Index extends Component<IndexProps> {
               loading={projectLoading}
               bodyStyle={{ padding: 0 }}
             >
-              {projectNotice.slice(0,1).map(item => (
+              {projectNotice.slice(0, 1).map(item => (
                 <Card.Grid className={styles.projectGrid} key={item.id}>
                   <Card bodyStyle={{ padding: 0 }} bordered={false}>
                     <Card.Meta

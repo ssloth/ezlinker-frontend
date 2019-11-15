@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Modal, Form, message } from 'antd';
 import { connect } from 'dva';
 
@@ -35,17 +35,11 @@ const FormModal = connect()(
     };
 
     return (
-      <Modal
-        destroyOnClose
-        onCancel={handleCancel}
-        onOk={handleOk}
-        visible={visible}
-        {...options}
-      >
+      <Modal destroyOnClose onCancel={handleCancel} onOk={handleOk} visible={visible} {...options}>
         <ModalContent {...props} {...content} />
       </Modal>
     );
-  })
+  }),
 );
 
 export default function(ModalContent, dispatchType, opt = {}) {
