@@ -16,12 +16,12 @@ export default (): React.ReactNode => {
   const { data, error } = peojectResource.useQuery();
   const tablelist = data as ITableList;
 
-  const createProject = useFormModal(CreateProjectFMC, '', {
+  const createProjectModal = useFormModal(CreateProjectFMC, '', {
     title: '创建产品',
   });
 
   const handleAddproject = () => {
-    createProject.show();
+    createProjectModal.show();
   };
 
   return (
@@ -68,7 +68,7 @@ export default (): React.ReactNode => {
           }}
         />
       </div>
-      {[createProject.render()]}
+      {[createProjectModal.render()]}
     </PageHeaderWrapper>
   );
 };

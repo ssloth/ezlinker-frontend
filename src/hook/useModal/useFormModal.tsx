@@ -11,7 +11,9 @@ export interface IFormModalOption extends ModalFuncProps {
   callback?: Function;
 }
 
-export interface IFormModalContentProps extends FormComponentProps {}
+export interface IFormModalContentProps extends FormComponentProps {
+  current: any;
+}
 
 export interface IFormModalProps extends FormComponentProps {
   action: IAction | string;
@@ -21,6 +23,10 @@ export interface IFormModalProps extends FormComponentProps {
   visible: boolean;
   setVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+const defaultFormModalContentProps = {
+  current: {},
+};
 
 const FormModal = Form.create<IFormModalProps>()((props: IFormModalProps) => {
   const {
@@ -76,12 +82,14 @@ const useFormModal = (
   opt: IFormModalOption = {},
 ) => {
   const [visible, setVisible] = useState<boolean>(false);
-  const [formModalContentProps, setFormModalContentProps] = useState<any>();
+  const [formModalContentProps, setFormModalContentProps] = useState<any>(
+    defaultFormModalContentProps,
+  );
   const [options, setOptions] = useState<IFormModalOption>(opt);
 
   const show = (formModalContentProps = {}, optionsRet: IFormModalOption = {}) => {
     setVisible(true);
-    setFormModalContentProps(formModalContentProps);
+    setFormModalContentProps({ ...defaultFormModalContentProps, ...formModalContentProps });
     setOptions({ ...options, ...optionsRet });
   };
   const cancle = () => setVisible(false);
