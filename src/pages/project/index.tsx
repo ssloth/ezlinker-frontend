@@ -2,375 +2,73 @@ import React from 'react';
 import { Card, List, Button, Icon, Typography } from 'antd';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import Link from 'umi/link';
-
 import styles from './index.less';
+import { useFormModal, useRestful } from '@/hook';
+import { PROJECT_API } from '@/services/resources';
+import { Project } from '@/services/resources/models';
+import { ITableList } from '@/typings/server';
+import CreateProjectFMC from './components/modules/CreateProjectFMC';
 
 const { Paragraph } = Typography;
 
-export default (): React.ReactNode => (
-  <PageHeaderWrapper>
-    <div className={styles.cardList}>
-      <List
-        rowKey="id"
-        dataSource={[
-          {},
-          {
-            id: 'fake-list-0',
-            owner: '付小小',
-            title: 'Alipay',
-            avatar: 'https://gw.alipayobjects.com/zos/rmsportal/WdGqmHpayyMjiEhcKoVE.png',
-            cover: 'https://gw.alipayobjects.com/zos/rmsportal/uMfMFlvUuceEyPpotzlq.png',
-            status: 'active',
-            percent: 83,
-            logo: 'https://gw.alipayobjects.com/zos/rmsportal/WdGqmHpayyMjiEhcKoVE.png',
-            href: 'https://ant.design',
-            updatedAt: '2019-11-06T16:12:09.203Z',
-            createdAt: '2019-11-06T16:12:09.203Z',
-            subDescription: '那是一种内在的东西， 他们到达不了，也无法触及的',
-            description:
-              '在中台产品的研发过程中，会出现不同的设计规范和实现方式，但其中往往存在很多类似的页面和组件，这些类似的组件会被抽离成一套标准规范。',
-            activeUser: 113431,
-            newUser: 1737,
-            star: 131,
-            like: 126,
-            message: 15,
-            content:
-              '段落示意：蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。',
-            members: [
-              {
-                avatar: 'https://gw.alipayobjects.com/zos/rmsportal/ZiESqWwCXBRQoaPONSJe.png',
-                name: '曲丽丽',
-                id: 'member1',
-              },
-              {
-                avatar: 'https://gw.alipayobjects.com/zos/rmsportal/tBOxZPlITHqwlGjsJWaF.png',
-                name: '王昭君',
-                id: 'member2',
-              },
-              {
-                avatar: 'https://gw.alipayobjects.com/zos/rmsportal/sBxjgqiuHMGRkIjqlQCd.png',
-                name: '董娜娜',
-                id: 'member3',
-              },
-            ],
-          },
-          {
-            id: 'fake-list-1',
-            owner: '曲丽丽',
-            title: 'Angular',
-            avatar: 'https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png',
-            cover: 'https://gw.alipayobjects.com/zos/rmsportal/iZBVOIhGJiAnhplqjvZW.png',
-            status: 'exception',
-            percent: 85,
-            logo: 'https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png',
-            href: 'https://ant.design',
-            updatedAt: '2019-11-06T14:12:09.203Z',
-            createdAt: '2019-11-06T14:12:09.203Z',
-            subDescription: '希望是一个好东西，也许是最好的，好东西是不会消亡的',
-            description:
-              '在中台产品的研发过程中，会出现不同的设计规范和实现方式，但其中往往存在很多类似的页面和组件，这些类似的组件会被抽离成一套标准规范。',
-            activeUser: 177978,
-            newUser: 1212,
-            star: 184,
-            like: 132,
-            message: 16,
-            content:
-              '段落示意：蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。',
-            members: [
-              {
-                avatar: 'https://gw.alipayobjects.com/zos/rmsportal/ZiESqWwCXBRQoaPONSJe.png',
-                name: '曲丽丽',
-                id: 'member1',
-              },
-              {
-                avatar: 'https://gw.alipayobjects.com/zos/rmsportal/tBOxZPlITHqwlGjsJWaF.png',
-                name: '王昭君',
-                id: 'member2',
-              },
-              {
-                avatar: 'https://gw.alipayobjects.com/zos/rmsportal/sBxjgqiuHMGRkIjqlQCd.png',
-                name: '董娜娜',
-                id: 'member3',
-              },
-            ],
-          },
-          {
-            id: 'fake-list-2',
-            owner: '林东东',
-            title: 'Ant Design',
-            avatar: 'https://gw.alipayobjects.com/zos/rmsportal/dURIMkkrRFpPgTuzkwnB.png',
-            cover: 'https://gw.alipayobjects.com/zos/rmsportal/iXjVmWVHbCJAyqvDxdtx.png',
-            status: 'normal',
-            percent: 83,
-            logo: 'https://gw.alipayobjects.com/zos/rmsportal/dURIMkkrRFpPgTuzkwnB.png',
-            href: 'https://ant.design',
-            updatedAt: '2019-11-06T12:12:09.203Z',
-            createdAt: '2019-11-06T12:12:09.203Z',
-            subDescription: '生命就像一盒巧克力，结果往往出人意料',
-            description:
-              '在中台产品的研发过程中，会出现不同的设计规范和实现方式，但其中往往存在很多类似的页面和组件，这些类似的组件会被抽离成一套标准规范。',
-            activeUser: 109222,
-            newUser: 1549,
-            star: 171,
-            like: 191,
-            message: 16,
-            content:
-              '段落示意：蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。',
-            members: [
-              {
-                avatar: 'https://gw.alipayobjects.com/zos/rmsportal/ZiESqWwCXBRQoaPONSJe.png',
-                name: '曲丽丽',
-                id: 'member1',
-              },
-              {
-                avatar: 'https://gw.alipayobjects.com/zos/rmsportal/tBOxZPlITHqwlGjsJWaF.png',
-                name: '王昭君',
-                id: 'member2',
-              },
-              {
-                avatar: 'https://gw.alipayobjects.com/zos/rmsportal/sBxjgqiuHMGRkIjqlQCd.png',
-                name: '董娜娜',
-                id: 'member3',
-              },
-            ],
-          },
-          {
-            id: 'fake-list-3',
-            owner: '周星星',
-            title: 'Ant Design Pro',
-            avatar: 'https://gw.alipayobjects.com/zos/rmsportal/sfjbOqnsXXJgNCjCzDBL.png',
-            cover: 'https://gw.alipayobjects.com/zos/rmsportal/gLaIAoVWTtLbBWZNYEMg.png',
-            status: 'active',
-            percent: 98,
-            logo: 'https://gw.alipayobjects.com/zos/rmsportal/sfjbOqnsXXJgNCjCzDBL.png',
-            href: 'https://ant.design',
-            updatedAt: '2019-11-06T10:12:09.203Z',
-            createdAt: '2019-11-06T10:12:09.203Z',
-            subDescription: '城镇中有那么多的酒馆，她却偏偏走进了我的酒馆',
-            description:
-              '在中台产品的研发过程中，会出现不同的设计规范和实现方式，但其中往往存在很多类似的页面和组件，这些类似的组件会被抽离成一套标准规范。',
-            activeUser: 176526,
-            newUser: 1659,
-            star: 165,
-            like: 162,
-            message: 17,
-            content:
-              '段落示意：蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。',
-            members: [
-              {
-                avatar: 'https://gw.alipayobjects.com/zos/rmsportal/ZiESqWwCXBRQoaPONSJe.png',
-                name: '曲丽丽',
-                id: 'member1',
-              },
-              {
-                avatar: 'https://gw.alipayobjects.com/zos/rmsportal/tBOxZPlITHqwlGjsJWaF.png',
-                name: '王昭君',
-                id: 'member2',
-              },
-              {
-                avatar: 'https://gw.alipayobjects.com/zos/rmsportal/sBxjgqiuHMGRkIjqlQCd.png',
-                name: '董娜娜',
-                id: 'member3',
-              },
-            ],
-          },
-          {
-            id: 'fake-list-4',
-            owner: '吴加好',
-            title: 'Bootstrap',
-            avatar: 'https://gw.alipayobjects.com/zos/rmsportal/siCrBXXhmvTQGWPNLBow.png',
-            cover: 'https://gw.alipayobjects.com/zos/rmsportal/gLaIAoVWTtLbBWZNYEMg.png',
-            status: 'exception',
-            percent: 58,
-            logo: 'https://gw.alipayobjects.com/zos/rmsportal/siCrBXXhmvTQGWPNLBow.png',
-            href: 'https://ant.design',
-            updatedAt: '2019-11-06T08:12:09.203Z',
-            createdAt: '2019-11-06T08:12:09.203Z',
-            subDescription: '那时候我只会想自己想要什么，从不想自己拥有什么',
-            description:
-              '在中台产品的研发过程中，会出现不同的设计规范和实现方式，但其中往往存在很多类似的页面和组件，这些类似的组件会被抽离成一套标准规范。',
-            activeUser: 139893,
-            newUser: 1516,
-            star: 150,
-            like: 114,
-            message: 19,
-            content:
-              '段落示意：蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。',
-            members: [
-              {
-                avatar: 'https://gw.alipayobjects.com/zos/rmsportal/ZiESqWwCXBRQoaPONSJe.png',
-                name: '曲丽丽',
-                id: 'member1',
-              },
-              {
-                avatar: 'https://gw.alipayobjects.com/zos/rmsportal/tBOxZPlITHqwlGjsJWaF.png',
-                name: '王昭君',
-                id: 'member2',
-              },
-              {
-                avatar: 'https://gw.alipayobjects.com/zos/rmsportal/sBxjgqiuHMGRkIjqlQCd.png',
-                name: '董娜娜',
-                id: 'member3',
-              },
-            ],
-          },
-          {
-            id: 'fake-list-5',
-            owner: '朱偏右',
-            title: 'React',
-            avatar: 'https://gw.alipayobjects.com/zos/rmsportal/kZzEzemZyKLKFsojXItE.png',
-            cover: 'https://gw.alipayobjects.com/zos/rmsportal/iXjVmWVHbCJAyqvDxdtx.png',
-            status: 'normal',
-            percent: 68,
-            logo: 'https://gw.alipayobjects.com/zos/rmsportal/kZzEzemZyKLKFsojXItE.png',
-            href: 'https://ant.design',
-            updatedAt: '2019-11-06T06:12:09.203Z',
-            createdAt: '2019-11-06T06:12:09.203Z',
-            subDescription: '那是一种内在的东西， 他们到达不了，也无法触及的',
-            description:
-              '在中台产品的研发过程中，会出现不同的设计规范和实现方式，但其中往往存在很多类似的页面和组件，这些类似的组件会被抽离成一套标准规范。',
-            activeUser: 149177,
-            newUser: 1062,
-            star: 137,
-            like: 137,
-            message: 11,
-            content:
-              '段落示意：蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。',
-            members: [
-              {
-                avatar: 'https://gw.alipayobjects.com/zos/rmsportal/ZiESqWwCXBRQoaPONSJe.png',
-                name: '曲丽丽',
-                id: 'member1',
-              },
-              {
-                avatar: 'https://gw.alipayobjects.com/zos/rmsportal/tBOxZPlITHqwlGjsJWaF.png',
-                name: '王昭君',
-                id: 'member2',
-              },
-              {
-                avatar: 'https://gw.alipayobjects.com/zos/rmsportal/sBxjgqiuHMGRkIjqlQCd.png',
-                name: '董娜娜',
-                id: 'member3',
-              },
-            ],
-          },
-          {
-            id: 'fake-list-6',
-            owner: '鱼酱',
-            title: 'Vue',
-            avatar: 'https://gw.alipayobjects.com/zos/rmsportal/ComBAopevLwENQdKWiIn.png',
-            cover: 'https://gw.alipayobjects.com/zos/rmsportal/iZBVOIhGJiAnhplqjvZW.png',
-            status: 'active',
-            percent: 96,
-            logo: 'https://gw.alipayobjects.com/zos/rmsportal/ComBAopevLwENQdKWiIn.png',
-            href: 'https://ant.design',
-            updatedAt: '2019-11-06T04:12:09.203Z',
-            createdAt: '2019-11-06T04:12:09.203Z',
-            subDescription: '希望是一个好东西，也许是最好的，好东西是不会消亡的',
-            description:
-              '在中台产品的研发过程中，会出现不同的设计规范和实现方式，但其中往往存在很多类似的页面和组件，这些类似的组件会被抽离成一套标准规范。',
-            activeUser: 179855,
-            newUser: 1633,
-            star: 162,
-            like: 184,
-            message: 16,
-            content:
-              '段落示意：蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。',
-            members: [
-              {
-                avatar: 'https://gw.alipayobjects.com/zos/rmsportal/ZiESqWwCXBRQoaPONSJe.png',
-                name: '曲丽丽',
-                id: 'member1',
-              },
-              {
-                avatar: 'https://gw.alipayobjects.com/zos/rmsportal/tBOxZPlITHqwlGjsJWaF.png',
-                name: '王昭君',
-                id: 'member2',
-              },
-              {
-                avatar: 'https://gw.alipayobjects.com/zos/rmsportal/sBxjgqiuHMGRkIjqlQCd.png',
-                name: '董娜娜',
-                id: 'member3',
-              },
-            ],
-          },
-          {
-            id: 'fake-list-7',
-            owner: '乐哥',
-            title: 'Webpack',
-            avatar: 'https://gw.alipayobjects.com/zos/rmsportal/nxkuOJlFJuAUhzlMTCEe.png',
-            cover: 'https://gw.alipayobjects.com/zos/rmsportal/uMfMFlvUuceEyPpotzlq.png',
-            status: 'exception',
-            percent: 70,
-            logo: 'https://gw.alipayobjects.com/zos/rmsportal/nxkuOJlFJuAUhzlMTCEe.png',
-            href: 'https://ant.design',
-            updatedAt: '2019-11-06T02:12:09.203Z',
-            createdAt: '2019-11-06T02:12:09.203Z',
-            subDescription: '生命就像一盒巧克力，结果往往出人意料',
-            description:
-              '在中台产品的研发过程中，会出现不同的设计规范和实现方式，但其中往往存在很多类似的页面和组件，这些类似的组件会被抽离成一套标准规范。',
-            activeUser: 174559,
-            newUser: 1560,
-            star: 114,
-            like: 197,
-            message: 13,
-            content:
-              '段落示意：蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。',
-            members: [
-              {
-                avatar: 'https://gw.alipayobjects.com/zos/rmsportal/ZiESqWwCXBRQoaPONSJe.png',
-                name: '曲丽丽',
-                id: 'member1',
-              },
-              {
-                avatar: 'https://gw.alipayobjects.com/zos/rmsportal/tBOxZPlITHqwlGjsJWaF.png',
-                name: '王昭君',
-                id: 'member2',
-              },
-              {
-                avatar: 'https://gw.alipayobjects.com/zos/rmsportal/sBxjgqiuHMGRkIjqlQCd.png',
-                name: '董娜娜',
-                id: 'member3',
-              },
-            ],
-          },
-        ]}
-        grid={{ gutter: 24, lg: 3, md: 2, sm: 1, xs: 1 }}
-        renderItem={(item: any) => {
-          if (item && item.id) {
+export default (): React.ReactNode => {
+  const peojectResource = useRestful<Project>(PROJECT_API);
+  const { data, error } = peojectResource.useQuery();
+  const tablelist = data as ITableList;
+
+  const createProject = useFormModal(CreateProjectFMC, '', {
+    title: '创建产品',
+  });
+
+  const handleAddproject = () => {
+    createProject.show();
+  };
+
+  return (
+    <PageHeaderWrapper>
+      <div className={styles.cardList}>
+        <List
+          rowKey='id'
+          dataSource={[{}, ...(tablelist ? tablelist.records : [])]}
+          loading={!tablelist || !!error}
+          grid={{ gutter: 24, lg: 3, md: 2, sm: 1, xs: 1 }}
+          renderItem={(item: any) => {
+            if (item && item.id) {
+              return (
+                <List.Item key={item.id}>
+                  <Card
+                    hoverable
+                    className={styles.card}
+                    actions={[
+                      <Link to='/projects/1/operation'>运维</Link>,
+                      <Link to='/projects/1/develop'>开发</Link>,
+                      <a key='option2'>删除</a>,
+                    ]}
+                  >
+                    <Card.Meta
+                      avatar={<img alt='' className={styles.cardAvatar} src={item.avatar} />}
+                      title={<a>{item.title}</a>}
+                      description={
+                        <Paragraph className={styles.item} ellipsis={{ rows: 3 }}>
+                          {item.description}
+                        </Paragraph>
+                      }
+                    />
+                  </Card>
+                </List.Item>
+              );
+            }
             return (
-              <List.Item key={item.id}>
-                <Card
-                  hoverable
-                  className={styles.card}
-                  actions={[
-                    <Link to="/projects/1/operation">运维</Link>,
-                    <Link to="/projects/1/develop">开发</Link>,
-                    <a key="option2">删除</a>,
-                  ]}
-                >
-                  <Card.Meta
-                    avatar={<img alt="" className={styles.cardAvatar} src={item.avatar} />}
-                    title={<a>{item.title}</a>}
-                    description={
-                      <Paragraph className={styles.item} ellipsis={{ rows: 3 }}>
-                        {item.description}
-                      </Paragraph>
-                    }
-                  />
-                </Card>
+              <List.Item>
+                <Button onClick={handleAddproject} type='dashed' className={styles.newButton}>
+                  <Icon type='plus' /> 新增产品
+                </Button>
               </List.Item>
             );
-          }
-          return (
-            <List.Item>
-              <Button type="dashed" className={styles.newButton}>
-                <Icon type="plus" /> 新增产品
-              </Button>
-            </List.Item>
-          );
-        }}
-      />
-    </div>
-  </PageHeaderWrapper>
-);
+          }}
+        />
+      </div>
+      {[createProject.render()]}
+    </PageHeaderWrapper>
+  );
+};

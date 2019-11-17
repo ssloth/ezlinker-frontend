@@ -8,7 +8,7 @@ interface ModalMethods {
 }
 
 const useFormModal = (ModalContent: React.FC<any>, opt: any): [JSX.Element, ModalMethods] => {
-  const [visible, setVisible] = useState<Boolean>(false);
+  const [visible, setVisible] = useState<boolean>(false);
   const [content, setContent] = useState<JSX.Element>();
   const [options, setOptions] = useState<any>(opt);
 

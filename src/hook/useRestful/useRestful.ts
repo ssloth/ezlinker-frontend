@@ -8,21 +8,21 @@ export type ResourceParams = ParsedUrlQueryInput;
 export type ICreateResult = Promise<IServerResult>;
 export type IRemoveResult = Promise<IServerResult>;
 export type IUpdateResult = Promise<IServerResult>;
-export type IQueryResult<Resource> = responseInterface<ITableList<Resource>, Error>;
-export type IFindResult<Resource> = responseInterface<IServerResult<Resource>, Error>;
+export type IUseQueryResult<Resource> = responseInterface<ITableList<Resource>, Error>;
+export type IUseFindResult<Resource> = responseInterface<IServerResult<Resource>, Error>;
 
 /** function */
 export type ICreate<Resource> = (data: Resource) => ICreateResult;
 export type IRemove = (id: ResourceId) => IRemoveResult;
 export type IUpdate<Resource> = (id: ResourceId, resource: Resource) => IUpdateResult;
-export type IQuery<Resource> = (params?: ResourceParams) => IQueryResult<Resource>;
-export type IFind<Resource> = (id: ResourceId) => IFindResult<Resource>;
+export type IUseQuery<Resource> = (params?: ResourceParams) => IUseQueryResult<Resource>;
+export type IUseFind<Resource> = (id: ResourceId) => IUseFindResult<Resource>;
 export interface IUseResuful<Resource> {
   create: ICreate<Resource>;
   remove: IRemove;
   update: IUpdate<Resource>;
-  query: IQuery<Resource>;
-  find: IFind<Resource>;
+  useQuery: IUseQuery<Resource>;
+  useFind: IUseFind<Resource>;
 }
 
 const useResuful = <Resource>(url: String): IUseResuful<Resource> => {
@@ -38,18 +38,18 @@ const useResuful = <Resource>(url: String): IUseResuful<Resource> => {
       data: resource,
     });
 
-  const query = (params?: ResourceParams): IQueryResult<Resource> =>
+  const useQuery = (params?: ResourceParams): IUseQueryResult<Resource> =>
     useSwr<ITableList<Resource>>(`${url}?${stringify(params)}`, request);
 
-  const find = (id: ResourceId): IFindResult<Resource> =>
+  const useFind = (id: ResourceId): IUseFindResult<Resource> =>
     useSwr<IServerResult<Resource>>(`${url}/${id}`, request);
 
   return {
     create,
     remove,
     update,
-    query,
-    find,
+    useQuery,
+    useFind,
   };
 };
 

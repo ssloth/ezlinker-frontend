@@ -1,3 +1,4 @@
-import useModal from './useModal';
+import { useFormModal } from './useModal';
+import useRestful from '@/hook/useRestful';
 
-export { useModal };
+export { useFormModal, useRestful };
