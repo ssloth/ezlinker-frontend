@@ -156,6 +156,7 @@ class Index extends Component<IndexProps> {
       radarData,
     } = this.props;
 
+
     return (
       <PageHeaderWrapper
         content={<PageHeaderContent currentUser={currentUser} />}
@@ -221,16 +222,7 @@ class Index extends Component<IndexProps> {
             >
               <EditableLinkGroup onAdd={() => {}} links={links} linkElement={Link} />
             </Card>
-            <Card
-              style={{ marginBottom: 24 }}
-              bordered={false}
-              title="XX 指数"
-              loading={radarData.length === 0}
-            >
-              <div className={styles.chart}>
-                <Radar hasLegend height={343} data={radarData} />
-              </div>
-            </Card>
+            
             <Card
               bodyStyle={{ paddingTop: 12, paddingBottom: 12 }}
               bordered={false}

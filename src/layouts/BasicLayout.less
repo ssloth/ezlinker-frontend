@@ -5,7 +5,27 @@
   width: 100vw;
   height: 100vh;
 
-  .splitView {
-    flex: 1;
+  .header {
+    height: 60px;
+    background: #fcc;
+  }
+
+  .menusWrapper {
+    color: #ffffff;
+    text-align: center;
+    height: 100vh;
+
+    .menuBar {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .menuItem {
+      width: 60px;
+      height: 60px;
+      line-height: 60px;
+      cursor: pointer;
+    }
   }
 }
