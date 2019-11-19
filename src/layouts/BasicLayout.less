@@ -6,21 +6,22 @@
   display: flex;
   width: 100vw;
   height: 100vh;
-  .menusWrapper {
-    background: #2c323e;
+
+  .main-menu-bar {
+    background: #222831;
     color: #ffffff;
-    box-shadow: 0px 0px 10px #2c323e96;
+    box-shadow: 0px 0px 10px #222831;
     text-align: center;
     height: 100vh;
 
-    .menuBar {
+    .menu-bar {
       // position: absolute;
       // top: 50%;
       // transform: translateY(-50%);
       // width: 100%;
     }
 
-    .menuItem {
+    .menu-item {
       margin: 10px 0;
       width: 60px;
       height: 50px;
@@ -51,7 +52,56 @@
       }
 
       i {
-        color: #666666;
+        color: #999999;
+      }
+    }
+  }
+
+  .sub-menu-bar {
+    position: relative;
+    background: #393e46;
+
+    .navbar-collapse-wrapper {
+      position: absolute;
+      top: 50%;
+      left: 100%;
+      z-index: 100px;
+      transform: translateY(-50%);
+      .navbar-collapse {
+        height: 75px;
+        width: 15px;
+        line-height: 75px;
+        cursor: pointer;
+        transition: all 0.3s;
+
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          z-index: -1;
+          background: #cccccc;
+          transform: perspective(0.5em) rotateY(5deg);
+          transition: all 0.3s;
+          border-radius: 3px;
+        }
+
+        &:hover {
+          .icon {
+            color: #666666;
+          }
+
+          &::before {
+            background: #999999;
+            transition: all 0.3s;
+          }
+        }
+
+        .icon {
+          color: #999999;
+        }
       }
     }
   }

@@ -15,7 +15,7 @@ const isActive = (activePath: string, pathname: string) => {
 };
 
 const BasicLayout: React.SFC<ConnectProps> = props => {
-
+  const [collapsed, setCollapsed] = useState(true);
   const {
     children,
     location,
@@ -29,14 +29,18 @@ const BasicLayout: React.SFC<ConnectProps> = props => {
   const pathname = (location as any).pathname;
   // Get the currently selected menu
 
+  const handleToggle = () => {
+    set;
+  };
+
   return (
     <div className={cx('wrapper')}>
       <Layout>
-        <Sider className={cx('menusWrapper')} width={60}>
-          <div className={cx('menuBar')}>
+        <Sider className={cx('main-menu-bar')} width={60}>
+          <div className={cx('menu-bar')}>
             {menuData.map(menuItem => (
               <div
-                className={cx('menuItem', {
+                className={cx('menu-item', {
                   active: isActive(menuItem.path, pathname),
                 })}
               >
@@ -50,12 +54,15 @@ const BasicLayout: React.SFC<ConnectProps> = props => {
             ))}
           </div>
         </Sider>
-        {/* <Sider className={styles.subMenus} theme="light" width={150}></Sider> */}
+        <Sider className={cx('sub-menu-bar')} width={150} collapsedWidth={0} collapsed={collapsed}>
+          <div className={cx('navbar-collapse-wrapper')} onClick={() => setCollapsed(!collapsed)}>
+            <div className={cx('navbar-collapse')}>
+              <Icon className={cx('icon')} type='right'></Icon>
+            </div>
+          </div>
+        </Sider>
         <Layout>
-          <Header className={cx('header')}>
-
-            123
-          </Header>
+          <Header className={cx('header')}></Header>
           <Content className={cx('content')}>{children}</Content>
           <Footer className={'footer'}></Footer>
         </Layout>
