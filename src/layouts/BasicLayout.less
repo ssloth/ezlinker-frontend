@@ -19,6 +19,7 @@
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
+      width: 100%;
     }
 
     .menuItem {
@@ -26,6 +27,22 @@
       height: 60px;
       line-height: 60px;
       cursor: pointer;
+
+      &:hover {
+        i {
+          color: #fff;
+        }
+      }
+
+      &.active {
+        i {
+          color: #f00;
+        }
+      }
+
+      i {
+        color: #999;
+      }
     }
   }
 }

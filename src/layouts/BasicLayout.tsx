@@ -1,44 +1,61 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Layout, Icon } from 'antd';
 import { getMenuData } from '@ant-design/pro-layout';
-import styles from './BasicLayout.less';
 import { ConnectProps } from '@/models/connect';
 import { Link } from 'umi';
+import classNames from 'classnames';
+import { urlToList } from '@/utils/pathTools';
+import { getMenuMatches, getFlatMenuKeys } from './utils/SiderMenuUtils';
+import pathRegexp from 'path-to-regexp';
+import './BasicLayout.less';
 
 const { Sider, Header, Content, Footer } = Layout;
 
-/**
- * 将首页的menu排到中间
- * @param acc
- * @param val
- * @param index
- */
-const sortByCenter = (acc: any, val: any, index: number) => {
-  if (index === 0) return [val];
-  else if (index % 2 === 1) return [...acc, val];
-  else return [val, ...acc];
+const isActive = (path: string, selectedKeys: string[]) => {
+  return selectedKeys.some(key => pathRegexp(path).test(key));
 };
 
 const BasicLayout: React.SFC<ConnectProps> = props => {
+  const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
+
   const {
     children,
+    location,
     route = {
       routes: [],
     },
   } = props;
   const { routes = [] } = route;
-  const menuData = getMenuData(routes).menuData.reduce(sortByCenter, []);
+  const menuData = getMenuData(routes).menuData;
+  const flatMenuKeys = getFlatMenuKeys(menuData);
+
+  // Get the currently selected menu
+  const getSelectedMenuKeys = (): string[] => {
+    return urlToList((location as any).pathname)
+      .map(itemPath => getMenuMatches(flatMenuKeys, itemPath).pop())
+      .filter(item => item) as string[];
+  };
+
+  const handleMenuChange = () => {
+    setSelectedKeys(getSelectedMenuKeys());
+  };
+
   return (
-    <div className={styles.wrapper}>
+    <div className={'wrapper'}>
       <Layout>
-        <Sider className={styles.menusWrapper} width={60}>
-          <div className={styles.menuBar}>
+        <Sider className={'menusWrapper'} width={60}>
+          <div className={'menuBar'}>
             {menuData.map(menuItem => (
-              <div className={styles.menuItem}>
+              <div
+                className={classNames('menuItem', {
+                  active: isActive(menuItem.path, selectedKeys),
+                })}
+                onClick={handleMenuChange}
+              >
                 <Link to={menuItem.path}>
                   {/* <div className={styles.name}></div> */}
-                  <div className={styles.icon}>
-                    <Icon style={{ fontSize: 20 }} type={menuItem.icon} />
+                  <div className={'icon'}>
+                    <Icon style={{ fontSize: 22 }} type={menuItem.icon} />
                   </div>
                 </Link>
               </div>
@@ -47,9 +64,9 @@ const BasicLayout: React.SFC<ConnectProps> = props => {
         </Sider>
         {/* <Sider className={styles.subMenus} theme="light" width={150}></Sider> */}
         <Layout>
-          <Header className={styles.header}></Header>
-          <Content className={styles.content}>{children}</Content>
-          <Footer className={styles.footer}></Footer>
+          <Header className={'header'}></Header>
+          <Content className={'content'}>{children}</Content>
+          <Footer className={'footer'}></Footer>
         </Layout>
       </Layout>
     </div>
