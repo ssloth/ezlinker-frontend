@@ -29,10 +29,6 @@ const BasicLayout: React.SFC<ConnectProps> = props => {
   const pathname = (location as any).pathname;
   // Get the currently selected menu
 
-  const handleToggle = () => {
-    set;
-  };
-
   return (
     <div className={cx('wrapper')}>
       <Layout>
@@ -55,7 +51,12 @@ const BasicLayout: React.SFC<ConnectProps> = props => {
           </div>
         </Sider>
         <Sider className={cx('sub-menu-bar')} width={150} collapsedWidth={0} collapsed={collapsed}>
-          <div className={cx('navbar-collapse-wrapper')} onClick={() => setCollapsed(!collapsed)}>
+          <div
+            className={cx('navbar-collapse-wrapper', {
+              collapsed,
+            })}
+            onClick={() => setCollapsed(!collapsed)}
+          >
             <div className={cx('navbar-collapse')}>
               <Icon className={cx('icon')} type='right'></Icon>
             </div>
