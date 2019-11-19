@@ -1,48 +1,69 @@
 @import '~antd/es/style/themes/default.less';
 
+@active-color: ~'#ffffff';
+
 .wrapper {
   display: flex;
   width: 100vw;
   height: 100vh;
-
-  .header {
-    height: 60px;
-    background: #fcc;
-  }
-
   .menusWrapper {
+    background: #2c323e;
     color: #ffffff;
+    box-shadow: 0px 0px 10px #2c323e96;
     text-align: center;
     height: 100vh;
 
     .menuBar {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 100%;
+      // position: absolute;
+      // top: 50%;
+      // transform: translateY(-50%);
+      // width: 100%;
     }
 
     .menuItem {
+      margin: 10px 0;
       width: 60px;
-      height: 60px;
-      line-height: 60px;
+      height: 50px;
+      line-height: 50px;
       cursor: pointer;
 
       &:hover {
         i {
-          color: #fff;
+          color: @active-color;
         }
       }
 
       &.active {
+        position: relative;
+        background: #252c36;
+        &::after {
+          position: absolute;
+          content: '';
+          display: block;
+          top: 0;
+          width: 2px;
+          height: 100%;
+          background: @active-color;
+        }
         i {
-          color: #f00;
+          color: @active-color;
         }
       }
 
       i {
-        color: #999;
+        color: #666666;
       }
     }
+  }
+
+  .header {
+    height: 60px;
+    background: #ffffff;
+    box-shadow: 0px 0px 10px #11111111;
+    z-index: 1;
+  }
+
+  .content {
+    margin: 24px 24px 0;
   }
 }

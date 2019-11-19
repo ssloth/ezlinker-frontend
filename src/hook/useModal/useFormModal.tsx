@@ -14,7 +14,6 @@ export interface IFormModalOption extends ModalFuncProps {
 export interface IFormModalContentProps extends FormComponentProps {
   current: any;
 }
-
 export interface IFormModalProps extends FormComponentProps {
   action: IAction | string;
   formModalContentProps: any;
