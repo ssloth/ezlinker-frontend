@@ -3,7 +3,6 @@ import Table, { TableProps, PaginationConfig } from 'antd/lib/table';
 import { ParsedUrlQueryInput } from 'querystring';
 import { IUseResuful } from '../useRestful/useRestful';
 import { ITableList, ITableListItem } from '@/typings/server';
-import useRestful from '@/hook/useRestful';
 
 const paginationInitial = {
   current: 1,
@@ -19,17 +18,12 @@ function useTable<Resource>(
   options: any,
 ) {
   const [pagination, setPagination] = useState<PaginationConfig>(paginationInitial);
-  const { data, error } = resource.query(params);
+  const { data, error } = resource.useQuery(params);
   const loading: boolean = !!data || (!!error);
   const result = data as ITableList<any>;
 
-  const handleTableChange: TableProps<Resource>['onChange'] = (
-    pagination,
-    filters,
-    sorter,
-    ...rest
-  ) => {
-    setPagination(pagination);
+  const handleTableChange: TableProps<Resource>['onChange'] = paginationRet => {
+    setPagination(paginationRet);
   };
 
   return (
@@ -45,6 +39,3 @@ function useTable<Resource>(
   );
 }
 export default useTable;
-
-const resource = useRestful<any>('/api/xxx');
-resource.query().data;

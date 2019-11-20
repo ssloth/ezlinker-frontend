@@ -12,17 +12,17 @@ const CreateProjectFMC = (props: IFormModalContentProps) => {
 
   return (
     <>
-      <Form.Item label='产品名称' {...formLayout}>
+      <Form.Item label="产品名称" {...formLayout}>
         {form.getFieldDecorator('name', {
           initialValue: current.name,
         })(<Input />)}
       </Form.Item>
-      <Form.Item label='产品名称' {...formLayout}>
+      <Form.Item label="产品名称" {...formLayout}>
         {form.getFieldDecorator('icon', {
           initialValue: current.icon,
         })(<Input />)}
       </Form.Item>
-      <Form.Item label='产品名称' {...formLayout}>
+      <Form.Item label="产品名称" {...formLayout}>
         {form.getFieldDecorator('desc', {
           initialValue: current.name,
         })(<Input />)}

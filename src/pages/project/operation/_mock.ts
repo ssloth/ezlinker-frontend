@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { VisitDataType } from './data';
+import { VisitDataType } from './data.d';
 // mock data
 const visitData: VisitDataType[] = [];
 const beginDay = new Date().getTime();

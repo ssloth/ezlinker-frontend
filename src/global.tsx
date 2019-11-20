@@ -39,8 +39,8 @@ if (pwa) {
           },
           [channel.port2],
         );
-      }); // Refresh current page to use the updated HTML and other assets after SW has skiped waiting
-
+      });
+      // Refresh current page to use the updated HTML and other assets after SW has skiped waiting
       window.location.reload(true);
       return true;
     };

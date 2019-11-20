@@ -15,17 +15,17 @@ const CreateProductFMC = (props: IFormModalContentProps) => {
   const { getFieldDecorator } = form;
   return (
     <>
-      <FormItem label='产品名称' {...formLayout}>
+      <FormItem label="产品名称" {...formLayout}>
         {getFieldDecorator('title', {
           rules: [{ required: true, message: '请输入产品名称' }],
           initialValue: current.title,
-        })(<Input placeholder='请输入' />)}
+        })(<Input placeholder="请输入" />)}
       </FormItem>
-      <FormItem {...formLayout} label='产品描述'>
+      <FormItem {...formLayout} label="产品描述">
         {getFieldDecorator('subDescription', {
           rules: [{ message: '请输入至少五个字符的产品描述！', min: 5 }],
           initialValue: current.subDescription,
-        })(<TextArea rows={4} placeholder='请输入至少五个字符' />)}
+        })(<TextArea rows={4} placeholder="请输入至少五个字符" />)}
       </FormItem>
     </>
   );

@@ -23,6 +23,13 @@ const codeMessage = {
   504: '网关超时。',
 };
 
+export const getToken = (): string | null => localStorage.getItem('token');
+
+export const setToekn = (token?: string) => {
+  if (token) localStorage.setItem('token', token);
+  else localStorage.removeItem('token');
+};
+
 /**
  * 异常处理程序
  */
@@ -52,6 +59,30 @@ const request = extend({
   prefix: '/api',
   errorHandler, // 默认错误处理
   credentials: 'include', // 默认请求是否带上cookie
+});
+
+request.interceptors.request.use((url, options: any) => {
+  const token = getToken();
+  const optionsRet = { ...options };
+  if (token) {
+    optionsRet.headers.token = token;
+  }
+  return { url, options: optionsRet };
+});
+
+// response interceptor
+request.interceptors.response.use(async (response: any) => {
+  const result = await response.clone().json();
+  const { data, code } = result;
+  if (code === 401) {
+    setToekn();
+    notification.error({
+      message: '登录过期',
+      description: '登录过期！请重新登录！',
+    });
+    return null;
+  }
+  return data || !!data;
 });
 
 export default request;

@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
-import { Layout, Icon } from 'antd';
-import { getMenuData } from '@ant-design/pro-layout';
-import { ConnectProps } from '@/models/connect';
-import { Link } from 'umi';
 import classNames from 'classnames/bind';
 import pathRegexp from 'path-to-regexp';
+import React, { useState } from 'react';
+import { getMenuData } from '@ant-design/pro-layout';
+import { Icon, Layout } from 'antd';
+import { Link } from 'umi';
+import RightContent from '@/components/GlobalHeader/RightContent';
 import styles from './BasicLayout.less';
+import { ConnectProps } from '@/models/connect';
+
 const cx = classNames.bind(styles);
 
 const { Sider, Header, Content, Footer } = Layout;
 
-const isActive = (activePath: string, pathname: string) => {
-  return pathRegexp(pathname).test(activePath);
-};
+const isActive = (activePath: string, pathname: string) => pathRegexp(pathname).test(activePath);
 
 const BasicLayout: React.SFC<ConnectProps> = props => {
   const [collapsed, setCollapsed] = useState(true);
@@ -24,9 +24,9 @@ const BasicLayout: React.SFC<ConnectProps> = props => {
     },
   } = props;
   const { routes = [] } = route;
-  const menuData = getMenuData(routes).menuData;
+  const { menuData } = getMenuData(routes);
   // const flatMenuKeys = getFlatMenuKeys(menuData);
-  const pathname = (location as any).pathname;
+  const { pathname } = location as any;
   // Get the currently selected menu
 
   return (
@@ -58,14 +58,16 @@ const BasicLayout: React.SFC<ConnectProps> = props => {
             onClick={() => setCollapsed(!collapsed)}
           >
             <div className={cx('navbar-collapse')}>
-              <Icon className={cx('icon')} type='right'></Icon>
+              <Icon className={cx('icon')} type="right"></Icon>
             </div>
           </div>
         </Sider>
         <Layout>
-          <Header className={cx('header')}></Header>
+          <Header className={cx('header')}>
+            <RightContent></RightContent>
+          </Header>
           <Content className={cx('content')}>{children}</Content>
-          <Footer className={'footer'}></Footer>
+          <Footer className="footer"></Footer>
         </Layout>
       </Layout>
     </div>

@@ -1,8 +1,8 @@
 // import { BaseMenuProps } from './BaseMenu';
 import { BaseMenuProps } from '@ant-design/pro-layout/lib/SiderMenu/BaseMenu';
-import { urlToList } from '@/utils/pathTools';
 import { MenuDataItem } from '@ant-design/pro-layout';
 import pathToRegexp from 'path-to-regexp';
+import { urlToList } from '@/utils/pathTools';
 
 /**
  * Recursively flatten the data

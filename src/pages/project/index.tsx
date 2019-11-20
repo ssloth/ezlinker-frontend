@@ -24,15 +24,16 @@ export default (): React.ReactNode => {
     createProjectModal.show();
   };
 
+
   return (
     <PageHeaderWrapper>
       <div className={styles.cardList}>
         <List
-          rowKey='id'
+          rowKey="id"
           dataSource={[{}, ...(tablelist ? tablelist.records : [])]}
           loading={!tablelist || !!error}
           grid={{ gutter: 24, lg: 3, md: 2, sm: 1, xs: 1 }}
-          renderItem={(item: any) => {
+          renderItem={(item: Project) => {
             if (item && item.id) {
               return (
                 <List.Item key={item.id}>
@@ -40,14 +41,14 @@ export default (): React.ReactNode => {
                     hoverable
                     className={styles.card}
                     actions={[
-                      <Link to='/projects/1/operation'>运维</Link>,
-                      <Link to='/projects/1/develop'>开发</Link>,
-                      <a key='option2'>删除</a>,
+                      <Link to="/projects/1/operation">运维</Link>,
+                      <Link to="/projects/1/develop">开发</Link>,
+                      <a key="option2">删除</a>,
                     ]}
                   >
                     <Card.Meta
-                      avatar={<img alt='' className={styles.cardAvatar} src={item.avatar} />}
-                      title={<a>{item.title}</a>}
+                      avatar={<img alt="" className={styles.cardAvatar} src={item.logo} />}
+                      title={<a>{item.name}</a>}
                       description={
                         <Paragraph className={styles.item} ellipsis={{ rows: 3 }}>
                           {item.description}
@@ -60,15 +61,14 @@ export default (): React.ReactNode => {
             }
             return (
               <List.Item>
-                <Button onClick={handleAddproject} type='dashed' className={styles.newButton}>
-                  <Icon type='plus' /> 新增产品
+                <Button onClick={handleAddproject} type="dashed" className={styles.newButton}>
+                  <Icon type="plus" /> 新增产品
                 </Button>
               </List.Item>
             );
           }}
         />
       </div>
-      {[createProjectModal.render()]}
     </PageHeaderWrapper>
   );
 };

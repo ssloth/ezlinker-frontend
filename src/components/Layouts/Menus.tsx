@@ -1,5 +1,3 @@
-import React from "react";
+import React from 'react';
 
-export const Menus = props => {
-  return <div></div>;
-};
+export const Menus = () => <div></div>;

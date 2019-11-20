@@ -129,13 +129,12 @@ export default {
     basePath: '/',
   },
   chainWebpack: webpackPlugin,
-  /*
+  
   proxy: {
-    '/server/api/': {
-      target: 'https://preview.pro.ant.design/',
+    '/api/': {
+      target: 'http://77.81.108.203:9001/ezlinker',
       changeOrigin: true,
-      pathRewrite: { '^/server': '' },
+      pathRewrite: { '^/api': '' },
     },
   },
-  */
 } as IConfig;

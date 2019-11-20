@@ -3,9 +3,9 @@ import { routerRedux } from 'dva/router';
 import { Effect } from 'dva';
 import { stringify } from 'querystring';
 
-import { fakeAccountLogin, getFakeCaptcha } from '@/services/login';
-import { setAuthority } from '@/utils/authority';
+import { accountLogin } from '@/services/login';
 import { getPageQuery } from '@/utils/utils';
+import { setToekn } from '../utils/request';
 
 export interface StateType {
   status?: 'ok' | 'error';
@@ -18,7 +18,6 @@ export interface LoginModelType {
   state: StateType;
   effects: {
     login: Effect;
-    getCaptcha: Effect;
     logout: Effect;
   };
   reducers: {
@@ -35,13 +34,13 @@ const Model: LoginModelType = {
 
   effects: {
     *login({ payload }, { call, put }) {
-      const response = yield call(fakeAccountLogin, payload);
+      const result = yield call(accountLogin, payload);
       yield put({
         type: 'changeLoginStatus',
-        payload: response,
+        payload: { toekn: result },
       });
       // Login successfully
-      if (response.status === 'ok') {
+      if (result) {
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
         let { redirect } = params as { redirect: string };
@@ -57,16 +56,15 @@ const Model: LoginModelType = {
             return;
           }
         }
+        setToekn(result);
         yield put(routerRedux.replace(redirect || '/'));
       }
     },
 
-    *getCaptcha({ payload }, { call }) {
-      yield call(getFakeCaptcha, payload);
-    },
     *logout(_, { put }) {
       const { redirect } = getPageQuery();
       // redirect
+      setToekn();
       if (window.location.pathname !== '/user/login' && !redirect) {
         yield put(
           routerRedux.replace({
@@ -82,11 +80,9 @@ const Model: LoginModelType = {
 
   reducers: {
     changeLoginStatus(state, { payload }) {
-      setAuthority(payload.currentAuthority);
       return {
         ...state,
-        status: payload.status,
-        type: payload.type,
+        ...payload,
       };
     },
   },

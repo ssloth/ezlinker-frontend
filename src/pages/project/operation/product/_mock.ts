@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { parse } from 'url';
-import { TableListItem, TableListParams } from './data';
+import { TableListItem, TableListParams } from './data.d';
 
 // mock tableListDataSource
 let tableListDataSource: TableListItem[] = [];

@@ -86,9 +86,9 @@ const useFormModal = (
   );
   const [options, setOptions] = useState<IFormModalOption>(opt);
 
-  const show = (formModalContentProps = {}, optionsRet: IFormModalOption = {}) => {
+  const show = (formModalContentPropsRet = {}, optionsRet: IFormModalOption = {}) => {
     setVisible(true);
-    setFormModalContentProps({ ...defaultFormModalContentProps, ...formModalContentProps });
+    setFormModalContentProps({ ...defaultFormModalContentProps, ...formModalContentPropsRet });
     setOptions({ ...options, ...optionsRet });
   };
   const cancle = () => setVisible(false);

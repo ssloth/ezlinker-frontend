@@ -5,7 +5,7 @@ export async function query(): Promise<any> {
 }
 
 export async function queryCurrent(): Promise<any> {
-  return request('/currentUser');
+  return request('/users/userInfo');
 }
 
 export async function queryNotices(): Promise<any> {

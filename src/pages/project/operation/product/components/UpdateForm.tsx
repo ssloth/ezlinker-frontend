@@ -2,7 +2,7 @@ import { Button, DatePicker, Form, Input, Modal, Radio, Select, Steps } from 'an
 import React, { Component } from 'react';
 
 import { FormComponentProps } from 'antd/es/form';
-import { TableListItem } from '../data';
+import { TableListItem } from '../data.d';
 
 export interface FormValueType extends Partial<TableListItem> {
   target?: string;

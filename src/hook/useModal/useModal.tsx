@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, Button } from 'antd';
+import OwnModalContext from './OwnModalContext';
 
 export interface IUseModalProps {}
 interface ModalMethods {
@@ -45,4 +46,7 @@ const useFormModal = (ModalContent: React.FC<any>, opt: any): [JSX.Element, Moda
   return [CustomModal, methods];
 };
 
+const OwnModalConfig = OwnModalContext.Provider;
+
+export { OwnModalConfig };
 export default useFormModal;

@@ -2,6 +2,7 @@ import useSwr, { responseInterface } from 'swr';
 import { ParsedUrlQueryInput, stringify } from 'querystring';
 import request from '@/utils/request';
 import { IServerResult, ITableList } from '../../typings/server.d';
+import { defaultConfig } from './RestfulConfigContext';
 
 export type ResourceId = String | undefined;
 export type ResourceParams = ParsedUrlQueryInput;
@@ -26,6 +27,7 @@ export interface IUseResuful<Resource> {
 }
 
 const useResuful = <Resource>(url: String): IUseResuful<Resource> => {
+  const { pagination } = defaultConfig;
   const create = (data: Resource): ICreateResult =>
     request.post(`${url}`, {
       data,
@@ -39,7 +41,7 @@ const useResuful = <Resource>(url: String): IUseResuful<Resource> => {
     });
 
   const useQuery = (params?: ResourceParams): IUseQueryResult<Resource> =>
-    useSwr<ITableList<Resource>>(`${url}?${stringify(params)}`, request);
+    useSwr<ITableList<Resource>>(`${url}?${stringify({ ...pagination, ...params })}`, request);
 
   const useFind = (id: ResourceId): IUseFindResult<Resource> =>
     useSwr<IServerResult<Resource>>(`${url}/${id}`, request);

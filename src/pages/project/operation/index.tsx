@@ -6,11 +6,10 @@ import Link from 'umi/link';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { connect } from 'dva';
 import moment from 'moment';
-import Radar from '../components/Radar';
 import { ModalState } from './model';
 import EditableLinkGroup from '../components/EditableLinkGroup';
 import styles from './style.less';
-import { ActivitiesType, CurrentUser, NoticeType, RadarDataType } from './data';
+import { ActivitiesType, CurrentUser, NoticeType, RadarDataType } from './data.d';
 
 const links = [
   {
@@ -153,7 +152,6 @@ class Index extends Component<IndexProps> {
       projectNotice,
       projectLoading,
       activitiesLoading,
-      radarData,
     } = this.props;
 
 
@@ -222,7 +220,7 @@ class Index extends Component<IndexProps> {
             >
               <EditableLinkGroup onAdd={() => {}} links={links} linkElement={Link} />
             </Card>
-            
+
             <Card
               bodyStyle={{ paddingTop: 12, paddingBottom: 12 }}
               bordered={false}

@@ -8,12 +8,12 @@
   height: 100vh;
 
   .main-menu-bar {
-    background: #222831;
-    color: #ffffff;
-    box-shadow: 0px 0px 10px #222831;
-    text-align: center;
-    height: 100vh;
     z-index: 10;
+    height: 100vh;
+    color: #fff;
+    text-align: center;
+    background: #222831;
+    box-shadow: 0 0 10px #222831;
 
     .menu-bar {
       // position: absolute;
@@ -23,9 +23,9 @@
     }
 
     .menu-item {
-      margin: 10px 0;
       width: 60px;
       height: 50px;
+      margin: 10px 0;
       line-height: 50px;
       cursor: pointer;
 
@@ -40,12 +40,12 @@
         background: #252c36;
         &::after {
           position: absolute;
-          content: '';
-          display: block;
           top: 0;
+          display: block;
           width: 2px;
           height: 100%;
           background: @active-color;
+          content: '';
         }
         i {
           color: @active-color;
@@ -53,7 +53,7 @@
       }
 
       i {
-        color: #999999;
+        color: #999;
       }
     }
   }
@@ -69,39 +69,39 @@
       z-index: 100px;
       transform: translateY(-50%);
       .navbar-collapse {
-        height: 75px;
         width: 15px;
+        height: 75px;
         line-height: 75px;
         cursor: pointer;
         transition: all 0.3s;
 
         &::before {
-          content: '';
           position: absolute;
           top: 0;
-          left: 0;
           right: 0;
           bottom: 0;
+          left: 0;
           z-index: -1;
-          background: #cccccc;
+          background: #ccc;
+          border-radius: 3px;
           transform: perspective(0.5em) rotateY(5deg);
           transition: all 0.3s;
-          border-radius: 3px;
+          content: '';
         }
 
         &:hover {
           .icon {
-            color: #666666;
+            color: #666;
           }
 
           &::before {
-            background: #999999;
+            background: #999;
             transition: all 0.3s;
           }
         }
 
         .icon {
-          color: #999999;
+          color: #999;
         }
       }
     }
@@ -112,10 +112,10 @@
   }
 
   .header {
-    height: 60px;
-    background: #ffffff;
-    box-shadow: 0px 0px 10px #11111111;
     z-index: 1;
+    height: 60px;
+    background: #fff;
+    box-shadow: 0 0 10px #1111;
   }
 
   .content {
