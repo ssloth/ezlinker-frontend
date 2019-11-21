@@ -1,8 +1,8 @@
 import { createContext } from 'react';
 
 interface IPagination {
-  pageSize: number;
-  pageNo: number;
+  size: number;
+  current: number;
 }
 
 export interface IConfigInterface {
@@ -11,8 +11,8 @@ export interface IConfigInterface {
 
 export const defaultConfig: IConfigInterface = {
   pagination: {
-    pageSize: 10,
-    pageNo: 0,
+    size: 10,
+    current: 0,
   },
 };
 

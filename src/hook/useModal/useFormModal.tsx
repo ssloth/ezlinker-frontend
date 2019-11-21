@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import * as ReactDOM from 'react-dom';
 import { Modal, Form, message } from 'antd';
 import { FormComponentProps } from 'antd/lib/form/Form';
 import { ModalFuncProps } from 'antd/lib/modal';
 import { IAction } from '@/typings/global';
 import request from '../../utils/request';
+
+const IS_REACT_16 = !!ReactDOM.createPortal;
 
 export interface IFormModalOption extends ModalFuncProps {
   defaultFormValues?: any;
@@ -86,26 +89,39 @@ const useFormModal = (
   );
   const [options, setOptions] = useState<IFormModalOption>(opt);
 
+  const register = () => {
+    const div = document.createElement('div');
+    document.body.appendChild(div);
+    const props = { action, FormModalContent, formModalContentProps, options, visible, setVisible };
+    ReactDOM.render(<FormModal {...props} />, div);
+    return div;
+  };
+
+  const destroy = (div: HTMLElement) => {
+    const unmountResult = ReactDOM.unmountComponentAtNode(div);
+    if (unmountResult && div.parentNode) {
+      div.parentNode.removeChild(div);
+    }
+  };
+
   const show = (formModalContentPropsRet = {}, optionsRet: IFormModalOption = {}) => {
     setVisible(true);
     setFormModalContentProps({ ...defaultFormModalContentProps, ...formModalContentPropsRet });
     setOptions({ ...options, ...optionsRet });
   };
+
   const cancle = () => setVisible(false);
 
-  const render = (): React.ReactNode => (
-    <FormModal
-      action={action}
-      FormModalContent={FormModalContent}
-      formModalContentProps={formModalContentProps}
-      options={options}
-      visible={visible}
-      setVisible={setVisible}
-    />
-  );
+  useEffect(() => {
+    console.log('use form modal register')
+    const container = register();
+    return () => {
+    console.log('use form modal destroy')
+    destroy(container);
+    };
+  }, []);
 
   return {
-    render,
     cancle,
     show,
   };
