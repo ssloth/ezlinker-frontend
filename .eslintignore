@@ -2,5 +2,5 @@
 /scripts
 /config
 .history
-_mock.ts
+_mock*.ts
 data.d.ts

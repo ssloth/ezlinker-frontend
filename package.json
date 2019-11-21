@@ -28,7 +28,9 @@
     "ui": "umi ui"
   },
   "husky": {
-    "hooks": {}
+    "hooks": {
+      "pre-commit": "npm run lint-staged"
+    }
   },
   "lint-staged": {
     "**/*.less": "stylelint --syntax less",

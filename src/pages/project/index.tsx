@@ -15,15 +15,16 @@ export default (): React.ReactNode => {
   const peojectResource = useRestful<Project>(PROJECT_API);
   const { data, error } = peojectResource.useQuery();
   const tablelist = data as ITableList;
+  // const error = null;
+  // const tablelist = ({ records: [] } as any) as ITableList;
 
-  const createProjectModal = useFormModal(CreateProjectFMC, '', {
+  const createProjectModal = useFormModal(CreateProjectFMC, peojectResource, {
     title: '创建产品',
   });
 
   const handleAddproject = () => {
     createProjectModal.show();
   };
-
 
   return (
     <PageHeaderWrapper>

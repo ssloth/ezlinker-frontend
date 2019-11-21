@@ -154,7 +154,6 @@ class Index extends Component<IndexProps> {
       activitiesLoading,
     } = this.props;
 
-
     return (
       <PageHeaderWrapper
         content={<PageHeaderContent currentUser={currentUser} />}

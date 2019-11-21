@@ -1,1 +1,1 @@
-export type IAction<T=any> = (data: any) => Promise<T>;
+export type IAction<T = any> = (data: any) => Promise<T>;

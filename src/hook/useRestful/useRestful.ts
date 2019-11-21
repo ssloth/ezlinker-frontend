@@ -4,7 +4,7 @@ import request from '@/utils/request';
 import { IServerResult, ITableList } from '../../typings/server.d';
 import { defaultConfig } from './RestfulConfigContext';
 
-export type ResourceId = String | undefined;
+export type ResourceId = string | undefined;
 export type ResourceParams = ParsedUrlQueryInput;
 export type ICreateResult = Promise<IServerResult>;
 export type IRemoveResult = Promise<IServerResult>;
@@ -24,10 +24,14 @@ export interface IUseResuful<Resource> {
   update: IUpdate<Resource>;
   useQuery: IUseQuery<Resource>;
   useFind: IUseFind<Resource>;
+  URL: string;
 }
 
-const useResuful = <Resource>(url: String): IUseResuful<Resource> => {
+const useResuful = <Resource>(url: string): IUseResuful<Resource> => {
   const { pagination } = defaultConfig;
+
+  const URL = url;
+
   const create = (data: Resource): ICreateResult =>
     request.post(`${url}`, {
       data,
@@ -52,6 +56,7 @@ const useResuful = <Resource>(url: String): IUseResuful<Resource> => {
     update,
     useQuery,
     useFind,
+    URL,
   };
 };
 

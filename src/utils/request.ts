@@ -34,6 +34,8 @@ export const setToekn = (token?: string) => {
  * 异常处理程序
  */
 const errorHandler = (error: { response: Response }): Response => {
+  // eslint-disable-next-line no-console
+  console.error('REQUEST', error);
   const { response } = error;
   if (response && response.status) {
     const errorText = codeMessage[response.status] || response.statusText;

@@ -28,9 +28,7 @@ export const getRouteAuthority = (path: string, routeData: Route[]) => {
   return authorities;
 };
 
-const AuthComponent: React.FC<AuthComponentProps> = ({
-  children,
-}) => <div>{children}</div>;
+const AuthComponent: React.FC<AuthComponentProps> = ({ children }) => <div>{children}</div>;
 
 export default connect(({ user }: ConnectState) => ({
   user,

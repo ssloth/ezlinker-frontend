@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
-import { Modal, Form, message } from 'antd';
+import { Modal, Form, message, Button } from 'antd';
 import { FormComponentProps } from 'antd/lib/form/Form';
-import { ModalFuncProps } from 'antd/lib/modal';
+import { ModalProps } from 'antd/lib/modal';
+import { trigger } from 'swr';
 import { IAction } from '@/typings/global';
 import request from '../../utils/request';
+import { IUseResuful } from '../useRestful/useRestful';
 
-const IS_REACT_16 = !!ReactDOM.createPortal;
-
-export interface IFormModalOption extends ModalFuncProps {
+export interface IFormModalOption extends ModalProps {
   defaultFormValues?: any;
   successMsg?: string | null;
   callback?: Function;
@@ -18,7 +18,7 @@ export interface IFormModalContentProps extends FormComponentProps {
   current: any;
 }
 export interface IFormModalProps extends FormComponentProps {
-  action: IAction | string;
+  action: IAction | string | IUseResuful<any>;
   formModalContentProps: any;
   options: IFormModalOption;
   FormModalContent: React.FC<IFormModalContentProps>;
@@ -42,6 +42,7 @@ const FormModal = Form.create<IFormModalProps>()((props: IFormModalProps) => {
   } = props;
 
   const handleCancel = () => setVisible(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const { defaultFormValues = {}, callback, successMsg = '操作成功！' } = options;
 
@@ -49,24 +50,45 @@ const FormModal = Form.create<IFormModalProps>()((props: IFormModalProps) => {
     form.validateFields((error, value) => {
       if (error) return;
 
+      setLoading(true);
+
       if (typeof action === 'string') {
         request(action, {
           method: value.id ? 'PUT' : 'POST',
           data: value,
         });
-      } else {
-        action({ ...defaultFormValues, ...value })
+      } else if ((action as any).URL) {
+        const ret = action as IUseResuful<any>;
+        ret
+          .create({ ...defaultFormValues, ...value })
           .then(data => {
+            handleCancel();
+            trigger(ret.URL);
             message.success(successMsg);
             if (callback) callback(data);
           })
-          .catch(err => message.error(err));
+          // .catch(err =>  message.error(err)) // 业务层不处理错误
+          .finally(() => setLoading(false));
       }
     });
   };
 
   return (
-    <Modal destroyOnClose onCancel={handleCancel} onOk={handleOk} visible={visible} {...options}>
+    <Modal
+      destroyOnClose
+      onCancel={handleCancel}
+      onOk={handleOk}
+      visible={visible}
+      footer={[
+        <Button key="back" onClick={handleCancel}>
+          取消
+        </Button>,
+        <Button key="submit" type="primary" loading={loading} onClick={handleOk}>
+          提交
+        </Button>,
+      ]}
+      {...options}
+    >
       <FormModalContent form={form} {...formModalContentProps} />
     </Modal>
   );
@@ -80,7 +102,7 @@ const FormModal = Form.create<IFormModalProps>()((props: IFormModalProps) => {
  */
 const useFormModal = (
   FormModalContent: React.FC<any>,
-  action: IAction | string,
+  action: IUseResuful<any> | IAction | string,
   opt: IFormModalOption = {},
 ) => {
   const [visible, setVisible] = useState<boolean>(false);
@@ -113,13 +135,11 @@ const useFormModal = (
   const cancle = () => setVisible(false);
 
   useEffect(() => {
-    console.log('use form modal register')
     const container = register();
     return () => {
-    console.log('use form modal destroy')
-    destroy(container);
+      destroy(container);
     };
-  }, []);
+  }, [visible]);
 
   return {
     cancle,

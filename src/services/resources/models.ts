@@ -10,7 +10,7 @@ export interface Base {
 export interface Project extends Base {
   name: string;
   logo: string;
-  userId:string;
+  userId: string;
   location: string;
   description: string;
 }

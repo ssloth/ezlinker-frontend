@@ -19,7 +19,7 @@ function useTable<Resource>(
 ) {
   const [pagination, setPagination] = useState<PaginationConfig>(paginationInitial);
   const { data, error } = resource.useQuery(params);
-  const loading: boolean = !!data || (!!error);
+  const loading: boolean = !!data || !!error;
   const result = data as ITableList<any>;
 
   const handleTableChange: TableProps<Resource>['onChange'] = paginationRet => {

@@ -129,7 +129,7 @@ export default {
     basePath: '/',
   },
   chainWebpack: webpackPlugin,
-  
+
   proxy: {
     '/api/': {
       target: 'http://77.81.108.203:9001/ezlinker',

@@ -23,18 +23,13 @@ export const getFlatMenuKeys = (menuData: MenuDataItem[] = []): string[] => {
   return keys;
 };
 
-export const getMenuMatches = (
-  flatMenuKeys: string[] = [],
-  path: string,
-): string[] =>
+export const getMenuMatches = (flatMenuKeys: string[] = [], path: string): string[] =>
   flatMenuKeys.filter(item => item && pathToRegexp(item).test(path));
 
 /**
  * 获得菜单子节点
  */
-export const getDefaultCollapsedSubMenus = (
-  props: BaseMenuProps,
-): string[] | false => {
+export const getDefaultCollapsedSubMenus = (props: BaseMenuProps): string[] | false => {
   const { location = { pathname: '/' }, flatMenuKeys, openKeys } = props;
   if (openKeys === false) {
     return false;
