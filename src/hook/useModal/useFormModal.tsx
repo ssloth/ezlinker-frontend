@@ -14,7 +14,7 @@ export interface IFormModalOption extends ModalProps {
   callback?: Function;
 }
 
-export interface IFormModalContentProps extends FormComponentProps {
+export interface IFormModalContentProps {
   current: any;
 }
 export interface IFormModalProps extends FormComponentProps {
@@ -24,6 +24,13 @@ export interface IFormModalProps extends FormComponentProps {
   FormModalContent: React.FC<IFormModalContentProps>;
   visible: boolean;
   setVisible: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export interface IUseFormModal {
+  show: () => any;
+  create: () => any;
+  edit: (record: any) => any;
+  cancle: () => any;
 }
 
 const defaultFormModalContentProps = {
@@ -49,27 +56,40 @@ const FormModal = Form.create<IFormModalProps>()((props: IFormModalProps) => {
   const handleOk = () => {
     form.validateFields((error, value) => {
       if (error) return;
-
+      const formValues = { ...defaultFormValues, ...value };
       setLoading(true);
 
+      const method = formValues.id ? 'PUT' : 'POST';
+      let result;
       if (typeof action === 'string') {
-        request(action, {
-          method: value.id ? 'PUT' : 'POST',
-          data: value,
+        result = request(action, {
+          method,
+          data: formValues,
         });
       } else if ((action as any).URL) {
         const ret = action as IUseResuful<any>;
-        ret
-          .create({ ...defaultFormValues, ...value })
+        result =
+          method === 'POST'
+            ? ret.create({ formValues })
+            : ret.update(formValues.id, { formValues });
+        result = result
           .then(data => {
-            handleCancel();
             trigger(ret.URL);
-            message.success(successMsg);
-            if (callback) callback(data);
+            return data;
           })
-          // .catch(err =>  message.error(err)) // 业务层不处理错误
-          .finally(() => setLoading(false));
+          .catch(() => setLoading(false));
+      } else {
+        const ret = action as IAction;
+        result = ret(formValues);
       }
+      result
+        .then(data => {
+          handleCancel();
+          message.success(successMsg);
+          if (callback) callback(data);
+        })
+        // .catch(err =>  message.error(err)) // 业务层不处理错误
+        .finally(() => setLoading(false));
     });
   };
 
@@ -100,13 +120,14 @@ const FormModal = Form.create<IFormModalProps>()((props: IFormModalProps) => {
  * @param action 提交地址
  * @param opt 弹出框的配置
  */
+
 const useFormModal = (
   FormModalContent: React.FC<any>,
   action: IUseResuful<any> | IAction | string,
   opt: IFormModalOption = {},
-) => {
+): IUseFormModal => {
   const [visible, setVisible] = useState<boolean>(false);
-  const [formModalContentProps, setFormModalContentProps] = useState<any>(
+  const [formModalContentProps, setFormModalContentProps] = useState<IFormModalContentProps>(
     defaultFormModalContentProps,
   );
   const [options, setOptions] = useState<IFormModalOption>(opt);
@@ -132,6 +153,12 @@ const useFormModal = (
     setOptions({ ...options, ...optionsRet });
   };
 
+  const create = show;
+
+  const edit = (record: any, optionsRet: IFormModalOption = {}) => {
+    show({ current: record }, optionsRet);
+  };
+
   const cancle = () => setVisible(false);
 
   useEffect(() => {
@@ -144,6 +171,8 @@ const useFormModal = (
   return {
     cancle,
     show,
+    create,
+    edit,
   };
 };
 

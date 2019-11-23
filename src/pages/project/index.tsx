@@ -27,7 +27,7 @@ export default (): React.ReactNode => {
   };
 
   const handleEditProject = (record: Project) => {
-    createProjectModal.show(record);
+    createProjectModal.edit(record);
   };
 
   return (
