@@ -134,7 +134,6 @@ const Develop: React.FC<DevelopProps> = () => {
           />
         </Card>
       </div>
-      {[createProductModal.render()]}
     </PageHeaderWrapper>
   );
 };

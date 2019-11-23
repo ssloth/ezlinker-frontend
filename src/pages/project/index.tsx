@@ -22,8 +22,12 @@ export default (): React.ReactNode => {
     title: '创建产品',
   });
 
-  const handleAddproject = () => {
+  const handleAddProject = () => {
     createProjectModal.show();
+  };
+
+  const handleEditProject = (record: Project) => {
+    createProjectModal.show(record);
   };
 
   return (
@@ -44,7 +48,7 @@ export default (): React.ReactNode => {
                     actions={[
                       <Link to="/projects/1/operation">运维</Link>,
                       <Link to="/projects/1/develop">开发</Link>,
-                      <a key="option2">删除</a>,
+                      <a onClick={() => handleEditProject(item)}>操作</a>,
                     ]}
                   >
                     <Card.Meta
@@ -62,7 +66,7 @@ export default (): React.ReactNode => {
             }
             return (
               <List.Item>
-                <Button onClick={handleAddproject} type="dashed" className={styles.newButton}>
+                <Button onClick={handleAddProject} type="dashed" className={styles.newButton}>
                   <Icon type="plus" /> 新增产品
                 </Button>
               </List.Item>
