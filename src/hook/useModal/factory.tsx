@@ -22,12 +22,14 @@ function modalContentFactory(form: any, formItems: IFormItem[]): React.FC<any> {
     <>
       {formItems.map(item => {
         const { type } = item;
-        return <Form.Item label={item.label} {...formLayout}>
-          {form.getFieldDecorator(item.name, {
-            rules: item.rules,
-            initialValue: item.initialValue,
-          })(<Input placeholder={`请输入${item.label} ${type}`} />)}
-        </Form.Item>;
+        return (
+          <Form.Item label={item.label} {...formLayout}>
+            {form.getFieldDecorator(item.name, {
+              rules: item.rules,
+              initialValue: item.initialValue,
+            })(<Input placeholder={`请输入${item.label} ${type}`} />)}
+          </Form.Item>
+        );
       })}
       )
     </>

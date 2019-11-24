@@ -61,7 +61,11 @@ const useResuful = <Resource>(url: string): IUseResuful<Resource> => {
   };
 
   const trigger = (type: string) => {
-    type === 'query' ? swrTrigger(`${url}?${local.params}`) : swrTrigger(`${url}/${local.id}`);
+    if (type === 'query') {
+      swrTrigger(`${url}?${local.params}`);
+    } else {
+      swrTrigger(`${url}/${local.id}`);
+    }
   };
 
   const mutate = (data: any) => swrMutate(url, data);

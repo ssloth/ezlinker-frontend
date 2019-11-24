@@ -1,31 +1,30 @@
 import React from 'react';
-import { Button, Row, Col } from 'antd';
+import { List, Avatar } from 'antd';
 
-const list = [
-  { label: '开机开机开机开机开机' },
-  { label: '关' },
-  { label: '重' },
-  { label: '重' },
-  { label: '重' },
-];
-
-const FeatureContent = (props: any) => {
-  const { features } = props;
+const OperationProductContent = (props: any) => {
+  const { list } = props;
   return (
-    <Row gutter={10}>
-      {features.map((feature: any) => (
-        <Col style={{ marginBottom: 10 }} span={6}>
-          <Button style={{ width: '100%' }}>{feature.label}</Button>
-        </Col>
-      ))}
-    </Row>
+    <div>
+      <List
+        size="large"
+        rowKey="id"
+        // pagination={paginationProps}
+        dataSource={list && list.records}
+        renderItem={item => (
+          <List.Item actions={[]}>
+            <List.Item.Meta
+              avatar={<Avatar src={item.logo} shape="square" size="large" />}
+              title={<span>{item.name}</span>}
+              description={item.description}
+            />
+            <div>
+              <a>操作</a>
+            </div>
+          </List.Item>
+        )}
+      />
+    </div>
   );
 };
-
-const OperationProductContent = (props: any) => (
-  <div>
-    <FeatureContent {...props} features={list} />
-  </div>
-);
 
 export default OperationProductContent;

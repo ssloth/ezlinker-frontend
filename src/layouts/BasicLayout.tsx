@@ -51,7 +51,7 @@ const BasicLayout: React.SFC<ConnectProps> = props => {
             ))}
           </div>
         </Sider>
-        <Sider className={cx('sub-menu-bar')} width={150} collapsedWidth={0} collapsed={collapsed}>
+        <Sider className={cx('sub-menu-bar')} width={200} collapsedWidth={0} collapsed={collapsed}>
           <div
             className={cx('navbar-collapse-wrapper', {
               collapsed,
