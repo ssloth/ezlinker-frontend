@@ -9,7 +9,6 @@ const formLayout = {
 
 const CreateProjectFMC = (props: IFormModalContentProps) => {
   const { form, current = {} } = props;
-
   return (
     <>
       <Form.Item label="名称" {...formLayout}>
@@ -18,13 +17,13 @@ const CreateProjectFMC = (props: IFormModalContentProps) => {
         })(<Input />)}
       </Form.Item>
       <Form.Item label="图标" {...formLayout}>
-        {form.getFieldDecorator('icon', {
-          initialValue: current.icon,
+        {form.getFieldDecorator('logo', {
+          initialValue: current.logo,
         })(<Input />)}
       </Form.Item>
       <Form.Item label="描述" {...formLayout}>
-        {form.getFieldDecorator('desc', {
-          initialValue: current.name,
+        {form.getFieldDecorator('description', {
+          initialValue: current.description,
         })(<Input />)}
       </Form.Item>
     </>

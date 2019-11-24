@@ -3,7 +3,6 @@ import * as ReactDOM from 'react-dom';
 import { Modal, Form, message, Button } from 'antd';
 import { FormComponentProps } from 'antd/lib/form/Form';
 import { ModalProps } from 'antd/lib/modal';
-import { trigger } from 'swr';
 import { IAction } from '@/typings/global';
 import request from '../../utils/request';
 import { IUseResuful } from '../useRestful/useRestful';
@@ -14,8 +13,9 @@ export interface IFormModalOption extends ModalProps {
   callback?: Function;
 }
 
-export interface IFormModalContentProps {
-  current: any;
+export interface IFormModalContentProps extends FormComponentProps {
+  current?: any;
+  defaultFormValues?: any;
 }
 export interface IFormModalProps extends FormComponentProps {
   action: IAction | string | IUseResuful<any>;
@@ -27,8 +27,8 @@ export interface IFormModalProps extends FormComponentProps {
 }
 
 export interface IUseFormModal {
-  show: () => any;
-  create: () => any;
+  show: (formModalContentProps?: any, options?: any) => any;
+  create: (defaultFormValues: any) => any;
   edit: (record: any) => any;
   cancle: () => any;
 }
@@ -50,16 +50,16 @@ const FormModal = Form.create<IFormModalProps>()((props: IFormModalProps) => {
 
   const handleCancel = () => setVisible(false);
   const [loading, setLoading] = useState<boolean>(false);
-
-  const { defaultFormValues = {}, callback, successMsg = '操作成功！' } = options;
+  const { defaultFormValues = {}, current = {} } = formModalContentProps;
+  const { callback, successMsg = '操作成功！' } = options;
 
   const handleOk = () => {
     form.validateFields((error, value) => {
       if (error) return;
-      const formValues = { ...defaultFormValues, ...value };
+      const formValues = { ...defaultFormValues, ...current, ...value };
       setLoading(true);
 
-      const method = formValues.id ? 'PUT' : 'POST';
+      const method = current.id ? 'PUT' : 'POST';
       let result;
       if (typeof action === 'string') {
         result = request(action, {
@@ -68,13 +68,11 @@ const FormModal = Form.create<IFormModalProps>()((props: IFormModalProps) => {
         });
       } else if ((action as any).URL) {
         const ret = action as IUseResuful<any>;
-        result =
-          method === 'POST'
-            ? ret.create({ formValues })
-            : ret.update(formValues.id, { formValues });
+        result = method === 'POST' ? ret.create(formValues) : ret.update(formValues.id, formValues);
+        ret.mutate(formValues);
         result = result
           .then(data => {
-            trigger(ret.URL);
+            ret.trigger('query');
             return data;
           })
           .catch(() => setLoading(false));
@@ -127,7 +125,7 @@ const useFormModal = (
   opt: IFormModalOption = {},
 ): IUseFormModal => {
   const [visible, setVisible] = useState<boolean>(false);
-  const [formModalContentProps, setFormModalContentProps] = useState<IFormModalContentProps>(
+  const [formModalContentProps, setFormModalContentProps] = useState<any>(
     defaultFormModalContentProps,
   );
   const [options, setOptions] = useState<IFormModalOption>(opt);
@@ -153,7 +151,7 @@ const useFormModal = (
     setOptions({ ...options, ...optionsRet });
   };
 
-  const create = show;
+  const create = (defaultFormValues: any = {}) => show({ defaultFormValues });
 
   const edit = (record: any, optionsRet: IFormModalOption = {}) => {
     show({ current: record }, optionsRet);

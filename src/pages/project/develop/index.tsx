@@ -1,20 +1,23 @@
 import moment from 'moment';
 import React from 'react';
 import { Button, Card, Col, Form, Input, Progress, Radio, Row, List, Avatar } from 'antd';
-import { Dispatch } from 'redux';
 import { FormComponentProps } from 'antd/es/form';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { BasicListItemDataType } from './data.d';
-import { useFormModal } from '@/hook';
+import { useFormModal, useRestful } from '@/hook';
+import { CreateProductFMC, OperationProductContent } from './components/modules';
+import { ConnectProps } from '@/models/connect';
+import { PRODUCTS_API } from '@/services/resources';
+import { Product } from '@/services/resources/models';
+import { ITableList } from '@/typings/server';
+import useDrawer from '@/hook/useModal/useDrawer';
 import styles from './style.less';
-import CreateProductFMC from './components/modules/CreateProductFMC';
 
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 const { Search } = Input;
 
-interface DevelopProps extends FormComponentProps {
-  dispatch: Dispatch<any>;
+interface DevelopProps extends FormComponentProps, ConnectProps {
   loading: boolean;
 }
 
@@ -50,14 +53,34 @@ const ListContent = ({
   </div>
 );
 
-const Develop: React.FC<DevelopProps> = () => {
-  const list: any = [];
-  const createProductModal = useFormModal(CreateProductFMC, '', {
+const Develop: React.FC<DevelopProps> = props => {
+  const { match } = props;
+  const projectId = (match as any).params.id;
+  const product = useRestful<Product>(PRODUCTS_API);
+
+  const createProductModal = useFormModal(CreateProductFMC, product, {
     title: '创建产品',
   });
 
+  const operationProductContent = useDrawer(OperationProductContent, {
+    width: 365,
+  });
+
+  const { data, error } = product.useQuery({ projectId });
+  const list = data as ITableList<Product>;
+
   const handleAdd = () => {
-    createProductModal.show();
+    createProductModal.create({ projectId });
+  };
+
+  const handleEdit = (record: Product) => {
+    createProductModal.edit(record);
+  };
+
+  const handleOperation = (record: Product) => {
+    operationProductContent.show(record, {
+      title: record.name,
+    });
   };
 
   const extraContent = (
@@ -106,27 +129,24 @@ const Develop: React.FC<DevelopProps> = () => {
           <List
             size="large"
             rowKey="id"
-            // loading={loading}
+            loading={!list || !!error}
             // pagination={paginationProps}
-            dataSource={list}
-            renderItem={(item: any) => (
+            dataSource={list && list.records}
+            renderItem={item => (
               <List.Item
                 actions={[
-                  <a
-                    key="edit"
-                    onClick={e => {
-                      e.preventDefault();
-                    }}
-                  >
+                  <a key="edit" onClick={() => handleEdit(item)}>
                     编辑
                   </a>,
-                  <a href="">操作</a>,
+                  <a key="operation" onClick={() => handleOperation(item)}>
+                    操作
+                  </a>,
                 ]}
               >
                 <List.Item.Meta
                   avatar={<Avatar src={item.logo} shape="square" size="large" />}
-                  title={<a href={item.href}>{item.title}</a>}
-                  description={item.subDescription}
+                  title={<span>{item.name}</span>}
+                  description={item.description}
                 />
                 <ListContent data={item} />
               </List.Item>

@@ -1,5 +1,4 @@
 import classNames from 'classnames/bind';
-import pathRegexp from 'path-to-regexp';
 import React, { useState } from 'react';
 import { getMenuData } from '@ant-design/pro-layout';
 import { Icon, Layout } from 'antd';
@@ -12,7 +11,8 @@ const cx = classNames.bind(styles);
 
 const { Sider, Header, Content, Footer } = Layout;
 
-const isActive = (activePath: string, pathname: string) => pathRegexp(pathname).test(activePath);
+const isActive = (activePath: string, pathname: string) =>
+  new RegExp(`^${activePath}`).test(pathname);
 
 const BasicLayout: React.SFC<ConnectProps> = props => {
   const [collapsed, setCollapsed] = useState(true);
@@ -36,6 +36,7 @@ const BasicLayout: React.SFC<ConnectProps> = props => {
           <div className={cx('menu-bar')}>
             {menuData.map(menuItem => (
               <div
+                key={menuItem.name}
                 className={cx('menu-item', {
                   active: isActive(menuItem.path, pathname),
                 })}

@@ -15,7 +15,15 @@ export interface Project extends Base {
   description: string;
 }
 
-export interface Product extends Base {}
+export interface Product extends Base {
+  projectId: string;
+  description: string;
+  name: string;
+  logo: string;
+  tags: string[];
+  type: string;
+  parameter: string;
+}
 
 export interface Feature extends Base {}
 

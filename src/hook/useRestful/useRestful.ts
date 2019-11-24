@@ -1,4 +1,4 @@
-import useSwr, { responseInterface } from 'swr';
+import useSwr, { responseInterface, trigger as swrTrigger, mutate as swrMutate } from 'swr';
 import { ParsedUrlQueryInput, stringify } from 'querystring';
 import request from '@/utils/request';
 import { IServerResult, ITableList } from '../../typings/server.d';
@@ -24,6 +24,8 @@ export interface IUseResuful<Resource> {
   update: IUpdate<Resource>;
   useQuery: IUseQuery<Resource>;
   useFind: IUseFind<Resource>;
+  trigger: (type: string) => void;
+  mutate: any;
   URL: string;
 }
 
@@ -31,6 +33,10 @@ const useResuful = <Resource>(url: string): IUseResuful<Resource> => {
   const { pagination } = defaultConfig;
 
   const URL = url;
+  const local = {
+    params: '',
+    id: '',
+  };
 
   const create = (data: Resource): ICreateResult =>
     request.post(`${url}`, {
@@ -44,11 +50,21 @@ const useResuful = <Resource>(url: string): IUseResuful<Resource> => {
       data: resource,
     });
 
-  const useQuery = (params?: ResourceParams): IUseQueryResult<Resource> =>
-    useSwr<ITableList<Resource>>(`${url}?${stringify({ ...pagination, ...params })}`, request);
+  const useQuery = (params?: ResourceParams): IUseQueryResult<Resource> => {
+    local.params = stringify({ ...pagination, ...params });
+    return useSwr<ITableList<Resource>>(`${url}?${local.params}`, request);
+  };
 
-  const useFind = (id: ResourceId): IUseFindResult<Resource> =>
-    useSwr<IServerResult<Resource>>(`${url}/${id}`, request);
+  const useFind = (id: ResourceId): IUseFindResult<Resource> => {
+    local.id = id as string;
+    return useSwr<IServerResult<Resource>>(`${url}/${id}`, request);
+  };
+
+  const trigger = (type: string) => {
+    type === 'query' ? swrTrigger(`${url}?${local.params}`) : swrTrigger(`${url}/${local.id}`);
+  };
+
+  const mutate = (data: any) => swrMutate(url, data);
 
   return {
     create,
@@ -56,6 +72,8 @@ const useResuful = <Resource>(url: string): IUseResuful<Resource> => {
     update,
     useQuery,
     useFind,
+    trigger,
+    mutate,
     URL,
   };
 };

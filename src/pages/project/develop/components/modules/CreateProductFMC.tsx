@@ -1,31 +1,64 @@
 import React from 'react';
-import { Form, Input } from 'antd';
+import { Form, Input, Select } from 'antd';
 import { IFormModalContentProps } from '@/hook/useModal/useFormModal';
 
 const FormItem = Form.Item;
-const { TextArea } = Input;
+const { Option } = Select;
 
 const formLayout = {
-  labelCol: { span: 7 },
-  wrapperCol: { span: 13 },
+  labelCol: { span: 6 },
+  wrapperCol: { span: 15 },
 };
 
 const CreateProductFMC = (props: IFormModalContentProps) => {
   const { form, current = {} } = props;
+  const tags: any[] = [];
+  const types: any[] = [];
   const { getFieldDecorator } = form;
   return (
     <>
-      <FormItem label="产品名称" {...formLayout}>
-        {getFieldDecorator('title', {
+      <FormItem label="名称" {...formLayout}>
+        {getFieldDecorator('name', {
           rules: [{ required: true, message: '请输入产品名称' }],
-          initialValue: current.title,
+          initialValue: current.name,
         })(<Input placeholder="请输入" />)}
       </FormItem>
-      <FormItem {...formLayout} label="产品描述">
-        {getFieldDecorator('subDescription', {
-          rules: [{ message: '请输入至少五个字符的产品描述！', min: 5 }],
-          initialValue: current.subDescription,
-        })(<TextArea rows={4} placeholder="请输入至少五个字符" />)}
+      <FormItem label="描述" {...formLayout}>
+        {getFieldDecorator('description', {
+          rules: [{ required: true, message: '请输入产品描述' }],
+          initialValue: current.description,
+        })(<Input placeholder="请输入产品描述" />)}
+      </FormItem>
+      <FormItem label="标签" {...formLayout}>
+        {getFieldDecorator('tag', {
+          initialValue: current.tag,
+        })(
+          <Select mode="tags" style={{ width: '100%' }} placeholder="请添加产品标签">
+            {tags.map((item: any) => (
+              <Option key={item.id} value={item.id}>
+                {item}
+              </Option>
+            ))}
+          </Select>,
+        )}
+      </FormItem>
+      <FormItem label="类型" {...formLayout}>
+        {getFieldDecorator('type', {
+          initialValue: current.type,
+        })(
+          <Select style={{ width: '100%' }} placeholder="请选择产品类型">
+            {types.map((item: any) => (
+              <Option key={item.id} value={item.id}>
+                {item}
+              </Option>
+            ))}
+          </Select>,
+        )}
+      </FormItem>
+      <FormItem label="属性" {...formLayout}>
+        {getFieldDecorator('paramMap', {
+          initialValue: current.paramMap,
+        })(<Input placeholder="请添加" />)}
       </FormItem>
     </>
   );
