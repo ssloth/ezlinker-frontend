@@ -27,6 +27,6 @@ export interface Product extends Base {
 
 export interface Feature extends Base {}
 
-export interface Component extends Base {}
+export interface Moudle extends Base {}
 
 export interface Device extends Base {}

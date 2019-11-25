@@ -3,8 +3,8 @@ import * as ReactDOM from 'react-dom';
 import { Drawer } from 'antd';
 import { DrawerProps } from 'antd/lib/drawer';
 
-export interface IUseDrawer {
-  show: (contentProps?: any, drawerProps?: DrawerProps) => any;
+export interface IUseDrawer<ContentProps = any> {
+  show: (contentProps?: ContentProps, drawerProps?: DrawerProps) => any;
   cancle: () => any;
 }
 

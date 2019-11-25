@@ -78,12 +78,7 @@ const Develop: React.FC<DevelopProps> = props => {
   };
 
   const handleOperation = (record: Product) => {
-    operationProductContent.show(
-      { list },
-      {
-        title: record.name,
-      },
-    );
+    operationProductContent.show({ productId: record.id }, { title: record.name });
   };
 
   const extraContent = (
