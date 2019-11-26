@@ -1,16 +1,14 @@
-import moment from 'moment';
 import React from 'react';
-import { Button, Card, Col, Form, Input, Progress, Radio, Row, List, Avatar } from 'antd';
+import { Button, Card, Col, Form, Input, Radio, Row, List, Avatar } from 'antd';
 import { FormComponentProps } from 'antd/es/form';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import { BasicListItemDataType } from './data.d';
-import { useFormModal, useRestful } from '@/hook';
-import { CreateProductFMC, OperationProductContent } from './components/modules';
+import { useFormModal, useRestful, useDrawer } from '@/hook';
+import { CreateProductFMC, OperationProductDC } from './components/modules';
 import { ConnectProps } from '@/models/connect';
 import { PRODUCTS_API } from '@/services/resources';
 import { Product } from '@/services/resources/models';
 import { ITableList } from '@/typings/server';
-import useDrawer from '@/hook/useModal/useDrawer';
+
 import styles from './style.less';
 
 const RadioButton = Radio.Button;
@@ -33,25 +31,7 @@ const Info: React.FC<{
   </div>
 );
 
-const ListContent = ({
-  data: { owner, createdAt, percent, status },
-}: {
-  data: BasicListItemDataType;
-}) => (
-  <div className={styles.listContent}>
-    <div className={styles.listContentItem}>
-      <span>Owner</span>
-      <p>{owner}</p>
-    </div>
-    <div className={styles.listContentItem}>
-      <span>开始时间</span>
-      <p>{moment(createdAt).format('YYYY-MM-DD HH:mm')}</p>
-    </div>
-    <div className={styles.listContentItem}>
-      <Progress percent={percent} status={status} strokeWidth={6} style={{ width: 180 }} />
-    </div>
-  </div>
-);
+const ListContent = () => <div className={styles.listContent}></div>;
 
 const Develop: React.FC<DevelopProps> = props => {
   const { match } = props;
@@ -62,7 +42,7 @@ const Develop: React.FC<DevelopProps> = props => {
     title: '创建产品',
   });
 
-  const operationProductContent = useDrawer(OperationProductContent, {
+  const operationProductDC = useDrawer(OperationProductDC, {
     width: 365,
   });
 
@@ -78,7 +58,7 @@ const Develop: React.FC<DevelopProps> = props => {
   };
 
   const handleOperation = (record: Product) => {
-    operationProductContent.show({ productId: record.id }, { title: record.name });
+    operationProductDC.show({ productId: record.id }, { title: record.name });
   };
 
   const extraContent = (
@@ -146,7 +126,7 @@ const Develop: React.FC<DevelopProps> = props => {
                   title={<span>{item.name}</span>}
                   description={item.description}
                 />
-                <ListContent data={item} />
+                <ListContent />
               </List.Item>
             )}
           />

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
-import { Drawer } from 'antd';
+import { Drawer, Modal } from 'antd';
 import { DrawerProps } from 'antd/lib/drawer';
+import { IUsePopupBox } from '../type';
 
-export interface IUseDrawer<ContentProps = any> {
-  show: (contentProps?: ContentProps, drawerProps?: DrawerProps) => any;
-  cancle: () => any;
+export interface IPopupBoxOptions {
+  type: 'Drawer' | 'Modal';
 }
 
 /**
@@ -14,11 +14,17 @@ export interface IUseDrawer<ContentProps = any> {
  * @param action 提交地址
  * @param opt 弹出框的配置
  */
-
-const useDrawer = (Content: React.FC<any>, drawerPropsDefault: DrawerProps = {}): IUseDrawer => {
+const usePopupBox = (
+  Content: React.FC<any>,
+  drawerPropsDefault: DrawerProps = {},
+  type: 'Modal' | 'Drawer',
+): IUsePopupBox => {
+  let hasRender = false;
   const [visible, setVisible] = useState<boolean>(false);
   const [contentProps, setContentProps] = useState<any>({});
   const [drawerProps, setDrawerProps] = useState<DrawerProps>(drawerPropsDefault);
+
+  const CustomPopupBox = type === 'Modal' ? Modal : Drawer;
 
   const show = (contentPropsArg?: any, drawerPropsArg?: DrawerProps) => {
     setVisible(true);
@@ -32,9 +38,9 @@ const useDrawer = (Content: React.FC<any>, drawerPropsDefault: DrawerProps = {})
     const div = document.createElement('div');
     document.body.appendChild(div);
     ReactDOM.render(
-      <Drawer {...drawerProps} onClose={cancle} visible={visible}>
+      <CustomPopupBox {...drawerProps} onClose={cancle} visible={visible}>
         <Content {...contentProps}></Content>
-      </Drawer>,
+      </CustomPopupBox>,
       div,
     );
     return div;
@@ -47,7 +53,17 @@ const useDrawer = (Content: React.FC<any>, drawerPropsDefault: DrawerProps = {})
     }
   };
 
+  const render = () => {
+    hasRender = true;
+    return (
+      <CustomPopupBox {...drawerProps} onClose={cancle} visible={visible}>
+        <Content {...contentProps}></Content>
+      </CustomPopupBox>
+    );
+  };
+
   useEffect(() => {
+    if (hasRender) return () => {};
     const container = register();
     return () => {
       destroy(container);
@@ -57,7 +73,8 @@ const useDrawer = (Content: React.FC<any>, drawerPropsDefault: DrawerProps = {})
   return {
     cancle,
     show,
+    render,
   };
 };
 
-export default useDrawer;
+export default usePopupBox;

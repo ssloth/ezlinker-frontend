@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Table, { TableProps, PaginationConfig } from 'antd/lib/table';
 import { ParsedUrlQueryInput } from 'querystring';
 import { IUseResuful } from '../useRestful/useRestful';
-import { ITableList, ITableListItem } from '@/typings/server';
+import { ITableListItem } from '@/typings/server';
 
 const paginationInitial = {
   current: 1,
@@ -20,7 +20,6 @@ function useTable<Resource>(
   const [pagination, setPagination] = useState<PaginationConfig>(paginationInitial);
   const { data, error } = resource.useQuery(params);
   const loading: boolean = !!data || !!error;
-  const result = data as ITableList<any>;
 
   const handleTableChange: TableProps<Resource>['onChange'] = paginationRet => {
     setPagination(paginationRet);
@@ -30,7 +29,7 @@ function useTable<Resource>(
     <Table
       columns={columns}
       loading={loading}
-      dataSource={data && result.records}
+      dataSource={data && data.records}
       rowKey={(record: ITableListItem) => record.id}
       pagination={pagination}
       onChange={handleTableChange}

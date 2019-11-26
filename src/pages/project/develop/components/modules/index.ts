@@ -1,4 +1,4 @@
 import CreateProductFMC from './CreateProductFMC';
-import OperationProductContent from './OperationProductContent';
+import OperationProductDC from './OperationProductDC';
 
-export { CreateProductFMC, OperationProductContent };
+export { CreateProductFMC, OperationProductDC };

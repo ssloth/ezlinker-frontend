@@ -75,16 +75,22 @@ request.interceptors.request.use((url, options: any) => {
 // response interceptor
 request.interceptors.response.use(async (response: any) => {
   const result = await response.clone().json();
-  const { data, code } = result;
-  if (code === 401) {
-    setToekn();
-    notification.error({
-      message: '登录过期',
-      description: '登录过期！请重新登录！',
-    });
-    return null;
+  const { data, code, i18nMessage } = result;
+  switch (code) {
+    case 401:
+      setToekn();
+      throw notification.error({
+        message: '登录过期',
+        description: '登录过期！请重新登录！',
+      });
+    case 400:
+      throw notification.error({
+        message: '参数错误',
+        description: i18nMessage,
+      });
+    default:
+      return data || !!data;
   }
-  return data || !!data;
 });
 
 export default request;

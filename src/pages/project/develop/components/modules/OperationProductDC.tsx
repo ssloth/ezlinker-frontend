@@ -1,24 +1,38 @@
 import React from 'react';
-import { List, Avatar, Button } from 'antd';
+import { List, Button } from 'antd';
 // import classNames from 'classnames/bind';
-import { useRestful } from '@/hook';
-import { Moudle } from '@/services/resources/models';
+import { useRestful, useFormDrawer } from '@/hook';
+import { Module } from '@/services/resources/models';
 import { MODULES_API } from '@/services/resources/index';
-// import styles from './OperationProductContent.less';
+// import styles from './OperationProductDC.less';
+// import { useDrawer } from '@/hook';
+import CreateModuleDC from './CreateModuleFDC';
 
 // const cx = classNames.bind(styles);
 
-interface IOperationProductContentProps {
+interface IOperationProductDCProps {
   productId: string;
 }
 
-const OperationProductContent = (props: IOperationProductContentProps) => {
+const OperationProductDC = (props: IOperationProductDCProps) => {
   const { productId } = props;
-  const module = useRestful<Moudle>(MODULES_API);
-
+  const module = useRestful<Module>(MODULES_API);
   const { data } = module.useQuery({ productId });
 
-  const handleAddModule = () => {};
+  const createDrawer = useFormDrawer(CreateModuleDC, module, {
+    title: '创建模块',
+    width: 300,
+  });
+
+  const handleAddModule = () => {
+    createDrawer.create({
+      productId,
+    });
+  };
+
+  const handleEditModule = (record: Module) => {
+    createDrawer.edit(record);
+  };
 
   return (
     <div>
@@ -39,18 +53,19 @@ const OperationProductContent = (props: IOperationProductContentProps) => {
         renderItem={item => (
           <List.Item actions={[]}>
             <List.Item.Meta
-              avatar={<Avatar src={item.logo} shape="square" size="large" />}
+              // avatar={<Avatar src={item.logo} shape="square" size="large" />}
               title={<span>{item.name}</span>}
               description={item.description}
             />
             <div>
-              <a>操作</a>
+              <a onClick={() => handleEditModule(item)}>操作</a>
             </div>
           </List.Item>
         )}
       />
+      {createDrawer.render()}
     </div>
   );
 };
 
-export default OperationProductContent;
+export default OperationProductDC;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Input } from 'antd';
-import { IFormModalContentProps } from '@/hook/useModal/useFormModal';
+import { IFormModalContentProps } from '@/hook/useModal/type';
 
 const formLayout = {
   labelCol: { span: 7 },

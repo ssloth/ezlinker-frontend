@@ -1,56 +1,54 @@
-import React, { useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
-import { Modal, Form, message, Button } from 'antd';
-import { FormComponentProps } from 'antd/lib/form/Form';
-import { ModalProps } from 'antd/lib/modal';
+import React, { useEffect, useState } from 'react';
+import { Button, Drawer, Form, message, Modal } from 'antd';
+import request from '@/utils/request';
 import { IAction } from '@/typings/global';
-import request from '../../utils/request';
-import { IUseResuful } from '../useRestful/useRestful';
+import { IFormPopupBoxOption, IFormPopupBoxProps, IUseFormPopupBox } from '../type';
+import { IUseResuful } from '@/hook/useRestful/useRestful';
 
-export interface IFormModalOption extends ModalProps {
-  defaultFormValues?: any;
-  successMsg?: string | null;
-  callback?: Function;
-}
+const DrawerFooter = (props: any) => (
+  <div
+    style={{
+      position: 'absolute',
+      right: 0,
+      bottom: 0,
+      width: '100%',
+      borderTop: '1px solid #e9e9e9',
+      padding: '10px 16px',
+      background: '#fff',
+      textAlign: 'right',
+    }}
+  >
+    <Button onClick={props.onCancel} type="danger" style={{ marginRight: 8 }}>
+      取消
+    </Button>
+    <Button onClick={props.onOk} type="primary" loading={props.loading}>
+      提交
+    </Button>
+  </div>
+);
 
-export interface IFormModalContentProps extends FormComponentProps {
-  current?: any;
-  defaultFormValues?: any;
-}
-export interface IFormModalProps extends FormComponentProps {
-  action: IAction | string | IUseResuful<any>;
-  formModalContentProps: any;
-  options: IFormModalOption;
-  FormModalContent: React.FC<IFormModalContentProps>;
-  visible: boolean;
-  setVisible: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-export interface IUseFormModal {
-  show: (formModalContentProps?: any, options?: any) => any;
-  create: (defaultFormValues: any) => any;
-  edit: (record: any) => any;
-  cancle: () => any;
-}
-
-const defaultFormModalContentProps = {
+const defaultFormPopupBoxContentProps = {
   current: {},
 };
 
-const FormModal = Form.create<IFormModalProps>()((props: IFormModalProps) => {
+const FormPopupBox = Form.create<IFormPopupBoxProps>()((props: IFormPopupBoxProps) => {
   const {
     form,
     action,
     options,
-    FormModalContent,
+    FormPopupBoxContent,
     visible,
     setVisible,
-    formModalContentProps,
+    formPopupBoxContentProps,
+    popupBoxType,
   } = props;
+
+  const CustomPopupBox = popupBoxType === 'Modal' ? Modal : Drawer;
 
   const handleCancel = () => setVisible(false);
   const [loading, setLoading] = useState<boolean>(false);
-  const { defaultFormValues = {}, current = {} } = formModalContentProps;
+  const { defaultFormValues = {}, current = {} } = formPopupBoxContentProps;
   const { callback, successMsg = '操作成功！' } = options;
 
   const handleOk = () => {
@@ -77,7 +75,8 @@ const FormModal = Form.create<IFormModalProps>()((props: IFormModalProps) => {
           })
           .catch(() => setLoading(false));
       } else {
-        const ret = action as IAction;
+        // NOTE: 暂时不知道怎么优雅的处理重载 有dalao知道的话帮忙提个pr
+        const ret = (action as any) as IAction;
         result = ret(formValues);
       }
       result
@@ -92,9 +91,11 @@ const FormModal = Form.create<IFormModalProps>()((props: IFormModalProps) => {
   };
 
   return (
-    <Modal
+    <CustomPopupBox
       destroyOnClose
       onCancel={handleCancel}
+      maskClosable={false}
+      onClose={handleCancel}
       onOk={handleOk}
       visible={visible}
       footer={[
@@ -107,8 +108,14 @@ const FormModal = Form.create<IFormModalProps>()((props: IFormModalProps) => {
       ]}
       {...options}
     >
-      <FormModalContent form={form} {...formModalContentProps} />
-    </Modal>
+      <>
+        <FormPopupBoxContent form={form} {...formPopupBoxContentProps} />
+        {// 向 Drawe 中注入 footer
+        CustomPopupBox === Drawer && (
+          <DrawerFooter onOk={handleOk} loading={loading} onCancel={handleCancel}></DrawerFooter>
+        )}
+      </>
+    </CustomPopupBox>
   );
 });
 
@@ -118,23 +125,33 @@ const FormModal = Form.create<IFormModalProps>()((props: IFormModalProps) => {
  * @param action 提交地址
  * @param opt 弹出框的配置
  */
-
-const useFormModal = (
-  FormModalContent: React.FC<any>,
-  action: IUseResuful<any> | IAction | string,
-  opt: IFormModalOption = {},
-): IUseFormModal => {
+const useFormPopupBox = (
+  FormPopupBoxContent: React.FC<any>,
+  action: IAction | string | IUseResuful<any>,
+  opt: IFormPopupBoxOption = {},
+  popupBoxType: 'Modal' | 'Drawer',
+): IUseFormPopupBox => {
+  let hasRender = false;
   const [visible, setVisible] = useState<boolean>(false);
-  const [formModalContentProps, setFormModalContentProps] = useState<any>(
-    defaultFormModalContentProps,
+  const [formPopupBoxContentProps, setFormPopupBoxContentProps] = useState<any>(
+    defaultFormPopupBoxContentProps,
   );
-  const [options, setOptions] = useState<IFormModalOption>(opt);
+  const [options, setOptions] = useState<IFormPopupBoxOption>(opt);
+
+  const formPopupBoxProps = {
+    action,
+    options,
+    visible,
+    setVisible,
+    FormPopupBoxContent,
+    formPopupBoxContentProps,
+    popupBoxType,
+  };
 
   const register = () => {
     const div = document.createElement('div');
     document.body.appendChild(div);
-    const props = { action, FormModalContent, formModalContentProps, options, visible, setVisible };
-    ReactDOM.render(<FormModal {...props} />, div);
+    ReactDOM.render(<FormPopupBox {...formPopupBoxProps} />, div);
     return div;
   };
 
@@ -145,21 +162,30 @@ const useFormModal = (
     }
   };
 
-  const show = (formModalContentPropsRet = {}, optionsRet: IFormModalOption = {}) => {
+  const show = (formPopupBoxContentPropsRet = {}, optionsRet: IFormPopupBoxOption = {}) => {
     setVisible(true);
-    setFormModalContentProps({ ...defaultFormModalContentProps, ...formModalContentPropsRet });
+    setFormPopupBoxContentProps({
+      ...defaultFormPopupBoxContentProps,
+      ...formPopupBoxContentPropsRet,
+    });
     setOptions({ ...options, ...optionsRet });
   };
 
   const create = (defaultFormValues: any = {}) => show({ defaultFormValues });
 
-  const edit = (record: any, optionsRet: IFormModalOption = {}) => {
+  const edit = (record: any, optionsRet: IFormPopupBoxOption = {}) => {
     show({ current: record }, optionsRet);
   };
 
   const cancle = () => setVisible(false);
 
+  const render = () => {
+    hasRender = true;
+    return <FormPopupBox {...formPopupBoxProps} />;
+  };
+
   useEffect(() => {
+    if (hasRender) return () => {};
     const container = register();
     return () => {
       destroy(container);
@@ -171,7 +197,8 @@ const useFormModal = (
     show,
     create,
     edit,
+    render,
   };
 };
 
-export default useFormModal;
+export default useFormPopupBox;

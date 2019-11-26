@@ -27,6 +27,21 @@ export interface Product extends Base {
 
 export interface Feature extends Base {}
 
-export interface Moudle extends Base {}
+export enum MODULE_PROTOCOL {
+  MQTT = 1,
+}
+
+export enum MODULE_TYPE {
+  COMMON = 1,
+}
+
+export interface Module extends Base {
+  name: string;
+  description: string;
+  model: string;
+  type: MODULE_TYPE;
+  protocol: MODULE_PROTOCOL;
+  dataArea: string;
+}
 
 export interface Device extends Base {}
