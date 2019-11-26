@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Card, Col, Form, Input, Radio, Row, List, Avatar } from 'antd';
 import { FormComponentProps } from 'antd/es/form';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import { useFormModal, useRestful, useDrawer } from '@/hook';
+import { useFormModal, useRestful, useDrawer } from '@/hooks';
 import { CreateProductFMC, OperationProductDC } from './components/modules';
 import { ConnectProps } from '@/models/connect';
 import { PRODUCTS_API } from '@/services/resources';

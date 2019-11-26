@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Select, Input } from 'antd';
-import { IFormDrawerContentProps } from '@/hook/useModal/type';
+import { IFormDrawerContentProps } from '@/hooks/useModal/type';
 
 const FormItem = Form.Item;
 const { Option } = Select;

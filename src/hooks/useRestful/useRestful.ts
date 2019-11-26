@@ -1,7 +1,7 @@
 import useSwr, { responseInterface, trigger as swrTrigger, mutate as swrMutate } from 'swr';
 import { ParsedUrlQueryInput, stringify } from 'querystring';
 import request from '@/utils/request';
-import { IServerResult, ITableList } from '../../typings/server.d';
+import { IServerResult, ITableList } from '@/typings/server';
 import { defaultConfig } from './RestfulConfigContext';
 
 export type ResourceId = string | undefined;
@@ -24,7 +24,7 @@ export interface IUseResuful<Resource> {
   update: IUpdate<Resource>;
   useQuery: IUseQuery<Resource>;
   useFind: IUseFind<Resource>;
-  trigger: (type: string) => void;
+  trigger: (type: 'query' | 'find') => void;
   mutate: any;
   URL: string;
 }
@@ -60,7 +60,7 @@ const useResuful = <Resource>(url: string): IUseResuful<Resource> => {
     return useSwr<IServerResult<Resource>>(`${url}/${id}`, request);
   };
 
-  const trigger = (type: string) => {
+  const trigger = (type: 'query' | 'find') => {
     if (type === 'query') {
       swrTrigger(`${url}?${local.params}`);
     } else {
@@ -68,7 +68,13 @@ const useResuful = <Resource>(url: string): IUseResuful<Resource> => {
     }
   };
 
-  const mutate = (data: any) => swrMutate(url, data);
+  const mutate = (type: 'query' | 'find', data: any) => {
+    if (type === 'query') {
+      swrMutate(`${url}?${local.params}`, data);
+    } else {
+      swrMutate(`${url}/${local.id}`, data);
+    }
+  };
 
   return {
     create,

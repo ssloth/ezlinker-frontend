@@ -3,7 +3,7 @@ import { Card, List, Button, Icon, Typography } from 'antd';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import Link from 'umi/link';
 import styles from './index.less';
-import { useFormModal, useRestful } from '@/hook';
+import { useFormModal, useRestful } from '@/hooks';
 import { PROJECT_API } from '@/services/resources';
 import { Project } from '@/services/resources/models';
 import { ITableList } from '@/typings/server';

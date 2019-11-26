@@ -4,7 +4,7 @@ import { Button, Drawer, Form, message, Modal } from 'antd';
 import request from '@/utils/request';
 import { IAction } from '@/typings/global';
 import { IFormPopupBoxOption, IFormPopupBoxProps, IUseFormPopupBox } from '../type';
-import { IUseResuful } from '@/hook/useRestful/useRestful';
+import { IUseResuful } from '@/hooks/useRestful/useRestful';
 
 const DrawerFooter = (props: any) => (
   <div

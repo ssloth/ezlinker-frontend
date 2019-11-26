@@ -1,7 +1,7 @@
 import { Button, Card, Form } from 'antd';
 import React from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import useRestful from '@/hook/useRestful';
+import useRestful from '@/hooks/useRestful';
 import styles from './style.less';
 
 /* eslint react/no-multi-comp:0 */

@@ -1,7 +1,7 @@
 import React from 'react';
 import { List, Button } from 'antd';
 // import classNames from 'classnames/bind';
-import { useRestful, useFormDrawer } from '@/hook';
+import { useRestful, useFormDrawer } from '@/hooks';
 import { Module } from '@/services/resources/models';
 import { MODULES_API } from '@/services/resources/index';
 // import styles from './OperationProductDC.less';
