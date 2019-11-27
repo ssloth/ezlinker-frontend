@@ -19,7 +19,7 @@ const DrawerFooter = (props: any) => (
       textAlign: 'right',
     }}
   >
-    <Button onClick={props.onCancel} type="danger" style={{ marginRight: 8 }}>
+    <Button onClick={props.onCancel} style={{ marginRight: 8 }}>
       取消
     </Button>
     <Button onClick={props.onOk} type="primary" loading={props.loading}>

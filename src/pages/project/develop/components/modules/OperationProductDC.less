@@ -1,14 +1,47 @@
-.operation-wrapper {
-  float: right;
-  margin: -68px 34px 0 0;
+.module-list {
+  .module-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px 10px;
+    .logo {
+      flex: 50px 0 0;
+      height: 50px;
+      background: #cececece;
+      border-radius: 10px;
+    }
 
-  .operation {
-    width: 75px;
-    height: 50px;
-    margin-bottom: 1px;
-    color: #fff;
-    line-height: 50px;
-    text-align: center;
-    background: #7ec0e4;
+    .left {
+      flex: 1;
+      padding: 0 20px;
+      .name {
+        height: 30px;
+        color: #555;
+        font-size: 18px;
+        line-height: 30px;
+      }
+
+      .description {
+        height: 25px;
+        color: #999;
+        font-size: 16px;
+        line-height: 25px;
+      }
+    }
+
+    .right {
+      flex: 50px 0 0;
+      color: #ccc;
+      font-weight: 300;
+      font-size: 30px;
+      line-height: 50px;
+      text-align: right;
+      transform: scaleX(0.8);
+      cursor: pointer;
+      transition: all 0.3s;
+      &:hover {
+        color: rgb(101, 199, 199);
+      }
+    }
   }
 }

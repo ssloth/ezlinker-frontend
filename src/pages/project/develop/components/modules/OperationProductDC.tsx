@@ -1,15 +1,14 @@
+import classNames from 'classnames/bind';
 import React from 'react';
-import { List, Button } from 'antd';
-// import classNames from 'classnames/bind';
-import { useRestful, useFormDrawer } from '@/hooks';
+import { Button, Card, Icon } from 'antd';
+import CreateModuleDC from './CreateModuleFDC';
+import styles from './OperationProductDC.less';
 import { Module } from '@/services/resources/models';
 import { MODULES_API } from '@/services/resources/index';
-// import styles from './OperationProductDC.less';
+import { useFormDrawer, useRestful } from '@/hooks';
 // import { useDrawer } from '@/hook';
-import CreateModuleDC from './CreateModuleFDC';
 
-// const cx = classNames.bind(styles);
-
+const cx = classNames.bind(styles);
 interface IOperationProductDCProps {
   productId: string;
 }
@@ -20,7 +19,7 @@ const OperationProductDC = (props: IOperationProductDCProps) => {
   const { data } = module.useQuery({ productId });
 
   const createDrawer = useFormDrawer(CreateModuleDC, module, {
-    title: '创建模块',
+    title: '创建&编辑 模块',
     width: 300,
   });
 
@@ -44,25 +43,37 @@ const OperationProductDC = (props: IOperationProductDCProps) => {
       >
         创建模块
       </Button>
-      <List
-        size="large"
-        rowKey="id"
+      <Card
+        className={cx('module-list')}
+        style={{ marginBottom: 24 }}
+        bordered={false}
         loading={!data}
-        // pagination={paginationProps}
-        dataSource={data && data.records}
-        renderItem={item => (
-          <List.Item actions={[]}>
-            <List.Item.Meta
-              // avatar={<Avatar src={item.logo} shape="square" size="large" />}
-              title={<span>{item.name}</span>}
-              description={item.description}
-            />
-            <div>
-              <a onClick={() => handleEditModule(item)}>操作</a>
-            </div>
-          </List.Item>
-        )}
-      />
+        bodyStyle={{ padding: 0 }}
+      >
+        {data &&
+          data.records.map(item => (
+            <Card.Grid className={cx('module-item')} key={item.id}>
+              <div className={cx('logo')}></div>
+              <div className={cx('left')}>
+                <div className={cx('name')}>{item.name}</div>
+                <div className={cx('description')}>{item.description}</div>
+              </div>
+              <div className={cx('right')} onClick={() => handleEditModule(item)}>
+                <Icon type="right"></Icon>
+              </div>
+            </Card.Grid>
+          ))}
+      </Card>
+
+      <Button
+        onClick={handleAddModule}
+        type="dashed"
+        style={{ width: '100%', marginBottom: 8 }}
+        icon="plus"
+      >
+        创建功能
+      </Button>
+
       {createDrawer.render()}
     </div>
   );
