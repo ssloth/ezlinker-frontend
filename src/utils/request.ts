@@ -23,6 +23,21 @@ const codeMessage = {
   504: '网关超时。',
 };
 
+const errorMessage = {
+  400: '请求错误',
+  401: '登录过期',
+  403: '访问被禁止',
+  404: '不存在的记录',
+  405: '请求方法不支持',
+  406: '请求的格式不可得',
+  410: '请求的资源被永久删除',
+  422: '发生验证错误。',
+  500: '服务器发生错误，请检查服务器',
+  502: '网关错误',
+  503: '服务不可用，服务器暂时过载或维护',
+  504: '网关超时',
+};
+
 export const getToken = (): string | null => localStorage.getItem('token');
 
 export const setToekn = (token?: string) => {
@@ -51,7 +66,7 @@ const errorHandler = (error: { response: Response }): Response => {
       message: '网络异常',
     });
   }
-  return response;
+  throw response;
 };
 
 /**
@@ -76,21 +91,15 @@ request.interceptors.request.use((url, options: any) => {
 request.interceptors.response.use(async (response: any) => {
   const result = await response.clone().json();
   const { data, code, i18nMessage } = result;
-  switch (code) {
-    case 401:
-      setToekn();
-      throw notification.error({
-        message: '登录过期',
-        description: '登录过期！请重新登录！',
-      });
-    case 400:
-      throw notification.error({
-        message: '参数错误',
-        description: i18nMessage,
-      });
-    default:
-      return data || !!data;
+
+  if (errorMessage[code]) {
+    throw notification.error({
+      message: errorMessage[code],
+      description: i18nMessage,
+    });
   }
+
+  return data;
 });
 
 export default request;

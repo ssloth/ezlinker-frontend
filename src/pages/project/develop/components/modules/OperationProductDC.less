@@ -14,6 +14,7 @@
     .left {
       flex: 1;
       padding: 0 20px;
+      overflow: hidden;
       .name {
         height: 30px;
         color: #555;
@@ -30,7 +31,7 @@
     }
 
     .right {
-      flex: 50px 0 0;
+      flex: 100px 0 0;
       color: #ccc;
       font-weight: 300;
       font-size: 30px;
@@ -43,5 +44,11 @@
         color: rgb(101, 199, 199);
       }
     }
+  }
+}
+
+.feature-list {
+  .feature-item {
+    cursor: pointer;
   }
 }

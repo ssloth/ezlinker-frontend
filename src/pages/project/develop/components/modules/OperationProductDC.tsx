@@ -1,11 +1,12 @@
 import classNames from 'classnames/bind';
 import React from 'react';
 import { Button, Card, Icon } from 'antd';
-import CreateModuleDC from './CreateModuleFDC';
+import CreateModuleFDC from './CreateModuleFDC';
 import styles from './OperationProductDC.less';
 import { Module } from '@/services/resources/models';
 import { MODULES_API } from '@/services/resources/index';
 import { useFormDrawer, useRestful } from '@/hooks';
+import CreateFeatureFDC from './CreateFeatureFDC';
 // import { useDrawer } from '@/hook';
 
 const cx = classNames.bind(styles);
@@ -18,19 +19,30 @@ const OperationProductDC = (props: IOperationProductDCProps) => {
   const module = useRestful<Module>(MODULES_API);
   const { data } = module.useQuery({ productId });
 
-  const createDrawer = useFormDrawer(CreateModuleDC, module, {
+  const createModule = useFormDrawer(CreateModuleFDC, module, {
     title: '创建&编辑 模块',
     width: 300,
   });
 
+  const createFeature = useFormDrawer(CreateFeatureFDC, module, {
+    title: '创建&编辑 功能',
+    width: 300,
+  });
+
   const handleAddModule = () => {
-    createDrawer.create({
+    createModule.create({
       productId,
     });
   };
 
   const handleEditModule = (record: Module) => {
-    createDrawer.edit(record);
+    createModule.edit(record);
+  };
+
+  const handleAddFeature = () => {
+    createFeature.create({
+      productId,
+    });
   };
 
   return (
@@ -66,7 +78,7 @@ const OperationProductDC = (props: IOperationProductDCProps) => {
       </Card>
 
       <Button
-        onClick={handleAddModule}
+        onClick={handleAddFeature}
         type="dashed"
         style={{ width: '100%', marginBottom: 8 }}
         icon="plus"
@@ -74,7 +86,19 @@ const OperationProductDC = (props: IOperationProductDCProps) => {
         创建功能
       </Button>
 
-      {createDrawer.render()}
+      <div className={cx('feature-list')}>
+        {data &&
+          data.records.map(item => (
+            <Card.Grid className={cx('feature-item')} key={item.id}>
+              <div onClick={handleAddFeature} className={cx('left')}>
+                <div className={cx('name')}>{item.name}</div>
+              </div>
+            </Card.Grid>
+          ))}
+      </div>
+
+      {createModule.render()}
+      {createFeature.render()}
     </div>
   );
 };

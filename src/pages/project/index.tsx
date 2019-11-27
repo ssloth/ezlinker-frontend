@@ -6,15 +6,13 @@ import styles from './index.less';
 import { useFormModal, useRestful } from '@/hooks';
 import { PROJECT_API } from '@/services/resources';
 import { Project } from '@/services/resources/models';
-import { ITableList } from '@/typings/server';
 import CreateProjectFMC from './components/modules/CreateProjectFMC';
 
 const { Paragraph } = Typography;
 
 export default (): React.ReactNode => {
   const peojectResource = useRestful<Project>(PROJECT_API);
-  const { data, error } = peojectResource.useQuery();
-  const tablelist = data as ITableList;
+  const { data } = peojectResource.useQuery();
   // const error = null;
   // const tablelist = ({ records: [] } as any) as ITableList;
 
@@ -35,8 +33,8 @@ export default (): React.ReactNode => {
       <div className={styles.cardList}>
         <List
           rowKey="id"
-          dataSource={[{}, ...(tablelist ? tablelist.records : [])]}
-          loading={!tablelist || !!error}
+          dataSource={[{} as Project, ...(data ? data.records : [])]}
+          loading={!data}
           grid={{ gutter: 24, lg: 3, md: 2, sm: 1, xs: 1 }}
           renderItem={(item: Project) => {
             if (item && item.id) {

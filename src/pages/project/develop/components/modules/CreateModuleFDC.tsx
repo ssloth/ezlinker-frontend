@@ -1,7 +1,10 @@
 import React from 'react';
-import { Form, Select, Input } from 'antd';
-import { IFormDrawerContentProps } from '@/hooks/useModal/type';
+import { Form, Select, Input, Divider } from 'antd';
+import classNames from 'classnames/bind';
+import { IFormDrawerContentProps } from '@/hooks/usePopup/type';
+import styles from './CreateModuleFDC.less';
 
+const cx = classNames.bind(styles);
 const FormItem = Form.Item;
 const { Option } = Select;
 
@@ -17,7 +20,8 @@ const CreateModuleDFC = (props: IFormDrawerContentProps) => {
   } = props;
 
   return (
-    <>
+    <div className={cx('wrapper')}>
+      <Divider orientation="left">基本信息</Divider>
       <FormItem label="名称" {...formLayout}>
         {getFieldDecorator('name', {
           rules: [{ required: true, message: '模块名称（大小写字母和下划线）' }],
@@ -54,7 +58,7 @@ const CreateModuleDFC = (props: IFormDrawerContentProps) => {
           </Select>,
         )}
       </FormItem>
-    </>
+    </div>
   );
 };
 

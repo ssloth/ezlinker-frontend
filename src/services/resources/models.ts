@@ -25,7 +25,13 @@ export interface Product extends Base {
   parameter: string;
 }
 
-export interface Feature extends Base {}
+export interface Feature extends Base {
+  productId: string;
+  name: string;
+  label: string;
+  cmdKey: string;
+  cmdValueMap: any;
+}
 
 export enum MODULE_PROTOCOL {
   MQTT = 1,
