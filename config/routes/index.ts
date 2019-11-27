@@ -1,12 +1,12 @@
 export default [
   {
-    path: '/user',
+    path: '/auth',
     component: '../layouts/UserLayout',
     routes: [
       {
         name: 'login',
-        path: '/user/login',
-        component: './user/login',
+        path: '/auth/login',
+        component: './auth/login',
       },
     ],
   },
@@ -17,7 +17,6 @@ export default [
       {
         path: '/',
         component: '../layouts/BasicLayout',
-        authority: ['admin', 'user'],
         routes: [
           {
             path: '/',
@@ -33,25 +32,30 @@ export default [
             path: '/projects',
             name: '项目',
             icon: 'crown',
-            component: './project',
-          },
-          {
-            path: '/projects/:id/develop',
-            name: '开发模式',
-            component: './project/develop',
-            hideInMenu: true,
-          },
-          {
-            path: '/projects/:id/operation',
-            name: '开发模式',
-            component: './project/operation',
-            hideInMenu: true,
-          },
-          {
-            path: '/projects/:id/operation/product',
-            name: '产品列表',
-            component: './project/operation/product',
-            hideInMenu: true,
+            routes: [
+              {
+                path: './',
+                component: './project',
+              },
+              {
+                path: './:id/develop',
+                name: '开发模式',
+                component: './project/develop',
+                hideInMenu: true,
+              },
+              {
+                path: './:id/operation',
+                name: '开发模式',
+                component: './project/operation',
+                hideInMenu: true,
+              },
+              {
+                path: './:id/operation/product',
+                name: '产品列表',
+                component: './project/operation/product',
+                hideInMenu: true,
+              },
+            ],
           },
           {
             path: '/user',
@@ -75,7 +79,6 @@ export default [
       },
     ],
   },
-
   {
     component: './404',
   },

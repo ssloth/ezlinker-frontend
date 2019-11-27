@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import React, { useState } from 'react';
 import { getMenuData } from '@ant-design/pro-layout';
-import { Icon, Layout } from 'antd';
+import { Icon, Layout, Breadcrumb } from 'antd';
 import { Link } from 'umi';
 import RightContent from '@/components/GlobalHeader/RightContent';
 import styles from './BasicLayout.less';
@@ -65,6 +65,11 @@ const BasicLayout: React.SFC<ConnectProps> = props => {
         </Sider>
         <Layout>
           <Header className={cx('header')}>
+            <Breadcrumb className={cx('breadcrumb')}>
+              <Breadcrumb.Item>首页</Breadcrumb.Item>
+              <Breadcrumb.Item>项目</Breadcrumb.Item>
+              <Breadcrumb.Item>开发模式</Breadcrumb.Item>
+            </Breadcrumb>
             <RightContent></RightContent>
           </Header>
           <Content className={cx('content')}>{children}</Content>

@@ -65,10 +65,10 @@ const Model: LoginModelType = {
       const { redirect } = getPageQuery();
       // redirect
       setToekn();
-      if (window.location.pathname !== '/user/login' && !redirect) {
+      if (window.location.pathname !== '/auth/login' && !redirect) {
         yield put(
           routerRedux.replace({
-            pathname: '/user/login',
+            pathname: '/auth/login',
             search: stringify({
               redirect: window.location.href,
             }),
