@@ -20,13 +20,13 @@ export default [
         routes: [
           {
             path: '/',
-            redirect: '/welcome',
+            redirect: '/home',
           },
           {
-            path: '/welcome',
+            path: '/home',
             name: '总览',
             icon: 'smile',
-            component: './Welcome',
+            component: './home',
           },
           {
             path: '/projects',
