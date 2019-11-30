@@ -6,6 +6,6 @@ import styles from './style.less';
 
 const cx = classNames.bind(styles);
 
-const Operation = (props: any) => <div className={cx('wrapper')}>{props.children}</div>;
+const Operation = (props: any) => <div className={cx('wrapper')}>{props.chilren}</div>;
 
 export default Operation;

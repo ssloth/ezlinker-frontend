@@ -1,3 +1,8 @@
+import home from './home';
+import projects from './project';
+import user from './user';
+import setting from './setting';
+
 export default [
   {
     path: '/auth',
@@ -22,53 +27,10 @@ export default [
             path: '/',
             redirect: '/home',
           },
-          {
-            path: '/home',
-            name: '总览',
-            icon: 'smile',
-            component: './home',
-          },
-          {
-            path: '/projects',
-            name: '项目',
-            icon: 'crown',
-            routes: [
-              {
-                path: './',
-                component: './project',
-              },
-              {
-                path: './:id/develop',
-                name: '开发模式',
-                component: './project/develop',
-                hideInMenu: true,
-              },
-              {
-                path: './:id/operation',
-                name: '开发模式',
-                component: './project/operation',
-                hideInMenu: true,
-              },
-              {
-                path: './:id/operation/product',
-                name: '产品列表',
-                component: './project/operation/product',
-                hideInMenu: true,
-              },
-            ],
-          },
-          {
-            path: '/user',
-            name: '用户',
-            icon: 'crown',
-            component: './Admin',
-          },
-          {
-            path: '/setting',
-            name: '配置',
-            icon: 'crown',
-            component: './Admin',
-          },
+          { ...home },
+          { ...projects },
+          { ...user },
+          { ...setting },
           {
             component: './404',
           },
