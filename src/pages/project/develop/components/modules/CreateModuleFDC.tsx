@@ -58,6 +58,7 @@ const CreateModuleDFC = (props: IFormDrawerContentProps) => {
           </Select>,
         )}
       </FormItem>
+      <Divider orientation="left">绑定功能</Divider>
     </div>
   );
 };

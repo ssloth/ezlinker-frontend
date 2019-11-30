@@ -1,8 +1,7 @@
 import { Col, Icon, Row, Tooltip } from 'antd';
 import React from 'react';
-import { ChartCard, MiniArea, MiniBar, MiniProgress, Field } from './Charts';
+import { ChartCard, MiniProgress, Field } from './Charts';
 import Trend from './Trend';
-import Yuan from '../utils/Yuan';
 import styles from '../style.less';
 
 const topColResponsiveProps = {
@@ -29,7 +28,7 @@ const IntroduceRow = ({ loading }: { loading: boolean }) => (
         }
         loading={loading}
         total={<div>1个</div>}
-        footer={<Field label="Daily Sales" value={`123`} />}
+        footer={<Field label="Daily Sales" value="123" />}
         contentHeight={46}
       >
         <Trend

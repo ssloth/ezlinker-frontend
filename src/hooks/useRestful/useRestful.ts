@@ -52,12 +52,30 @@ const useResuful = <Resource>(url: string): IUseResuful<Resource> => {
 
   const useQuery = (params?: ResourceParams): IUseQueryResult<Resource> => {
     local.params = stringify({ ...pagination, ...params });
-    return useSwr<ITableList<Resource>>(`${url}?${local.params}`, request);
+    return useSwr<ITableList<Resource>>(`${url}?${local.params}`, request, {
+      onErrorRetry: (error, key, option, revalidate, { retryCount }) => {
+        if (!retryCount) return;
+        if (retryCount >= 10) return;
+        if (error.status === 404) return;
+
+        // retry after 5 seconds
+        setTimeout(() => revalidate({ retryCount: retryCount + 1 }), 5000);
+      },
+    });
   };
 
   const useFind = (id: ResourceId): IUseFindResult<Resource> => {
     local.id = id as string;
-    return useSwr<IServerResult<Resource>>(`${url}/${id}`, request);
+    return useSwr<IServerResult<Resource>>(`${url}/${id}`, request, {
+      onErrorRetry: (error, key, option, revalidate, { retryCount }) => {
+        if (!retryCount) return;
+        if (retryCount >= 10) return;
+        if (error.status === 404) return;
+
+        // retry after 5 seconds
+        setTimeout(() => revalidate({ retryCount: retryCount + 1 }), 5000);
+      },
+    });
   };
 
   const trigger = (type: 'query' | 'find') => {

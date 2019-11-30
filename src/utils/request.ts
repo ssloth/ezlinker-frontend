@@ -93,11 +93,10 @@ request.interceptors.response.use(async (response: any) => {
   const { data, code, i18nMessage } = result;
 
   if (errorMessage[code]) {
-
-    if(code === 401) {
+    if (code === 401) {
       setToekn();
-      window.location.href = '/auth/login'
-    } 
+      window.location.href = '/auth/login';
+    }
 
     throw notification.error({
       message: errorMessage[code],

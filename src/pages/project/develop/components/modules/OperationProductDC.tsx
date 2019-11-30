@@ -3,8 +3,8 @@ import React from 'react';
 import { Button, Card, Icon } from 'antd';
 import CreateModuleFDC from './CreateModuleFDC';
 import styles from './OperationProductDC.less';
-import { Module } from '@/services/resources/models';
-import { MODULES_API } from '@/services/resources/index';
+import { Module, Feature } from '@/services/resources/models';
+import { MODULES_API, FEATURES_API } from '@/services/resources/index';
 import { useFormDrawer, useRestful } from '@/hooks';
 import CreateFeatureFDC from './CreateFeatureFDC';
 // import { useDrawer } from '@/hook';
@@ -17,14 +17,16 @@ interface IOperationProductDCProps {
 const OperationProductDC = (props: IOperationProductDCProps) => {
   const { productId } = props;
   const module = useRestful<Module>(MODULES_API);
-  const { data } = module.useQuery({ productId });
+  const feature = useRestful<Feature>(FEATURES_API);
+  const { data: moduleData } = module.useQuery({ productId });
+  const { data: featureData } = feature.useQuery({ productId });
 
   const createModule = useFormDrawer(CreateModuleFDC, module, {
     title: '创建&编辑 模块',
     width: 300,
   });
 
-  const createFeature = useFormDrawer(CreateFeatureFDC, module, {
+  const createFeature = useFormDrawer(CreateFeatureFDC, feature, {
     title: '创建&编辑 功能',
     width: 300,
   });
@@ -45,6 +47,10 @@ const OperationProductDC = (props: IOperationProductDCProps) => {
     });
   };
 
+  const handleEditFeature = (record: Feature) => {
+    createFeature.edit(record);
+  };
+
   return (
     <div>
       <Button
@@ -59,11 +65,11 @@ const OperationProductDC = (props: IOperationProductDCProps) => {
         className={cx('module-list')}
         style={{ marginBottom: 24 }}
         bordered={false}
-        loading={!data}
+        loading={!moduleData}
         bodyStyle={{ padding: 0 }}
       >
-        {data &&
-          data.records.map(item => (
+        {moduleData &&
+          moduleData.records.map(item => (
             <Card.Grid className={cx('module-item')} key={item.id}>
               <div className={cx('logo')}></div>
               <div className={cx('left')}>
@@ -87,10 +93,10 @@ const OperationProductDC = (props: IOperationProductDCProps) => {
       </Button>
 
       <div className={cx('feature-list')}>
-        {data &&
-          data.records.map(item => (
+        {featureData &&
+          featureData.records.map(item => (
             <Card.Grid className={cx('feature-item')} key={item.id}>
-              <div onClick={handleAddFeature} className={cx('left')}>
+              <div onClick={() => handleEditFeature(item)} className={cx('left')}>
                 <div className={cx('name')}>{item.name}</div>
               </div>
             </Card.Grid>

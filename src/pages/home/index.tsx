@@ -1,5 +1,5 @@
-import { Col, Dropdown, Icon, Menu, Row } from 'antd';
-import React, { Component, Suspense } from 'react';
+// import { Col, Dropdown, Icon, Menu, Row } from 'antd';
+import React, { Suspense } from 'react';
 
 // import { Dispatch } from 'redux';
 import { GridContent } from '@ant-design/pro-layout';
@@ -11,10 +11,10 @@ import { GridContent } from '@ant-design/pro-layout';
 // import { AnalysisData } from './data.d';
 // import styles from './style.less';
 const IntroduceRow = React.lazy(() => import('./components/IntroduceRow'));
-const SalesCard = React.lazy(() => import('./components/SalesCard'));
-const TopSearch = React.lazy(() => import('./components/TopSearch'));
-const ProportionSales = React.lazy(() => import('./components/ProportionSales'));
-const OfflineData = React.lazy(() => import('./components/OfflineData'));
+// const SalesCard = React.lazy(() => import('./components/SalesCard'));
+// const TopSearch = React.lazy(() => import('./components/TopSearch'));
+// const ProportionSales = React.lazy(() => import('./components/ProportionSales'));
+// const OfflineData = React.lazy(() => import('./components/OfflineData'));
 
 // interface IndexProps {
 //   homeAndindex: AnalysisData;
@@ -120,14 +120,13 @@ const OfflineData = React.lazy(() => import('./components/OfflineData'));
 //   }
 // }
 
-const Index = props => {
-  return (
-    <GridContent>
-      <React.Fragment>
-        <Suspense fallback={<div />}>
-          <IntroduceRow loading={false}></IntroduceRow>
-        </Suspense> 
-        {/*         
+const Index = () => (
+  <GridContent>
+    <React.Fragment>
+      <Suspense fallback={<div />}>
+        <IntroduceRow loading={false}></IntroduceRow>
+      </Suspense>
+      {/*
         <Suspense fallback={null}>
           <SalesCard
             rangePickerValue={rangePickerValue}
@@ -177,9 +176,8 @@ const Index = props => {
           />
         </Suspense>
        */}
-      </React.Fragment>
-    </GridContent>
-  );
-};
+    </React.Fragment>
+  </GridContent>
+);
 
 export default Index;
