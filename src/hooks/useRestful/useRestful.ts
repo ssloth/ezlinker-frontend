@@ -55,8 +55,8 @@ const useResuful = <Resource>(url: string): IUseResuful<Resource> => {
     return useSwr<ITableList<Resource>>(`${url}?${local.params}`, request, {
       onErrorRetry: (error, key, option, revalidate, { retryCount }) => {
         if (!retryCount) return;
-        if (retryCount >= 10) return;
-        if (error.status === 404) return;
+        if (retryCount >= 3) return;
+        if (error && error.status === 404) return;
 
         // retry after 5 seconds
         setTimeout(() => revalidate({ retryCount: retryCount + 1 }), 5000);
