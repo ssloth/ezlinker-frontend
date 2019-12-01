@@ -48,3 +48,15 @@
     visibility: hidden;
   }
 }
+
+.add-border(@color:#acc,@size:20px,@weight:1px) {
+  background: linear-gradient(to left, @color, @color) left top no-repeat,
+    linear-gradient(to bottom, @color, @color) left top no-repeat,
+    linear-gradient(to left, @color, @color) right top no-repeat,
+    linear-gradient(to bottom, @color, @color) right top no-repeat,
+    linear-gradient(to left, @color, @color) left bottom no-repeat,
+    linear-gradient(to bottom, @color, @color) left bottom no-repeat,
+    linear-gradient(to left, @color, @color) right bottom no-repeat,
+    linear-gradient(to left, @color, @color) right bottom no-repeat;
+  background-size: @weight @size, @size @weight, @weight @size, @size @weight;
+}

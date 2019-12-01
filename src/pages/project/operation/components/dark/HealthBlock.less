@@ -1,0 +1,40 @@
+@import '~@/styles/utils.less';
+
+.health-block {
+  .unit {
+    position: relative;
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    margin: 1px 3px;
+    font-size: 0;
+    background: rgb(0, 201, 159);
+
+    // .add-border(rgba(100, 150, 200, 0.5), 5px);
+
+    // &::before {
+    //   content: '';
+    //   position: absolute;
+    //   display: block;
+    //   width: 99%;
+    //   height: 99%;
+    //   z-index: 1;
+    // }
+
+    &.normal {
+      background: rgb(0, 180, 140);
+    }
+
+    &.error {
+      background: rgb(200, 0, 100);
+    }
+
+    &.warning {
+      background: rgb(180, 140, 0);
+    }
+
+    &.down {
+      background: rgb(50, 60, 70);
+    }
+  }
+}
