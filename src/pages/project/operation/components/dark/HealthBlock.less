@@ -4,11 +4,13 @@
   .unit {
     position: relative;
     display: inline-block;
-    width: 15px;
-    height: 15px;
+    width: 18px;
+    height: 18px;
     margin: 1px 3px;
     font-size: 0;
     background: rgb(0, 201, 159);
+    border-radius: 2px;
+    transition: all 0.1s;
 
     // .add-border(rgba(100, 150, 200, 0.5), 5px);
 
@@ -23,18 +25,32 @@
 
     &.normal {
       background: rgb(0, 180, 140);
+
+      &:hover {
+        box-shadow: 0 0 5px rgb(100, 180, 140), 0 0 10px rgba(255, 255, 255, 0.75) inset;
+      }
     }
 
+    
     &.error {
       background: rgb(200, 0, 100);
+      &:hover {
+        box-shadow: 0 0 5px rgb(200, 100, 150), 0 0 10px rgba(255, 255, 255, 0.75) inset;
+      }
     }
 
     &.warning {
-      background: rgb(180, 140, 0);
+      background: rgb(200, 150, 0);
+      &:hover {
+        box-shadow: 0 0 5px rgb(200, 150, 100), 0 0 10px rgba(255, 255, 255, 0.75) inset;
+      }
     }
 
     &.down {
       background: rgb(50, 60, 70);
+      &:hover {
+        box-shadow: 0 0 5px rgb(70, 60, 50), 0 0 10px rgba(255, 255, 255, 0.5) inset;
+      }
     }
   }
 }

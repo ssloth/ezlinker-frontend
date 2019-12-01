@@ -5,12 +5,16 @@ import styles from './HealthBlock.less';
 const cx = classNames.bind(styles);
 const Unit = ({ state }: { state: 'normal' | 'warning' | 'error' | 'down' }) => (
   <div
-    title={{ error: '设备异常掉线！', warning: '数据异常' }[state]}
+    title={
+      { error: '设备异常掉线！', warning: '数据异常', down: '设备已断开', normal: '设备运行良好' }[
+        state
+      ]
+    }
     className={cx('unit', state)}
   ></div>
 );
 
-const data = Array.from({ length: 100 }).map(() => ({ status: 1 }));
+const data = Array.from({ length: 99 }).map(() => ({ status: 1 }));
 const getState = () => {
   const r = Math.random();
   if (r < 0.03) return 'down';

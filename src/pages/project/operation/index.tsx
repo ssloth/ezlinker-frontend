@@ -30,7 +30,7 @@ const Operation = () => (
     <Row gutter={24}>
       <Col lg={16} md={16} xs={24}>
         <h2 style={{ color: 'rgb(210, 220, 230)', fontSize: 15 }}>设备健康监控</h2>
-        <Row>
+        <Row gutter={3}> 
           <Col xs={6}>
             <HealthBlock></HealthBlock>
           </Col>
