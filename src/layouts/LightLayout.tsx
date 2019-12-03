@@ -2,7 +2,7 @@ import React from 'react';
 import { Layout, Breadcrumb } from 'antd';
 import classNames from 'classnames/bind';
 import RightContent from '@/components/GlobalHeader/RightContent';
-import styles from './BasicLayout.less';
+import styles from './LightLayout.less';
 
 const cx = classNames.bind(styles);
 

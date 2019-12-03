@@ -1,6 +1,6 @@
 import { IConfig, IPlugin } from 'umi-types';
 import defaultSettings from './defaultSettings'; // https://umijs.org/config/
-
+import darkTheme from './theme/dark';
 import slash from 'slash2';
 import webpackPlugin from './plugin.config';
 import routes from './routes';
@@ -92,6 +92,7 @@ export default {
   ignoreMomentLocale: true,
   lessLoaderOptions: {
     javascriptEnabled: true,
+    modifyVars: darkTheme,
   },
   disableRedirectHoist: true,
   cssLoaderOptions: {
