@@ -111,7 +111,7 @@ class Radar extends Component<RadarProps, RadarState> {
 
   render() {
     const defaultColors = [
-      '#1890FF',
+      '#2a314e',
       '#FACC14',
       '#2FC25B',
       '#8543E0',
