@@ -1,12 +1,14 @@
 import classNames from 'classnames/bind';
 import React, { useState } from 'react';
+import RightContent from '@/components/GlobalHeader/RightContent';
+import styles from './BasicLayout.less';
+import { ConnectProps } from '@/models/connect';
 import { getMenuData } from '@ant-design/pro-layout';
 import { Icon, Layout } from 'antd';
 import { Link } from 'umi';
-import styles from './BasicLayout.less';
-import { ConnectProps } from '@/models/connect';
-
 const cx = classNames.bind(styles);
+
+const { Header, Content, Footer } = Layout;
 
 const { Sider } = Layout;
 
@@ -16,7 +18,6 @@ const isActive = (activePath: string, pathname: string) =>
 const BasicLayout: React.SFC<ConnectProps> = props => {
   const [collapsed, setCollapsed] = useState(true);
   const {
-    children,
     location,
     route = {
       routes: [],
@@ -63,7 +64,18 @@ const BasicLayout: React.SFC<ConnectProps> = props => {
             </div>
           </div>
         </Sider>
-        {children}
+        <Layout>
+          <Header className={cx('header')}>
+            {/* <Breadcrumb className={cx('breadcrumb')}>
+              <Breadcrumb.Item>首页</Breadcrumb.Item>
+              <Breadcrumb.Item>项目</Breadcrumb.Item>
+              <Breadcrumb.Item>开发模式</Breadcrumb.Item>
+            </Breadcrumb> */}
+            <RightContent></RightContent>
+          </Header>
+          <Content className={cx('content')}>{props.children}</Content>
+          <Footer className={cx('footer')}></Footer>
+        </Layout>
       </Layout>
     </div>
   );

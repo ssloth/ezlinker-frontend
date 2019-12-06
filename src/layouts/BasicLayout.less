@@ -1,6 +1,6 @@
 @import '~antd/es/style/themes/default.less';
 
-@active-color: ~'#ffffff';
+@active-color: ~'#a9a3ca';
 
 .wrapper {
   display: flex;
@@ -12,8 +12,7 @@
     height: 100vh;
     color: #fff;
     text-align: center;
-    background: #222831;
-    box-shadow: 0 0 10px #222831;
+    background: @dark-bg-1;
 
     .menu-bar {
       // position: absolute;
@@ -37,7 +36,7 @@
 
       &.active {
         position: relative;
-        background: #252c36;
+        background: @dark-bg-1;
         &::after {
           position: absolute;
           top: 0;
@@ -60,7 +59,7 @@
 
   .sub-menu-bar {
     position: relative;
-    background: #393e46;
+    background: @dark-bg-2;
 
     .navbar-collapse-wrapper {
       position: absolute;
@@ -82,7 +81,7 @@
           bottom: 0;
           left: 0;
           z-index: -1;
-          background: #ccc;
+          background: @dark-bg-4;
           border-radius: 3px;
           transform: perspective(0.5em) rotateY(5deg);
           transition: all 0.3s;
@@ -95,7 +94,7 @@
           }
 
           &::before {
-            background: #999;
+            background: @dark-bg-5;
             transition: all 0.3s;
           }
         }
@@ -115,8 +114,8 @@
     z-index: 1;
     display: flex;
     height: 60px;
-    background: #fff;
-    box-shadow: 0 0 10px #1111;
+    background: @dark-bg-3;
+    box-shadow: 0 0 2px @dark-bg-5;
 
     .breadcrumb {
       width: 365px;

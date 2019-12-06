@@ -6,7 +6,6 @@ export default {
     {
       path: './:id/develop',
       name: '开发模式',
-      component: '../layouts/LightLayout',
       hideInMenu: true,
       routes: [
         {
@@ -18,7 +17,6 @@ export default {
     {
       path: './:id/operation',
       hideInMenu: true,
-      component: '../layouts/DarkLayout',
       routes: [
         {
           path: './',
@@ -34,7 +32,6 @@ export default {
     },
     {
       path: './',
-      component: '../layouts/LightLayout',
       routes: [
         {
           path: './',

@@ -23,25 +23,14 @@ export default [
         path: '/',
         component: '../layouts/BasicLayout',
         routes: [
-          {
-            path: '/',
-            redirect: '/home',
-          },
+          { path: '/', redirect: '/home' },
           { ...home },
           { ...projects },
           { ...user },
           { ...setting },
-          {
-            component: './404',
-          },
+          { component: './404' },
         ],
       },
-      {
-        component: './404',
-      },
     ],
-  },
-  {
-    component: './404',
   },
 ];
