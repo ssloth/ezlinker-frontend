@@ -22,13 +22,13 @@ const OperationProductDC = (props: IOperationProductDCProps) => {
   const { data: featureData } = feature.useSWRQuery({ productId });
 
   const createModule = useFormDrawer(CreateModuleFDC, module, {
-    title: '创建&编辑 模块',
-    width: 300,
+    title: '模块',
+    width: 420,
   });
 
   const createFeature = useFormDrawer(CreateFeatureFDC, feature, {
-    title: '创建&编辑 功能',
-    width: 300,
+    title: '功能',
+    width: 575,
   });
 
   const handleAddModule = () => {

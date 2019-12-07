@@ -59,6 +59,18 @@ const CreateModuleDFC = (props: IFormDrawerContentProps) => {
         )}
       </FormItem>
       <Divider orientation="left">绑定功能</Divider>
+      <FormItem label="功能" {...formLayout}>
+        {getFieldDecorator('type', {
+          initialValue: current.type,
+          rules: [{ required: true, message: '请选择设备类型' }],
+        })(
+          <Select style={{ width: '100%' }} placeholder="请选择绑定的功能">
+            <Option key={1} value={1}>
+              通用
+            </Option>
+          </Select>,
+        )}
+      </FormItem>
     </div>
   );
 };

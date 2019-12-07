@@ -43,7 +43,7 @@ const Develop: React.FC<DevelopProps> = props => {
   });
 
   const operationProductDC = useDrawer(OperationProductDC, {
-    width: 365,
+    width: 420,
   });
 
   const { data, error } = product.useSWRQuery({ projectId });

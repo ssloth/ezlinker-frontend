@@ -14,7 +14,7 @@ export default {
   '@disabled-color': 'fade(@light, 25)',
   '@primary-5': '#40a9ff',
   '@primary-6': '#096dd9',
-  '@primary-color': '#2a314e',
+  '@primary-color': '#689ac8',
   '@outline-color': '@primary-color',
   '@icon-color': 'fade(@light, 65)',
   '@icon-color-hover': 'fade(@light, 85)',
