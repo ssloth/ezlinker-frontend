@@ -1,40 +1,28 @@
-import React, { useState } from 'react';
-import Table, { TableProps, PaginationConfig } from 'antd/lib/table';
-import { ParsedUrlQueryInput } from 'querystring';
+import { useAntdTable } from '@umijs/hooks';
 import { IUseResuful } from '../useRestful/useRestful';
-import { ITableListItem } from '@/typings/server';
 
-const paginationInitial = {
-  current: 1,
-  pageSize: 10,
-  showQuickJumper: true,
-  showTotal: (total: number) => <span>共 {total} 条</span>,
-};
+function useTable<Resource>(resource: IUseResuful<any>, deps: any[] = [], options = {}) {
+  const params = deps;
+  const result = useAntdTable<any, any>(() => resource.query({ ...params }), [...deps], {
+    formatResult: res => ({
+      total: res.data.pagination.total,
+      data: res.data.list,
+    }),
+    ...options,
+  });
 
-function useTable<Resource>(
-  columns: Array<Object>,
-  resource: IUseResuful<any>,
-  params: ParsedUrlQueryInput,
-  options: any,
-) {
-  const [pagination, setPagination] = useState<PaginationConfig>(paginationInitial);
-  const { data, error } = resource.useQuery(params);
-  const loading: boolean = !!data || !!error;
-
-  const handleTableChange: TableProps<Resource>['onChange'] = paginationRet => {
-    setPagination(paginationRet);
+  const pagination = {
+    showQuickJumper: true,
+    showSizeChanger: true,
+    hideOnSinglePage: true,
+    showTotal: (total: number) => `共 ${total} 条`,
   };
 
-  return (
-    <Table
-      columns={columns}
-      loading={loading}
-      dataSource={data && data.records}
-      rowKey={(record: ITableListItem) => record.id}
-      pagination={pagination}
-      onChange={handleTableChange}
-      {...options}
-    />
-  );
+  result.tableProps.pagination = {
+    ...result.tableProps.pagination,
+    ...pagination,
+  };
+
+  return result;
 }
 export default useTable;

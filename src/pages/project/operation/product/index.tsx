@@ -7,7 +7,7 @@ import styles from './style.less';
 /* eslint react/no-multi-comp:0 */
 const ProductTableList = () => {
   const result = useRestful<any>('/api/project/notice');
-  const { data, error } = result.useQuery();
+  const { data, error } = result.useSWRQuery();
 
   return (
     <PageHeaderWrapper>

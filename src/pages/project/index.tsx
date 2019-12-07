@@ -12,7 +12,7 @@ const { Paragraph } = Typography;
 
 export default (): React.ReactNode => {
   const peojectResource = useRestful<Project>(PROJECT_API);
-  const { data } = peojectResource.useQuery();
+  const { data } = peojectResource.useSWRQuery();
   // const error = null;
   // const tablelist = ({ records: [] } as any) as ITableList;
 

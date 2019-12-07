@@ -1,11 +1,12 @@
 import classNames from 'classnames/bind';
 import React, { useState } from 'react';
-import RightContent from '@/components/GlobalHeader/RightContent';
-import styles from './BasicLayout.less';
-import { ConnectProps } from '@/models/connect';
 import { getMenuData } from '@ant-design/pro-layout';
 import { Icon, Layout } from 'antd';
 import { Link } from 'umi';
+import RightContent from '@/components/GlobalHeader/RightContent';
+import styles from './BasicLayout.less';
+import { ConnectProps } from '@/models/connect';
+
 const cx = classNames.bind(styles);
 
 const { Header, Content, Footer } = Layout;

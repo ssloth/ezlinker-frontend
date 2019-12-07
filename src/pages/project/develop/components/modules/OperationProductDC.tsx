@@ -18,8 +18,8 @@ const OperationProductDC = (props: IOperationProductDCProps) => {
   const { productId } = props;
   const module = useRestful<Module>(MODULES_API);
   const feature = useRestful<Feature>(FEATURES_API);
-  const { data: moduleData } = module.useQuery({ productId });
-  const { data: featureData } = feature.useQuery({ productId });
+  const { data: moduleData } = module.useSWRQuery({ productId });
+  const { data: featureData } = feature.useSWRQuery({ productId });
 
   const createModule = useFormDrawer(CreateModuleFDC, module, {
     title: '创建&编辑 模块',

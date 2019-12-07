@@ -46,7 +46,7 @@ const Develop: React.FC<DevelopProps> = props => {
     width: 365,
   });
 
-  const { data, error } = product.useQuery({ projectId });
+  const { data, error } = product.useSWRQuery({ projectId });
   const list = data as ITableList<Product>;
 
   const handleAdd = () => {

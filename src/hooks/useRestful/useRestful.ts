@@ -9,21 +9,27 @@ export type ResourceParams = ParsedUrlQueryInput;
 export type ICreateResult = Promise<IServerResult>;
 export type IRemoveResult = Promise<IServerResult>;
 export type IUpdateResult = Promise<IServerResult>;
-export type IUseQueryResult<Resource> = responseInterface<ITableList<Resource>, Error>;
-export type IUseFindResult<Resource> = responseInterface<IServerResult<Resource>, Error>;
+export type IQueryResult<Resource> = Promise<IServerResult<Resource[]>>;
+export type IFindResult<Resource> = Promise<IServerResult<Resource>>;
+export type IUseSWRQueryResult<Resource> = responseInterface<ITableList<Resource>, Error>;
+export type IUseSWRFindResult<Resource> = responseInterface<IServerResult<Resource>, Error>;
 
 /** function */
 export type ICreate<Resource> = (data: Resource) => ICreateResult;
 export type IRemove = (id: ResourceId) => IRemoveResult;
 export type IUpdate<Resource> = (id: ResourceId, resource: Resource) => IUpdateResult;
-export type IUseQuery<Resource> = (params?: ResourceParams) => IUseQueryResult<Resource>;
-export type IUseFind<Resource> = (id: ResourceId) => IUseFindResult<Resource>;
+export type IQuery<Resource> = (params?: ResourceParams) => IQueryResult<Resource>;
+export type IFind<Resource> = (id: ResourceId) => IFindResult<Resource>;
+export type IUseSWRQuery<Resource> = (params?: ResourceParams) => IUseSWRQueryResult<Resource>;
+export type IUseSWRFind<Resource> = (id: ResourceId) => IUseSWRFindResult<Resource>;
 export interface IUseResuful<Resource> {
   create: ICreate<Resource>;
   remove: IRemove;
   update: IUpdate<Resource>;
-  useQuery: IUseQuery<Resource>;
-  useFind: IUseFind<Resource>;
+  query: IQuery<Resource>;
+  find: IFind<Resource>;
+  useSWRQuery: IUseSWRQuery<Resource>;
+  useSWRFind: IUseSWRFind<Resource>;
   trigger: (type: 'query' | 'find') => void;
   mutate: any;
   URL: string;
@@ -50,12 +56,16 @@ const useResuful = <Resource>(url: string): IUseResuful<Resource> => {
       data: resource,
     });
 
-  const useQuery = (params?: ResourceParams): IUseQueryResult<Resource> => {
+  const query = (params?: ResourceParams): IQueryResult<Resource> => request.get(url, params);
+
+  const find = (id: ResourceId): IFindResult<Resource> => request.get(`${url}/${id}`);
+
+  const useSWRQuery = (params?: ResourceParams): IUseSWRQueryResult<Resource> => {
     local.params = stringify({ ...pagination, ...params });
     return useSwr<ITableList<Resource>>(`${url}?${local.params}`, request, {
       onErrorRetry: (error, key, option, revalidate, { retryCount }) => {
         if (!retryCount) return;
-        if (retryCount >= 3) return;
+        if (retryCount >= 2) return;
         if (error && error.status === 404) return;
 
         // retry after 5 seconds
@@ -64,12 +74,12 @@ const useResuful = <Resource>(url: string): IUseResuful<Resource> => {
     });
   };
 
-  const useFind = (id: ResourceId): IUseFindResult<Resource> => {
+  const useSWRFind = (id: ResourceId): IUseSWRFindResult<Resource> => {
     local.id = id as string;
     return useSwr<IServerResult<Resource>>(`${url}/${id}`, request, {
       onErrorRetry: (error, key, option, revalidate, { retryCount }) => {
         if (!retryCount) return;
-        if (retryCount >= 10) return;
+        if (retryCount >= 2) return;
         if (error.status === 404) return;
 
         // retry after 5 seconds
@@ -98,8 +108,10 @@ const useResuful = <Resource>(url: string): IUseResuful<Resource> => {
     create,
     remove,
     update,
-    useQuery,
-    useFind,
+    query,
+    find,
+    useSWRQuery,
+    useSWRFind,
     trigger,
     mutate,
     URL,

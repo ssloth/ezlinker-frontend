@@ -1,12 +1,13 @@
 export default {
   '@light': '#fff',
   '@dark': '#101425',
-  '@dark-bg-default':'#101425',
-  '@dark-bg-1':'#101425', //
-  '@dark-bg-2':'#101425',
-  '@dark-bg-3':'#181d31',
-  '@dark-bg-4':'#333344',
-  '@dark-bg-5':'#444455',
+  '@dark-bg-default': '#101425',
+  '@dark-bg-0': '#101425', //
+  '@dark-bg-1': '#313244', //
+  '@dark-bg-2': '#36374B',
+  '@dark-bg-3': '#51526E',
+  '@dark-bg-4': '#333344',
+  '@dark-bg-5': '#585769',
   '@heading-color': 'fade(@light, 85)',
   '@text-color': 'fade(@light, 65)',
   '@text-color-secondary': 'fade(@light, 45)',
@@ -44,7 +45,7 @@ export default {
   '@success-color': '#00a854',
   '@info-color': '@primary-color',
   '@warning-color': '#ffbf00',
-  '@error-color': '#f04134',
+  '@error-color': '#e83e35',
   '@menu-bg': '@dark-bg-2',
   '@menu-item-active-bg': 'fade(@light, 5)',
   '@menu-highlight-color': '@light',
@@ -94,4 +95,5 @@ export default {
   '@skeleton-color': 'rgba(0,0,0,0.8)',
   // pro
   '@pro-header-box-shadow': '@site-header-box-shadow',
+  '@border-radius-sm': '5px',
 };
