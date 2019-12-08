@@ -5,18 +5,18 @@ interface IPagination {
   current: number;
 }
 
-export interface IConfigInterface {
+export interface IConfig {
   pagination: IPagination;
 }
 
-export const defaultConfig: IConfigInterface = {
+export const defaultConfig: IConfig = {
   pagination: {
     size: 10,
     current: 0,
   },
 };
 
-const UseRestfulConfigContext = createContext<IConfigInterface>(defaultConfig);
+const UseRestfulConfigContext = createContext<IConfig>(defaultConfig);
 UseRestfulConfigContext.displayName = 'RestfulConfigContext';
 
 export default UseRestfulConfigContext;

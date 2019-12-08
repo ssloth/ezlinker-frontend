@@ -1,13 +1,14 @@
 import React from 'react';
 import { Form, Input, Select } from 'antd';
 import { IFormModalContentProps } from '@/hooks/usePopup/type';
+import TableCloumnsDesign from '@/pages/project/components/TableCloumnsDesign';
 
 const FormItem = Form.Item;
 const { Option } = Select;
 
 const formLayout = {
-  labelCol: { span: 6 },
-  wrapperCol: { span: 15 },
+  labelCol: { span: 3 },
+  wrapperCol: { span: 21 },
 };
 
 const CreateProductFMC = (props: IFormModalContentProps) => {
@@ -56,9 +57,7 @@ const CreateProductFMC = (props: IFormModalContentProps) => {
         )}
       </FormItem>
       <FormItem label="属性" {...formLayout}>
-        {getFieldDecorator('paramMap', {
-          initialValue: current.paramMap,
-        })(<Input placeholder="请添加" />)}
+        <TableCloumnsDesign form={form} field="parameters" current={current.parameters} />
       </FormItem>
     </>
   );

@@ -3,21 +3,21 @@ import { Form, Select, Input, Divider } from 'antd';
 import classNames from 'classnames/bind';
 import { IFormDrawerContentProps } from '@/hooks/usePopup/type';
 import styles from './CreateModuleFDC.less';
+import TableCloumnsDesign from '@/pages/project/components/TableCloumnsDesign';
 
 const cx = classNames.bind(styles);
 const FormItem = Form.Item;
 const { Option } = Select;
 
 const formLayout = {
-  labelCol: { span: 5 },
-  wrapperCol: { span: 18 },
+  labelCol: { span: 3 },
+  wrapperCol: { span: 21 },
 };
 
 const CreateModuleDFC = (props: IFormDrawerContentProps) => {
-  const {
-    form: { getFieldDecorator },
-    current,
-  } = props;
+  const { form, current } = props;
+
+  const { getFieldDecorator } = form;
 
   return (
     <div className={cx('wrapper')}>
@@ -58,7 +58,12 @@ const CreateModuleDFC = (props: IFormDrawerContentProps) => {
           </Select>,
         )}
       </FormItem>
-      <Divider orientation="left">绑定功能</Divider>
+      <FormItem label="属性" {...formLayout}>
+        <TableCloumnsDesign form={form} field="dataAreas" current={current.dataAreas} />
+      </FormItem>
+      <Divider style={{ marginTop: 20 }} orientation="left">
+        绑定功能
+      </Divider>
       <FormItem label="功能" {...formLayout}>
         {getFieldDecorator('type', {
           initialValue: current.type,

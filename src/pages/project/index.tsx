@@ -44,8 +44,8 @@ export default (): React.ReactNode => {
                     hoverable
                     className={styles.card}
                     actions={[
-                      <Link to="/project/1/operation">运维</Link>,
-                      <Link to="/project/1/develop">开发</Link>,
+                      <Link to={`/project/${item.id}/operation`}>运维</Link>,
+                      <Link to={`/project/${item.id}/develop`}>开发</Link>,
                       <a onClick={() => handleEditProject(item)}>操作</a>,
                     ]}
                   >
@@ -65,7 +65,7 @@ export default (): React.ReactNode => {
             return (
               <List.Item>
                 <Button onClick={handleAddProject} type="dashed" className={styles.newButton}>
-                  <Icon type="plus" /> 新增产品
+                  <Icon type="plus" /> 新增项目
                 </Button>
               </List.Item>
             );

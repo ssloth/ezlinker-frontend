@@ -35,9 +35,9 @@ export interface IUseResuful<Resource> {
   URL: string;
 }
 
-const useResuful = <Resource>(url: string): IUseResuful<Resource> => {
+const useResuful = <Resource>(url: string, config: any = {}): IUseResuful<Resource> => {
   const { pagination } = defaultConfig;
-
+  const { defaultParams = {} } = config;
   const URL = url;
   const local = {
     params: '',
@@ -56,12 +56,13 @@ const useResuful = <Resource>(url: string): IUseResuful<Resource> => {
       data: resource,
     });
 
-  const query = (params?: ResourceParams): IQueryResult<Resource> => request.get(url, params);
+  const query = (params?: ResourceParams): IQueryResult<Resource> =>
+    request.get(url, { params: { ...params, ...pagination, ...defaultParams } });
 
   const find = (id: ResourceId): IFindResult<Resource> => request.get(`${url}/${id}`);
 
   const useSWRQuery = (params?: ResourceParams): IUseSWRQueryResult<Resource> => {
-    local.params = stringify({ ...pagination, ...params });
+    local.params = stringify({ ...pagination, ...params, ...defaultParams });
     return useSwr<ITableList<Resource>>(`${url}?${local.params}`, request, {
       onErrorRetry: (error, key, option, revalidate, { retryCount }) => {
         if (!retryCount) return;

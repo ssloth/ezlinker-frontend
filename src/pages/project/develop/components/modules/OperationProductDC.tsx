@@ -23,7 +23,7 @@ const OperationProductDC = (props: IOperationProductDCProps) => {
 
   const createModule = useFormDrawer(CreateModuleFDC, module, {
     title: '模块',
-    width: 420,
+    width: 575,
   });
 
   const createFeature = useFormDrawer(CreateFeatureFDC, feature, {
