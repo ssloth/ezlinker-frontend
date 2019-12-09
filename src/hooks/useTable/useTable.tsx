@@ -1,12 +1,11 @@
 import { useAntdTable } from '@umijs/hooks';
 import { IUseResuful } from '../useRestful/useRestful';
 
-function useTable<Resource>(resource: IUseResuful<any>, deps: any[] = [], options = {}) {
-  const params = deps;
-  const result = useAntdTable<any, any>(() => resource.query({ ...params }), [...deps], {
+function useTable<Resource>(resource: IUseResuful<any>, params: any, options = {}) {
+  const result = useAntdTable<any, any>(() => resource.query({ ...params }), Object.keys(params), {
     formatResult: res => ({
-      total: res.data.pagination.total,
-      data: res.data.list,
+      total: res.total,
+      data: res.records,
     }),
     ...options,
   });

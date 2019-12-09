@@ -2,6 +2,8 @@ import React from 'react';
 import { Form, Input, Select } from 'antd';
 import { IFormModalContentProps } from '@/hooks/usePopup/type';
 import TableCloumnsDesign from '@/pages/project/components/TableCloumnsDesign';
+import { enums2Options } from '@/enums/utils';
+import { PRODUCT_TYPE } from '@/enums/product';
 
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -13,15 +15,19 @@ const formLayout = {
 
 const CreateProductFMC = (props: IFormModalContentProps) => {
   const { form, current = {} } = props;
-  const tags: any[] = [];
-  const types: any[] = [];
   const { getFieldDecorator } = form;
+  const tags:[] = []
   return (
     <>
       <FormItem label="名称" {...formLayout}>
         {getFieldDecorator('name', {
           rules: [{ required: true, message: '请输入产品名称' }],
           initialValue: current.name,
+        })(<Input placeholder="请输入" />)}
+      </FormItem>
+      <FormItem label="图标" {...formLayout}>
+        {getFieldDecorator('logo', {
+          initialValue: current.logo,
         })(<Input placeholder="请输入" />)}
       </FormItem>
       <FormItem label="描述" {...formLayout}>
@@ -48,11 +54,7 @@ const CreateProductFMC = (props: IFormModalContentProps) => {
           initialValue: current.type,
         })(
           <Select style={{ width: '100%' }} placeholder="请选择产品类型">
-            {types.map((item: any) => (
-              <Option key={item.id} value={item.id}>
-                {item}
-              </Option>
-            ))}
+            {enums2Options(PRODUCT_TYPE)}
           </Select>,
         )}
       </FormItem>

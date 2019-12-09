@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Card, Col, Form, Input, Radio, Row, List, Avatar } from 'antd';
 import { FormComponentProps } from 'antd/es/form';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
+import { get } from 'lodash';
 import { useFormModal, useRestful, useDrawer } from '@/hooks';
 import { CreateProductFMC, OperationProductDC } from './components/modules';
 import { ConnectProps } from '@/models/connect';
@@ -34,8 +35,7 @@ const Info: React.FC<{
 const ListContent = () => <div className={styles.listContent}></div>;
 
 const Develop: React.FC<DevelopProps> = props => {
-  const { match } = props;
-  const projectId = (match as any).params.id;
+  const projectId = get(props, 'match.params.id')
   const product = useRestful<Product>(PRODUCTS_API);
 
   const createProductModal = useFormModal(CreateProductFMC, product, {

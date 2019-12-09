@@ -50,7 +50,6 @@ export const setToekn = (token?: string) => {
  */
 const errorHandler = (error: { response: Response }): Response => {
   // eslint-disable-next-line no-console
-  console.error('REQUEST', error);
   const { response } = error;
   if (response && response.status) {
     const errorText = codeMessage[response.status] || response.statusText;
@@ -98,10 +97,12 @@ request.interceptors.response.use(async (response: any) => {
       window.location.href = '/auth/login';
     }
 
-    throw notification.error({
+    notification.error({
       message: errorMessage[code],
       description: i18nMessage,
     });
+
+    return result;
   }
 
   return data;

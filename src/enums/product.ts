@@ -5,7 +5,11 @@ export enum CMD_VALUE {
   JSON,
 }
 
-export enum TYPE {
+export enum FEATURE_TYPE {
   button,
   swtich,
+}
+
+export enum PRODUCT_TYPE {
+  通用,
 }

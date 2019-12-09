@@ -11,12 +11,12 @@ import CreateProjectFMC from './components/modules/CreateProjectFMC';
 const { Paragraph } = Typography;
 
 export default (): React.ReactNode => {
-  const peojectResource = useRestful<Project>(PROJECT_API);
-  const { data } = peojectResource.useSWRQuery();
+  const projectResource = useRestful<Project>(PROJECT_API);
+  const { data } = projectResource.useSWRQuery();
   // const error = null;
   // const tablelist = ({ records: [] } as any) as ITableList;
 
-  const createProjectModal = useFormModal(CreateProjectFMC, peojectResource, {
+  const createProjectModal = useFormModal(CreateProjectFMC, projectResource, {
     title: '创建产品',
   });
 
@@ -45,6 +45,7 @@ export default (): React.ReactNode => {
                     className={styles.card}
                     actions={[
                       <Link to={`/project/${item.id}/operation`}>运维</Link>,
+                      <Link to={`/project/${item.id}/manage`}>管理</Link>,
                       <Link to={`/project/${item.id}/develop`}>开发</Link>,
                       <a onClick={() => handleEditProject(item)}>操作</a>,
                     ]}
