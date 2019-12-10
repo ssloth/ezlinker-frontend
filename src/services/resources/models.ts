@@ -50,4 +50,4 @@ export interface Module extends Base {
   dataArea: string;
 }
 
-export interface Device extends Base {}
+export interface Device extends Product {}

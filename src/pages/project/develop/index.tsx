@@ -35,7 +35,7 @@ const Info: React.FC<{
 const ListContent = () => <div className={styles.listContent}></div>;
 
 const Develop: React.FC<DevelopProps> = props => {
-  const projectId = get(props, 'match.params.id')
+  const projectId = get(props, 'match.params.id');
   const product = useRestful<Product>(PRODUCTS_API);
 
   const createProductModal = useFormModal(CreateProductFMC, product, {

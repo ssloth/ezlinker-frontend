@@ -16,7 +16,7 @@ const formLayout = {
 const CreateProductFMC = (props: IFormModalContentProps) => {
   const { form, current = {} } = props;
   const { getFieldDecorator } = form;
-  const tags:[] = []
+  const tags: [] = [];
   return (
     <>
       <FormItem label="名称" {...formLayout}>

@@ -45,7 +45,7 @@ export default (): React.ReactNode => {
                     className={styles.card}
                     actions={[
                       <Link to={`/project/${item.id}/operation`}>运维</Link>,
-                      <Link to={`/project/${item.id}/manage`}>管理</Link>,
+                      <Link to={`/project/${item.id}/device`}>管理</Link>,
                       <Link to={`/project/${item.id}/develop`}>开发</Link>,
                       <a onClick={() => handleEditProject(item)}>操作</a>,
                     ]}

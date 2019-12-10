@@ -27,16 +27,17 @@ export default {
           component: './project/operation/product',
         },
         {
-          path: './manage',
-          name: '管理模式',
-          component: './project/manage/Layout',
-          routes:[
+          path: './device',
+          name: '设备管理',
+          component: './project/device/Layout',
+          routes: [
             {
               path: './:productId',
               name: '设备管理',
-              component: './project/manage',
+              component: './project/device',
             },
-          ]
+            { component: './404' },
+          ],
         },
       ],
     },
