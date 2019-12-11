@@ -71,6 +71,7 @@
     "react-dom": "^16.8.6",
     "react-fittext": "^1.0.0",
     "react-helmet": "^5.2.1",
+    "react-use": "^13.12.2",
     "redux": "^4.0.1",
     "slash2": "^2.0.0",
     "swr": "^0.1.9",

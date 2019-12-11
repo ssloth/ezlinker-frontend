@@ -15,13 +15,6 @@
     background: @dark-bg-1;
     box-shadow: 0 0 10px #0008;
 
-    .menu-bar {
-      // position: absolute;
-      // top: 50%;
-      // transform: translateY(-50%);
-      // width: 100%;
-    }
-
     .menu-item {
       width: 60px;
       height: 50px;
@@ -126,6 +119,11 @@
   }
 
   .content {
+    height: 100%;
     margin: 24px 24px 0;
+
+    & > div {
+      height: 100%;
+    }
   }
 }

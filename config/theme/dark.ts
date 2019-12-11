@@ -33,7 +33,7 @@ export default {
   '@checkbox-color': '@primary-color',
   '@select-border-color': '@dark-bg-3',
   '@item-active-bg': '@dark-bg-3',
-  '@border-color-split': '@dark-bg-1',
+  '@border-color-split': '@dark-bg-4',
   '@menu-dark-bg': '@dark-bg-1',
   // '@body-background': '@dark-bg-default',
   '@body-background': '@dark-bg-3',
