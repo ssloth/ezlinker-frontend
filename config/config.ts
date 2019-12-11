@@ -133,7 +133,7 @@ export default {
 
   proxy: {
     '/api/': {
-      target: 'http://wwh-frp.wobbled.cn:8080//ezlinker',
+      target: 'http://wwh-frp.wobbled.cn:8080/ezlinker',
       changeOrigin: true,
       pathRewrite: { '^/api': '' },
     },

@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { FormComponentProps } from 'antd/lib/form';
 import { get } from 'lodash';
 import router from 'umi/router';
-import { Card } from 'antd';
+import { Card, Spin } from 'antd';
 import { useRestful } from '@/hooks';
 import { PRODUCTS_API } from '@/services/resources';
 import { Product } from '@/services/resources/models';
@@ -23,10 +23,17 @@ const DeviceLayout: React.FC<ManageProps> = props => {
     router.push(`${url}/${record}`);
   };
 
+  useEffect(() => {
+    if (productData && productData.records.length > 0) {
+      setProductId(`${productData.records[0].id}`);
+    }
+  }, [productData]);
+
   return (
     <PageHeaderWrapper
       onTabChange={handleTabChange}
       tabActiveKey={productId}
+      content={!productData && <Spin />}
       tabList={
         productData && productData.records.map(({ name, id }) => ({ tab: name, key: `${id}` }))
       }
