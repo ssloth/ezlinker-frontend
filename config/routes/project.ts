@@ -36,7 +36,7 @@ export default {
               name: '设备管理',
               component: './project/device',
             },
-            { component: './404' },
+            { component: './project/device' },
           ],
         },
       ],

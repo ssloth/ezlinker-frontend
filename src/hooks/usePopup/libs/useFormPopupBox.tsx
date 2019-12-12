@@ -171,7 +171,8 @@ const useFormPopupBox = (
     setOptions({ ...options, ...optionsRet });
   };
 
-  const create = (defaultFormValues: any = {}) => show({ defaultFormValues });
+  const create = (defaultFormValues: any = {}, optionsRet: IFormPopupBoxOption = {}) =>
+    show({ defaultFormValues }, optionsRet);
 
   const edit = (record: any, optionsRet: IFormPopupBoxOption = {}) => {
     show({ current: record }, optionsRet);

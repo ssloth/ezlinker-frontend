@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table } from 'antd';
+import { Table, Divider } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 import { get } from 'lodash';
 import { useRestful, useTable } from '@/hooks';
@@ -45,7 +45,15 @@ const DevicePage: React.FC<ManageProps> = props => {
     },
     {
       title: '操作',
-      render: (record: Device) => <a onClick={() => handleClick(record)}>操作</a>,
+      float: 'right',
+      width: 160,
+      render: (record: Device) => [
+        <a onClick={() => handleClick(record)}>编辑</a>,
+        <Divider type="vertical"></Divider>,
+        <a onClick={() => handleClick(record)}>删除</a>,
+        <Divider type="vertical"></Divider>,
+        <a onClick={() => handleClick(record)}>详情 &gt;</a>,
+      ],
     },
   ];
 

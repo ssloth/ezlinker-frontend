@@ -16,16 +16,14 @@ export default (): React.ReactNode => {
   // const error = null;
   // const tablelist = ({ records: [] } as any) as ITableList;
 
-  const createProjectModal = useFormModal(CreateProjectFMC, projectResource, {
-    title: '创建产品',
-  });
+  const createProjectModal = useFormModal(CreateProjectFMC, projectResource);
 
   const handleAddProject = () => {
-    createProjectModal.show();
+    createProjectModal.create({}, { title: '创建工程' });
   };
 
   const handleEditProject = (record: Project) => {
-    createProjectModal.edit(record);
+    createProjectModal.edit(record, { title: '编辑工程' });
   };
 
   return (
@@ -44,15 +42,23 @@ export default (): React.ReactNode => {
                     hoverable
                     className={styles.card}
                     actions={[
-                      <Link to={`/project/${item.id}/operation`}>运维</Link>,
-                      <Link to={`/project/${item.id}/device`}>管理</Link>,
-                      <Link to={`/project/${item.id}/develop`}>开发</Link>,
-                      <a onClick={() => handleEditProject(item)}>操作</a>,
+                      <Link to={`/project/${item.id}/operation`}>数据看板</Link>,
+                      <Link to={`/project/${item.id}/device`}>设备管理</Link>,
+                      <Link to={`/project/${item.id}/develop`}>产品设计</Link>,
                     ]}
                   >
                     <Card.Meta
                       avatar={<img alt="" className={styles.cardAvatar} src={item.logo} />}
-                      title={<a>{item.name}</a>}
+                      title={
+                        <div>
+                          {item.name}
+                          <Icon
+                            onClick={() => handleEditProject(item)}
+                            style={{ float: 'right' }}
+                            type="setting"
+                          ></Icon>
+                        </div>
+                      }
                       description={
                         <Paragraph className={styles.item} ellipsis={{ rows: 3 }}>
                           {item.description}

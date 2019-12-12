@@ -31,8 +31,8 @@ export interface IFormPopupBoxProps extends FormComponentProps {
 
 export interface IUseFormPopupBox {
   show: (formPopupBoxContentProps?: any, options?: any) => any;
-  create: (defaultFormValues: any) => any;
-  edit: (record: any) => any;
+  create: (defaultFormValues?: any, optionsRet?: IFormPopupBoxOption) => any;
+  edit: (defaultFormValues?: any, optionsRet?: IFormPopupBoxOption) => any;
   cancle: () => any;
   render: () => React.ReactNode;
 }

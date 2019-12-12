@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
+import { Tooltip, Icon } from 'antd';
 import { ConnectProps, ConnectState } from '@/models/connect';
 import Avatar from './AvatarDropdown';
 import styles from './index.less';
@@ -31,7 +32,7 @@ const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = props => {
         onPressEnter={value => {
           console.log('enter', value);
         }}
-      />
+      /> */}
       <Tooltip title="使用文档">
         <a
           target="_blank"
@@ -41,7 +42,7 @@ const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = props => {
         >
           <Icon type="question-circle-o" />
         </a>
-      </Tooltip> */}
+      </Tooltip>
       <Avatar />
       {/* <SelectLang className={styles.action} /> */}
     </div>
