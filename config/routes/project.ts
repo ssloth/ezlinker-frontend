@@ -29,15 +29,7 @@ export default {
         {
           path: './device',
           name: '设备管理',
-          component: './project/device/Layout',
-          routes: [
-            {
-              path: './:productId',
-              name: '设备管理',
-              component: './project/device',
-            },
-            { component: './project/device' },
-          ],
+          component: './project/device',
         },
       ],
     },
