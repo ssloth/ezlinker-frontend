@@ -1,0 +1,114 @@
+{
+  "id": "1563426",
+  "name": "EZlinker",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "282148",
+      "name": "图表 折线图&#xe602",
+      "font_class": "15",
+      "unicode": "e60d",
+      "unicode_decimal": 58893
+    },
+    {
+      "icon_id": "284387",
+      "name": "设备_插座 线性",
+      "font_class": "14",
+      "unicode": "e639",
+      "unicode_decimal": 58937
+    },
+    {
+      "icon_id": "284390",
+      "name": "设备_灯泡 ",
+      "font_class": "13",
+      "unicode": "e63c",
+      "unicode_decimal": 58940
+    },
+    {
+      "icon_id": "284412",
+      "name": "设备_烧水壶                       ",
+      "font_class": "12",
+      "unicode": "e652",
+      "unicode_decimal": 58962
+    },
+    {
+      "icon_id": "284415",
+      "name": "设备_台灯",
+      "font_class": "11",
+      "unicode": "e655",
+      "unicode_decimal": 58965
+    },
+    {
+      "icon_id": "284423",
+      "name": "设备_音响 ",
+      "font_class": "10",
+      "unicode": "e65d",
+      "unicode_decimal": 58973
+    },
+    {
+      "icon_id": "284427",
+      "name": "设备_煮蛋机",
+      "font_class": "9",
+      "unicode": "e661",
+      "unicode_decimal": 58977
+    },
+    {
+      "icon_id": "1090745",
+      "name": "设备",
+      "font_class": "8",
+      "unicode": "e69a",
+      "unicode_decimal": 59034
+    },
+    {
+      "icon_id": "1104598",
+      "name": "设备类_录像-23",
+      "font_class": "7",
+      "unicode": "ea10",
+      "unicode_decimal": 59920
+    },
+    {
+      "icon_id": "1411052",
+      "name": "6备用设备",
+      "font_class": "6",
+      "unicode": "e627",
+      "unicode_decimal": 58919
+    },
+    {
+      "icon_id": "1415516",
+      "name": "设备",
+      "font_class": "5",
+      "unicode": "e838",
+      "unicode_decimal": 59448
+    },
+    {
+      "icon_id": "6241667",
+      "name": "设备告警",
+      "font_class": "4",
+      "unicode": "e628",
+      "unicode_decimal": 58920
+    },
+    {
+      "icon_id": "7335610",
+      "name": "设备预警",
+      "font_class": "3",
+      "unicode": "eb40",
+      "unicode_decimal": 60224
+    },
+    {
+      "icon_id": "8040172",
+      "name": "ts-图标_storagedevice",
+      "font_class": "2",
+      "unicode": "e715",
+      "unicode_decimal": 59157
+    },
+    {
+      "icon_id": "8642130",
+      "name": "EMBEDDED  DEVICES",
+      "font_class": "1",
+      "unicode": "e7ef",
+      "unicode_decimal": 59375
+    }
+  ]
+}

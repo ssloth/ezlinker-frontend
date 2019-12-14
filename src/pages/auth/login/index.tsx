@@ -4,12 +4,12 @@ import { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { Dispatch, AnyAction } from 'redux';
 import { FormComponentProps } from 'antd/es/form';
 import { connect } from 'dva';
+import { Link } from 'umi';
 import { StateType } from '@/models/login';
 import LoginComponents from './components/Login';
 import styles from './style.less';
 import { LoginType } from '@/services/login';
 import { ConnectState } from '@/models/connect';
-import { Link } from 'umi';
 
 const { UserName, Password, Submit } = LoginComponents;
 interface LoginProps {
@@ -85,7 +85,7 @@ class Login extends Component<LoginProps, LoginState> {
           <div>{status === 'error' && !submitting && this.renderMessage(msg)}</div>
           <UserName
             name="username"
-            placeholder={'用户名'}
+            placeholder="用户名"
             rules={[
               {
                 required: true,
@@ -95,7 +95,7 @@ class Login extends Component<LoginProps, LoginState> {
           />
           <Password
             name="password"
-            placeholder={'密码'}
+            placeholder="密码"
             rules={[
               {
                 required: true,

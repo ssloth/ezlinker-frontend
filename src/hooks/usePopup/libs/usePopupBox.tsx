@@ -38,6 +38,7 @@ const usePopupBox = (
     <CustomPopupBox
       {...drawerProps}
       onClose={cancle}
+      onCancel={cancle}
       onOk={cancle}
       visible={visible}
       footer={[

@@ -7,6 +7,8 @@ import { PRODUCT_TYPE } from '@/enums/product';
 import { useModal } from '@/hooks';
 import SelectProductIconMC, { SelectProductIconMCProps } from './SelectProductIconMC';
 
+const IconFont = Icon.createFromIconfontCN({ scriptUrl: '/iconfont/iconfont.js' });
+
 const FormItem = Form.Item;
 const { Option } = Select;
 
@@ -18,9 +20,15 @@ const formLayout = {
 const CreateProductFMC = (props: IFormModalContentProps) => {
   const { form, current = {} } = props;
   const { getFieldDecorator } = form;
-  const selectProductIcon = useModal<SelectProductIconMCProps>(SelectProductIconMC);
+  const selectProductIcon = useModal<SelectProductIconMCProps>(SelectProductIconMC, {
+    title: '选择图标',
+  });
 
-  const productModelCallBack = () => {};
+  const productModelCallBack = (value: string) => {
+    form.setFieldsValue({
+      logo: value,
+    });
+  };
 
   return (
     <>
@@ -62,16 +70,22 @@ const CreateProductFMC = (props: IFormModalContentProps) => {
         <TableCloumnsDesign form={form} field="parameters" current={current.parameters} />
       </FormItem>
       <FormItem label="图标" {...formLayout}>
+        <Button
+          onClick={() => selectProductIcon.show({ callback: productModelCallBack })}
+          style={{ width: 100, height: 100 }}
+        >
+          {form.getFieldValue('logo') ? (
+            <IconFont
+              style={{ fontSize: 60, textAlign: 'center' }}
+              type={form.getFieldValue('logo')}
+            />
+          ) : (
+            <Icon type="plus" />
+          )}
+        </Button>
         {getFieldDecorator('logo', {
           initialValue: current.logo,
-        })(
-          <Button
-            onClick={() => selectProductIcon.show({ callback: productModelCallBack })}
-            style={{ width: 100, height: 100 }}
-          >
-            <Icon type="plus"></Icon>
-          </Button>,
-        )}
+        })(<Input style={{ display: 'none' }} />)}
       </FormItem>
     </>
   );

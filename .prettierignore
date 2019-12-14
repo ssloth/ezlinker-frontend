@@ -3,6 +3,7 @@ package.json
 .umi
 .umi-production
 /dist
+/public/iconfont
 .dockerignore
 .DS_Store
 .eslintignore

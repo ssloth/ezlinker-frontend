@@ -4,8 +4,8 @@ import { Reducer } from 'redux';
 import { queryCurrent, query as queryUsers } from '@/services/user';
 
 export interface CurrentUser {
+  realName?: string;
   avatar?: string;
-  name?: string;
   title?: string;
   group?: string;
   signature?: string;

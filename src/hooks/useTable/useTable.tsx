@@ -7,8 +7,8 @@ function useTable<Resource>(resource: IUseResuful<any>, params: any, options = {
     Object.entries(params).map(item => item[1]),
     {
       formatResult: data => ({
-        total: data.total,
-        data: data.records,
+        total: data && data.total,
+        data: data && data.records,
       }),
       ...options,
     },

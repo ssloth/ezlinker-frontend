@@ -3,7 +3,7 @@ import { Form, Input, Divider, Select } from 'antd';
 import classNames from 'classnames/bind';
 import { IFormDrawerContentProps } from '@/hooks/usePopup/type';
 import styles from './CreateModuleFDC.less';
-import { TYPE } from '@/enums/product';
+import { FEATURE_TYPE } from '@/enums/product';
 import { enums2Options } from '@/enums/utils';
 import TableCloumnsDesign from '@/pages/project/components/TableCloumnsDesign';
 
@@ -38,7 +38,7 @@ const CreateFeatureFDC = (props: IFormDrawerContentProps) => {
           initialValue: current.type,
         })(
           <Select placeholder="功能类型" style={{ width: '100%' }}>
-            {enums2Options(TYPE)}
+            {enums2Options(FEATURE_TYPE)}
           </Select>,
         )}
       </FormItem>

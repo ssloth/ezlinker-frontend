@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Card, Col, Form, Input, Radio, Row, List, Avatar } from 'antd';
+import { Button, Card, Col, Form, Input, Radio, Row, List } from 'antd';
 import { FormComponentProps } from 'antd/es/form';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { get } from 'lodash';
@@ -12,6 +12,7 @@ import { ITableList } from '@/typings/server';
 import styles from './style.less';
 import CreateProductFMC from './components/modules/CreateProductFMC';
 import OperationProductDC from './components/modules/OperationProductDC';
+import IconFont from '@/components/IconFont';
 
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
@@ -30,6 +31,12 @@ const Info: React.FC<{
     <span>{title}</span>
     <p>{value}</p>
     {bordered && <em />}
+  </div>
+);
+
+const Avatar = ({ logo }: { logo: string }) => (
+  <div style={{ background: '#333344', width: 50, height: 50, borderRadius: 5 }}>
+    <IconFont style={{ fontSize: 50 }} type={logo} />
   </div>
 );
 
@@ -127,7 +134,7 @@ const Develop: React.FC<DevelopProps> = props => {
                 ]}
               >
                 <List.Item.Meta
-                  avatar={<Avatar src={item.logo} shape="square" size="large" />}
+                  avatar={<Avatar logo={item.logo} />}
                   title={<span>{item.name}</span>}
                   description={item.description}
                 />
