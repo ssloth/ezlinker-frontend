@@ -9,7 +9,7 @@ export default [
     component: '../layouts/UserLayout',
     routes: [
       {
-        name: 'login',
+        name: '登录',
         path: '/auth/login',
         component: './auth/login',
       },
