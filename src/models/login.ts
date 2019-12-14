@@ -11,7 +11,6 @@ export interface StateType {
   status?: 'ok' | 'error';
   type?: string;
   currentAuthority?: 'user' | 'guest' | 'admin';
-  msg: string;
 }
 
 export interface LoginModelType {
@@ -31,7 +30,6 @@ const Model: LoginModelType = {
 
   state: {
     status: undefined,
-    msg: '未知异常',
   },
 
   effects: {
@@ -39,10 +37,10 @@ const Model: LoginModelType = {
       const result = yield call(accountLogin, payload);
       yield put({
         type: 'changeLoginStatus',
-        payload: result,
+        payload: { toekn: result },
       });
       // Login successfully
-      if (result.code === 200) {
+      if (result) {
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
         let { redirect } = params as { redirect: string };
@@ -58,7 +56,7 @@ const Model: LoginModelType = {
             return;
           }
         }
-        setToekn(result.data);
+        setToekn(result);
         yield put(routerRedux.replace(redirect || '/'));
       }
     },
@@ -84,8 +82,7 @@ const Model: LoginModelType = {
     changeLoginStatus(state, { payload }) {
       return {
         ...state,
-        status: payload.code === 200 ? 'ok' : 'error',
-        msg: payload.i18nMessage,
+        ...payload,
       };
     },
   },

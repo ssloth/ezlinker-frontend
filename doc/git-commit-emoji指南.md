@@ -4,13 +4,14 @@
 
 <!-- vim-markdown-toc GFM -->
 
-- [git commit emoji 使用指南](#git-commit-emoji-%e4%bd%bf%e7%94%a8%e6%8c%87%e5%8d%97) - [目录](#%e7%9b%ae%e5%bd%95)
-  - [commit 格式](#commit-%e6%a0%bc%e5%bc%8f)
-  - [emoji 指南](#emoji-%e6%8c%87%e5%8d%97)
-  - [如何在命令行中显示 emoji](#%e5%a6%82%e4%bd%95%e5%9c%a8%e5%91%bd%e4%bb%a4%e8%a1%8c%e4%b8%ad%e6%98%be%e7%a4%ba-emoji)
-  - [参考](#%e5%8f%82%e8%80%83)
-    - [git commit emoji](#git-commit-emoji)
-    - [write a good commit message](#write-a-good-commit-message)
+- [git commit emoji 使用指南](#git-commit-emoji-%e4%bd%bf%e7%94%a8%e6%8c%87%e5%8d%97)
+      - [目录](#%e7%9b%ae%e5%bd%95)
+    - [commit 格式](#commit-%e6%a0%bc%e5%bc%8f)
+    - [emoji 指南](#emoji-%e6%8c%87%e5%8d%97)
+    - [如何在命令行中显示 emoji](#%e5%a6%82%e4%bd%95%e5%9c%a8%e5%91%bd%e4%bb%a4%e8%a1%8c%e4%b8%ad%e6%98%be%e7%a4%ba-emoji)
+    - [参考](#%e5%8f%82%e8%80%83)
+      - [git commit emoji](#git-commit-emoji)
+      - [write a good commit message](#write-a-good-commit-message)
 
 <!-- vim-markdown-toc -->
 
