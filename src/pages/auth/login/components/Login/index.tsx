@@ -1,4 +1,4 @@
-import { Form, Tabs } from 'antd';
+import { Form } from 'antd';
 import React, { Component } from 'react';
 import { FormComponentProps } from 'antd/es/form';
 import classNames from 'classnames';
@@ -8,7 +8,7 @@ import LoginItem, { LoginItemProps, LoginItemType } from './LoginItem';
 import LoginSubmit from './LoginSubmit';
 import LoginTab from './LoginTab';
 import styles from './index.less';
-import { LoginParamsType } from '@/services/login';
+import { LoginType as LoginParamsType } from '@/services/login';
 
 export interface LoginProps {
   defaultActiveKey?: string;
@@ -124,7 +124,7 @@ class Login extends Component<LoginProps, LoginState> {
 
   render() {
     const { className, children } = this.props;
-    const { type, tabs = [] } = this.state;
+    const { tabs = [] } = this.state;
     const TabChildren: React.ReactComponentElement<any>[] = [];
     const otherChildren: React.ReactElement<unknown>[] = [];
     React.Children.forEach(
@@ -144,21 +144,7 @@ class Login extends Component<LoginProps, LoginState> {
       <LoginContext.Provider value={this.getContext()}>
         <div className={classNames(className, styles.login)}>
           <Form onSubmit={this.handleSubmit}>
-            {tabs.length ? (
-              <React.Fragment>
-                <Tabs
-                  animated={false}
-                  className={styles.tabs}
-                  activeKey={type}
-                  onChange={this.onSwitch}
-                >
-                  {TabChildren}
-                </Tabs>
-                {otherChildren}
-              </React.Fragment>
-            ) : (
-              children
-            )}
+            {tabs.length ? <React.Fragment>{otherChildren}</React.Fragment> : children}
           </Form>
         </div>
       </LoginContext.Provider>

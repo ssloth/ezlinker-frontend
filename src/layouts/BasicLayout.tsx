@@ -67,12 +67,7 @@ const BasicLayout: React.SFC<ConnectProps> = props => {
         </Sider>
         <Layout>
           <Header className={cx('header')}>
-            {/* <Breadcrumb className={cx('breadcrumb')}>
-              <Breadcrumb.Item>首页</Breadcrumb.Item>
-              <Breadcrumb.Item>项目</Breadcrumb.Item>
-              <Breadcrumb.Item>开发模式</Breadcrumb.Item>
-            </Breadcrumb> */}
-            <RightContent></RightContent>
+            <RightContent />
           </Header>
           <Content className={cx('content')}>{props.children}</Content>
           <Footer className={cx('footer')}></Footer>
