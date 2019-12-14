@@ -1,6 +1,6 @@
 export default {
   path: '/home',
-  icon: 'smile',
+  icon: 'home',
   name: '总览',
   routes: [{ path: './', component: './home' }],
 };

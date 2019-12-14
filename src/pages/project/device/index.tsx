@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { FormComponentProps } from 'antd/lib/form';
 import { get } from 'lodash';
-import router from 'umi/router';
 import { Card, Layout, Menu, Icon, Button } from 'antd';
 import { useRestful } from '@/hooks';
 import { PRODUCTS_API } from '@/services/resources';

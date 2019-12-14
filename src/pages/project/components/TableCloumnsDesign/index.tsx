@@ -4,6 +4,7 @@ import { useDynamicList } from '@umijs/hooks';
 import { WrappedFormUtils } from 'antd/lib/form/Form';
 import { enums2Options } from '@/enums/utils';
 import { CMD_VALUE } from '@/enums/product';
+import styles from './index.less';
 
 const TableCloumnsDesign = ({
   form,
@@ -57,8 +58,8 @@ const TableCloumnsDesign = ({
           <Input
             style={{ width: '35%' }}
             addonAfter={
-              <div onClick={() => remove(index)}>
-                <Icon type="close"></Icon>
+              <div className={styles.close} onClick={() => remove(index)}>
+                <Icon className={styles.icon} type="close"></Icon>
               </div>
             }
             placeholder="备注"

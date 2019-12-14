@@ -1,6 +1,6 @@
 export default {
   path: '/project',
-  icon: 'crown',
+  icon: 'project',
   name: '项目',
   routes: [
     {

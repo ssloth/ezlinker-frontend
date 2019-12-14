@@ -4,13 +4,14 @@ import { FormComponentProps } from 'antd/es/form';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { get } from 'lodash';
 import { useFormModal, useRestful, useDrawer } from '@/hooks';
-import { CreateProductFMC, OperationProductDC } from './components/modules';
 import { ConnectProps } from '@/models/connect';
 import { PRODUCTS_API } from '@/services/resources';
 import { Product } from '@/services/resources/models';
 import { ITableList } from '@/typings/server';
 
 import styles from './style.less';
+import CreateProductFMC from './components/modules/CreateProductFMC';
+import OperationProductDC from './components/modules/OperationProductDC';
 
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
@@ -65,8 +66,9 @@ const Develop: React.FC<DevelopProps> = props => {
     <div className={styles.extraContent}>
       <RadioGroup defaultValue="all">
         <RadioButton value="all">全部</RadioButton>
-        <RadioButton value="progress">进行中</RadioButton>
-        <RadioButton value="waiting">等待中</RadioButton>
+        <RadioButton value="progress">开发中</RadioButton>
+        <RadioButton value="production">运行中</RadioButton>
+        <RadioButton value="archive">锁定</RadioButton>
       </RadioGroup>
       <Search className={styles.extraContentSearch} placeholder="请输入" onSearch={() => ({})} />
     </div>
@@ -77,14 +79,17 @@ const Develop: React.FC<DevelopProps> = props => {
       <div className={styles.standardList}>
         <Card bordered={false}>
           <Row>
-            <Col sm={8} xs={24}>
-              <Info title="我的待办" value="8个任务" bordered />
+            <Col sm={6} xs={24}>
+              <Info title="全部产品" value={8} bordered />
             </Col>
-            <Col sm={8} xs={24}>
-              <Info title="本周任务平均处理时间" value="32分钟" bordered />
+            <Col sm={6} xs={24}>
+              <Info title="开发中" value={3} bordered />
             </Col>
-            <Col sm={8} xs={24}>
-              <Info title="本周完成任务数" value="24个任务" />
+            <Col sm={6} xs={24}>
+              <Info title="运行中" value={2} />
+            </Col>
+            <Col sm={6} xs={24}>
+              <Info title="已锁定" value={3} />
             </Col>
           </Row>
         </Card>
