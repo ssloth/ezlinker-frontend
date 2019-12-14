@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Tooltip, Icon } from 'antd';
+// import { Tooltip, Icon } from 'antd';
 import { ConnectProps, ConnectState } from '@/models/connect';
 import Avatar from './AvatarDropdown';
 import styles from './index.less';
@@ -33,7 +33,7 @@ const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = props => {
           console.log('enter', value);
         }}
       /> */}
-      <Tooltip title="使用文档">
+      {/* <Tooltip title="使用文档">
         <a
           target="_blank"
           href="https://pro.ant.design/docs/getting-started"
@@ -42,7 +42,7 @@ const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = props => {
         >
           <Icon type="question-circle-o" />
         </a>
-      </Tooltip>
+      </Tooltip> */}
       <Avatar />
       {/* <SelectLang className={styles.action} /> */}
     </div>

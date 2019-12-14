@@ -89,7 +89,7 @@ request.interceptors.request.use((url, options: any) => {
 // response interceptor
 request.interceptors.response.use(async (response: any) => {
   const result = await response.clone().json();
-  const { data, code, i18nMessage } = result;
+  const { code, i18nMessage } = result;
 
   if (errorMessage[code]) {
     if (code === 401) {
@@ -105,7 +105,7 @@ request.interceptors.response.use(async (response: any) => {
     return result;
   }
 
-  return data;
+  return result;
 });
 
 export default request;

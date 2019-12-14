@@ -9,8 +9,9 @@ import LoginComponents from './components/Login';
 import styles from './style.less';
 import { LoginType } from '@/services/login';
 import { ConnectState } from '@/models/connect';
+import { Link } from 'umi';
 
-const { Tab, UserName, Password, Mobile, Submit } = LoginComponents;
+const { UserName, Password, Submit } = LoginComponents;
 interface LoginProps {
   dispatch: Dispatch<AnyAction>;
   userLogin: StateType;
@@ -70,83 +71,57 @@ class Login extends Component<LoginProps, LoginState> {
 
   render() {
     const { userLogin, submitting } = this.props;
-    const { status, type: loginType } = userLogin;
-    const { type, autoLogin } = this.state;
+    const { status, msg } = userLogin;
+    const { autoLogin } = this.state;
     return (
       <div className={styles.main}>
         <LoginComponents
-          defaultActiveKey={type}
           onTabChange={this.onTabChange}
           onSubmit={this.handleSubmit}
           onCreate={(form?: FormComponentProps['form']) => {
             this.loginForm = form;
           }}
         >
-          <Tab key="account" tab="账户密码登录">
-            {status === 'error' &&
-              loginType === 'account' &&
-              !submitting &&
-              this.renderMessage('账户或密码错误')}
-            <UserName
-              name="username"
-              placeholder={`${'用户名'}: admin or user`}
-              rules={[
-                {
-                  required: true,
-                  message: '请输入用户名!',
-                },
-              ]}
-            />
-            <Password
-              name="password"
-              placeholder={`${'密码'}: ant.design`}
-              rules={[
-                {
-                  required: true,
-                  message: '请输入密码！',
-                },
-              ]}
-              onPressEnter={e => {
-                e.preventDefault();
+          <div>{status === 'error' && !submitting && this.renderMessage(msg)}</div>
+          <UserName
+            name="username"
+            placeholder={'用户名'}
+            rules={[
+              {
+                required: true,
+                message: '请输入用户名!',
+              },
+            ]}
+          />
+          <Password
+            name="password"
+            placeholder={'密码'}
+            rules={[
+              {
+                required: true,
+                message: '请输入密码！',
+              },
+            ]}
+            onPressEnter={e => {
+              e.preventDefault();
 
-                if (this.loginForm) {
-                  this.loginForm.validateFields(this.handleSubmit);
-                }
-              }}
-            />
-          </Tab>
-          <Tab key="mobile" tab="手机号登录">
-            {status === 'error' &&
-              loginType === 'mobile' &&
-              !submitting &&
-              this.renderMessage('验证码错误')}
-            <Mobile
-              name="mobile"
-              placeholder="手机号"
-              rules={[
-                {
-                  required: true,
-                  message: '请输入手机号！',
-                },
-                {
-                  pattern: /^1\d{10}$/,
-                  message: '手机号格式错误！',
-                },
-              ]}
-            />
-          </Tab>
+              if (this.loginForm) {
+                this.loginForm.validateFields(this.handleSubmit);
+              }
+            }}
+          />
           <div>
             <Checkbox checked={autoLogin} onChange={this.changeAutoLogin}>
               自动登录
             </Checkbox>
-            <a
+            <Link
               style={{
                 float: 'right',
               }}
-              href=""
+              to="#"
             >
               忘记密码
-            </a>
+            </Link>
           </div>
           <Submit loading={submitting}>登录</Submit>
         </LoginComponents>
