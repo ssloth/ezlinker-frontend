@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
-import { Drawer, Modal } from 'antd';
+import { Drawer, Modal, Button } from 'antd';
 import { DrawerProps } from 'antd/lib/drawer';
 import { IUsePopupBox } from '../type';
 
@@ -34,15 +34,29 @@ const usePopupBox = (
 
   const cancle = () => setVisible(false);
 
+  const customPopupBox = (
+    <CustomPopupBox
+      {...drawerProps}
+      onClose={cancle}
+      onOk={cancle}
+      visible={visible}
+      footer={[
+        <Button key="back" onClick={cancle}>
+          取消
+        </Button>,
+        <Button key="submit" type="primary" onClick={cancle}>
+          确定
+        </Button>,
+      ]}
+    >
+      <Content {...contentProps}></Content>
+    </CustomPopupBox>
+  );
+
   const register = () => {
     const div = document.createElement('div');
     document.body.appendChild(div);
-    ReactDOM.render(
-      <CustomPopupBox {...drawerProps} onClose={cancle} visible={visible}>
-        <Content {...contentProps}></Content>
-      </CustomPopupBox>,
-      div,
-    );
+    ReactDOM.render(customPopupBox, div);
     return div;
   };
 
@@ -55,11 +69,7 @@ const usePopupBox = (
 
   const render = () => {
     hasRender = true;
-    return (
-      <CustomPopupBox {...drawerProps} onClose={cancle} visible={visible}>
-        <Content {...contentProps}></Content>
-      </CustomPopupBox>
-    );
+    return customPopupBox;
   };
 
   useEffect(() => {
