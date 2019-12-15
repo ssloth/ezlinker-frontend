@@ -11,7 +11,3 @@ export async function accountLogin(data: LoginType) {
     data,
   });
 }
-
-export async function getFakeCaptcha(mobile: string) {
-  return request(`/login/captcha?mobile=${mobile}`);
-}

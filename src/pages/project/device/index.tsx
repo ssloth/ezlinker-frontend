@@ -3,12 +3,13 @@ import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { FormComponentProps } from 'antd/lib/form';
 import { get } from 'lodash';
 import { Card, Layout, Menu, Icon, Button } from 'antd';
-import { useRestful } from '@/hooks';
-import { PRODUCTS_API } from '@/services/resources';
-import { Product } from '@/services/resources/models';
+import { useRestful, useFormModal } from '@/hooks';
+import { PRODUCTS_API, DEVICES_API } from '@/services/resources';
+import { Product, Device } from '@/services/resources/models';
 import { ConnectProps } from '@/models/connect';
 import styles from './index.less';
 import DeviceTable from './components/DeviceTable/index';
+import CreateDeviceFMC, { CreateDeviceFMCProps } from './components/modules/CreateDeviceFMC';
 
 const { Sider, Content } = Layout;
 const { SubMenu } = Menu;
@@ -18,8 +19,18 @@ interface ManageProps extends FormComponentProps, ConnectProps {}
 const DeviceLayout: React.FC<ManageProps> = props => {
   const projectId = get(props, 'match.params.id');
   const [productId, setProductId] = useState<string>('');
+  const [random, setRandom] = useState<number>(0); // 使用随机数刷新表格依赖
   const productResource = useRestful<Product>(PRODUCTS_API);
+  const deviceResource = useRestful<Device>(DEVICES_API);
+  const deviceModal = useFormModal<CreateDeviceFMCProps>(CreateDeviceFMC, deviceResource, {
+    title: '创建设备',
+    callback: () => setRandom(Math.random()),
+  });
   const { data: productData } = productResource.useSWRQuery({ projectId });
+
+  const handleCreateDevice = () => {
+    deviceModal.show({ productId, productList: productData ? productData.records : [] });
+  };
 
   const handleMenuChange = (record: string) => {
     setProductId(record);
@@ -35,7 +46,9 @@ const DeviceLayout: React.FC<ManageProps> = props => {
     <PageHeaderWrapper>
       <Card className={styles.header} style={{ marginBottom: 6 }} bodyStyle={{ padding: 12 }}>
         <div className={styles.right}>
-          <Button type="primary">创建设备</Button>
+          <Button onClick={handleCreateDevice} type="primary">
+            创建设备
+          </Button>
         </div>
       </Card>
 
@@ -67,7 +80,7 @@ const DeviceLayout: React.FC<ManageProps> = props => {
             </Menu>
           </Sider>
           <Content className={styles.content}>
-            <DeviceTable productId={productId} />
+            <DeviceTable productId={productId} random={random} />
           </Content>
         </Layout>
       </Card>

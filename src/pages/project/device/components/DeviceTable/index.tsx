@@ -1,22 +1,33 @@
 import React from 'react';
-import { Table, Divider } from 'antd';
+import { Table, Divider, Tag } from 'antd';
 import { get } from 'lodash';
-import { useRestful, useTable } from '@/hooks';
+import { useRestful, useTable, useDrawer } from '@/hooks';
 import { DEVICES_API } from '@/services/resources';
 import { Device } from '@/services/resources/models';
+import OperationDeviceDC from '../modules/OperationDeviceDC';
 
-interface ManageProps {
+interface IDeviceTableProps {
   productId: string;
+  random: any;
 }
 
-const DeviceTable: React.FC<ManageProps> = props => {
-  const { productId } = props;
+const renderState = (record: Device) => {
+  if (!record.lastActive) return <Tag>未激活</Tag>;
+  return <Tag color="green">在线</Tag>;
+};
+
+const DeviceTable: React.FC<IDeviceTableProps> = props => {
+  const { productId, random } = props;
   const projectId = get(props, 'match.params.id');
   const deviceResource = useRestful<Device>(DEVICES_API);
+  const operation = useDrawer(OperationDeviceDC);
 
-  const { tableProps } = useTable(deviceResource, { productId, projectId });
+  const { tableProps } = useTable(deviceResource, { productId, projectId, random });
 
   const handleClick = (record: Device) => record;
+  const handleOperation = (record: Device) => {
+    operation.show({ id: record.id });
+  };
 
   const columns: any[] = [
     {
@@ -27,6 +38,11 @@ const DeviceTable: React.FC<ManageProps> = props => {
       title: '名称',
       dataIndex: 'name',
     },
+    {
+      title: '状态',
+      render: (record: Device) => renderState(record),
+    },
+
     {
       title: '生产厂家',
       dataIndex: 'industry',
@@ -52,7 +68,7 @@ const DeviceTable: React.FC<ManageProps> = props => {
         <Divider type="vertical"></Divider>,
         <a onClick={() => handleClick(record)}>删除</a>,
         <Divider type="vertical"></Divider>,
-        <a onClick={() => handleClick(record)}>详情&gt;</a>,
+        <a onClick={() => handleOperation(record)}>详情&gt;</a>,
       ],
     },
   ];

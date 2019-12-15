@@ -30,7 +30,7 @@ export interface Feature extends Base {
   name: string;
   label: string;
   cmdKey: string;
-  cmdValueMap: any;
+  cmdValues: any;
 }
 
 export enum MODULE_PROTOCOL {
@@ -50,4 +50,15 @@ export interface Module extends Base {
   dataArea: string;
 }
 
-export interface Device extends Product {}
+export interface Device extends Base {
+  sn: string;
+  productId: string;
+  description: string;
+  name: string;
+  logo: string;
+  tags: string[];
+  type: string;
+  statuses: string;
+  parameter: string;
+  lastActive: string;
+}
