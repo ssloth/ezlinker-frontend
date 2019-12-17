@@ -46,6 +46,10 @@ const DeviceLayout: React.FC<ManageProps> = props => {
     <PageHeaderWrapper>
       <Card className={styles.header} style={{ marginBottom: 6 }} bodyStyle={{ padding: 12 }}>
         <div className={styles.right}>
+          <Button type="primary" style={{ marginRight: 10 }}>
+            虚拟设备管理
+          </Button>
+
           <Button onClick={handleCreateDevice} type="primary">
             创建设备
           </Button>

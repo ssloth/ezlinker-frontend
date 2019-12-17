@@ -1,8 +1,8 @@
 import request from '@/utils/request';
 
 interface dispatchActionData {
-  id?: string;
-  ids?: string[];
+  id?: string | number;
+  ids?: string[] | number[];
   cmdKey: string;
   cmdValues: string | string[];
 }
