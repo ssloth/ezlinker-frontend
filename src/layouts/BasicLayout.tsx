@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { getMenuData } from '@ant-design/pro-layout';
 import { Icon, Layout } from 'antd';
 import { Link } from 'umi';
+import VirtualDevice from '@/components/VirtualDevice';
 import RightContent from '@/components/GlobalHeader/RightContent';
 import styles from './BasicLayout.less';
 import { ConnectProps } from '@/models/connect';
@@ -73,6 +74,8 @@ const BasicLayout: React.SFC<ConnectProps> = props => {
           <Footer className={cx('footer')}></Footer>
         </Layout>
       </Layout>
+
+      <VirtualDevice></VirtualDevice>
     </div>
   );
 };

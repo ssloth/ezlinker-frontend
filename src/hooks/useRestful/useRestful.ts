@@ -1,18 +1,18 @@
 import useSwr, { responseInterface, trigger as swrTrigger, mutate as swrMutate } from 'swr';
 import { ParsedUrlQueryInput, stringify } from 'querystring';
 import request from '@/utils/request';
-import { IServerResult, ITableList } from '@/typings/server';
+import { ITableList } from '@/typings/server';
 import { defaultConfig } from './RestfulConfigContext';
 
 export type ResourceId = string | undefined;
 export type ResourceParams = ParsedUrlQueryInput;
-export type ICreateResult = Promise<IServerResult>;
-export type IRemoveResult = Promise<IServerResult>;
-export type IUpdateResult = Promise<IServerResult>;
-export type IQueryResult<Resource> = Promise<IServerResult<Resource[]>>;
-export type IFindResult<Resource> = Promise<IServerResult<Resource>>;
+export type ICreateResult = Promise<any>;
+export type IRemoveResult = Promise<any>;
+export type IUpdateResult = Promise<any>;
+export type IQueryResult<Resource> = Promise<ITableList>;
+export type IFindResult<Resource> = Promise<Resource>;
 export type IUseSWRQueryResult<Resource> = responseInterface<ITableList<Resource>, Error>;
-export type IUseSWRFindResult<Resource> = responseInterface<IServerResult<Resource>, Error>;
+export type IUseSWRFindResult<Resource> = responseInterface<Resource, Error>;
 
 /** function */
 export type ICreate<Resource> = (data: Resource) => ICreateResult;
@@ -77,12 +77,11 @@ const useResuful = <Resource>(url: string, config: any = {}): IUseResuful<Resour
 
   const useSWRFind = (id: ResourceId): IUseSWRFindResult<Resource> => {
     local.id = id as string;
-    return useSwr<IServerResult<Resource>>(`${url}/${id}`, request, {
+    return useSwr<Resource>(`${url}/${id}`, request, {
       onErrorRetry: (error, key, option, revalidate, { retryCount }) => {
         if (!retryCount) return;
         if (retryCount >= 2) return;
         if (error.status === 404) return;
-
         // retry after 5 seconds
         setTimeout(() => revalidate({ retryCount: retryCount + 1 }), 5000);
       },

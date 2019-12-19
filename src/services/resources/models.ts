@@ -62,3 +62,16 @@ export interface Device extends Base {
   parameter: string;
   lastActive: string;
 }
+
+export interface User extends Base {
+  username: string;
+  avatar: string;
+  phone: string;
+  email: string;
+  realName: string;
+  nickName: string;
+  userProfileId: number;
+  userType: number;
+  lastLoginTime: string;
+  lastLoginIp: string;
+}
