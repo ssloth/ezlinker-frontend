@@ -3,7 +3,7 @@ import React from 'react';
 import { Button, Card, Icon } from 'antd';
 import CreateModuleFDC from './CreateModuleFDC';
 import styles from './OperationProductDC.less';
-import { Module, Feature } from '@/services/resources/models';
+import { ModuleTemplate, Feature } from '@/services/resources/models';
 import { MODULES_API, FEATURES_API } from '@/services/resources/index';
 import { useFormDrawer, useRestful } from '@/hooks';
 import CreateFeatureFDC from './CreateFeatureFDC';
@@ -16,7 +16,7 @@ interface IOperationProductDCProps {
 
 const OperationProductDC = (props: IOperationProductDCProps) => {
   const { productId } = props;
-  const module = useRestful<Module>(MODULES_API);
+  const module = useRestful<ModuleTemplate>(MODULES_API);
   const feature = useRestful<Feature>(FEATURES_API);
   const { data: moduleData } = module.useSWRQuery({ productId });
   const { data: featureData } = feature.useSWRQuery({ productId });
@@ -37,7 +37,7 @@ const OperationProductDC = (props: IOperationProductDCProps) => {
     });
   };
 
-  const handleEditModule = (record: Module) => {
+  const handleEditModule = (record: ModuleTemplate) => {
     createModule.edit(record);
   };
 

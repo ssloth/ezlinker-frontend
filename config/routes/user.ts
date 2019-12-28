@@ -1,7 +1,7 @@
 export default {
   path: '/user',
   name: '用户',
-  icon: 'user',
+  icon: 'team',
   routes: [
     {
       path: './',

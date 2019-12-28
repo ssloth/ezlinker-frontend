@@ -1,8 +1,6 @@
-import { Col, Icon, Row, Tooltip } from 'antd';
+import { Col, Row } from 'antd';
 import React from 'react';
-import { ChartCard, MiniProgress, Field } from './Charts';
-import Trend from './Trend';
-import styles from '../style.less';
+import { ChartCard } from './Charts';
 
 const topColResponsiveProps = {
   xs: 24,
@@ -15,108 +13,43 @@ const topColResponsiveProps = {
   },
 };
 
-const IntroduceRow = ({ loading }: { loading: boolean }) => (
+const IntroduceRow = ({ loading, data = {} }: { loading: boolean; data: any }) => (
   <Row gutter={24} type="flex">
     <Col {...topColResponsiveProps}>
       <ChartCard
         bordered={false}
-        title="设备统计"
-        action={
-          <Tooltip title="所有设备">
-            <Icon type="info-circle-o" />
-          </Tooltip>
-        }
         loading={loading}
-        total={<div>1个</div>}
-        footer={<Field label="Daily Sales" value="123" />}
+        title="用户总数"
+        total={<div>{data.users}</div>}
         contentHeight={46}
-      >
-        <Trend
-          flag="up"
-          style={{
-            marginRight: 16,
-          }}
-        >
-          Weekly Changes
-          <span className={styles.trendText}>12%</span>
-        </Trend>
-        <Trend flag="down">
-          Daily Changes
-          <span className={styles.trendText}>11%</span>
-        </Trend>
-      </ChartCard>
+      ></ChartCard>
     </Col>
     <Col {...topColResponsiveProps}>
       <ChartCard
         bordered={false}
         loading={loading}
-        title="系统负载"
-        action={
-          <Tooltip title="系统负载">
-            <Icon type="info-circle-o" />
-          </Tooltip>
-        }
-        total={<div></div>}
-        footer={<Field label="Daily Visits" value={12345} />}
+        title="项目总数"
+        total={<div>{data.projects}</div>}
         contentHeight={46}
-      >
-        {/* <MiniArea color="#975FE4" data={visitData} /> */}
-      </ChartCard>
+      ></ChartCard>
     </Col>
     <Col {...topColResponsiveProps}>
       <ChartCard
         bordered={false}
         loading={loading}
-        title="Payments"
-        action={
-          <Tooltip title="Introduce">
-            <Icon type="info-circle-o" />
-          </Tooltip>
-        }
-        total={3245}
-        footer={<Field label="Conversion Rate" value="60%" />}
+        title="产品总数"
+        total={<div>{data.products}</div>}
         contentHeight={46}
-      >
-        {/* <MiniBar data={visitData} /> */}
-      </ChartCard>
+      ></ChartCard>
     </Col>
     <Col {...topColResponsiveProps}>
       <ChartCard
-        loading={loading}
         bordered={false}
-        title="Operational Effect"
-        action={
-          <Tooltip title="Introduce">
-            <Icon type="info-circle-o" />
-          </Tooltip>
-        }
-        total="78%"
-        footer={
-          <div
-            style={{
-              whiteSpace: 'nowrap',
-              overflow: 'hidden',
-            }}
-          >
-            <Trend
-              flag="up"
-              style={{
-                marginRight: 16,
-              }}
-            >
-              Weekly Changes
-              <span className={styles.trendText}>12%</span>
-            </Trend>
-            <Trend flag="down">
-              Weekly Changes
-              <span className={styles.trendText}>11%</span>
-            </Trend>
-          </div>
-        }
+        loading={loading}
+        title="设备总数"
+        total={<div>{data.devices}</div>}
         contentHeight={46}
-      >
-        <MiniProgress percent={78} strokeWidth={8} target={80} color="#13C2C2" />
-      </ChartCard>
+      ></ChartCard>
     </Col>
   </Row>
 );

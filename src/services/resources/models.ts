@@ -41,6 +41,20 @@ export enum MODULE_TYPE {
   COMMON = 1,
 }
 
+export enum MODULE_STATUS {
+  DROPPED,
+  ONLINE,
+}
+
+export interface ModuleTemplate extends Base {
+  name: string;
+  description: string;
+  model: string;
+  type: MODULE_TYPE;
+  protocol: MODULE_PROTOCOL;
+  dataArea: string;
+}
+
 export interface Module extends Base {
   name: string;
   description: string;
@@ -48,6 +62,8 @@ export interface Module extends Base {
   type: MODULE_TYPE;
   protocol: MODULE_PROTOCOL;
   dataArea: string;
+  status: 0 | 1;
+  lastActiveTime: string;
 }
 
 export interface Device extends Base {
@@ -60,7 +76,8 @@ export interface Device extends Base {
   type: string;
   statuses: string;
   parameter: string;
-  lastActive: string;
+  modules: Module[];
+  features: Feature[];
 }
 
 export interface User extends Base {

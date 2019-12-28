@@ -1,10 +1,11 @@
 import React from 'react';
-import { Table, Divider, Tag } from 'antd';
+import { Table, Divider, Badge, Tag } from 'antd';
 import { get } from 'lodash';
 import { useRestful, useTable, useDrawer } from '@/hooks';
 import { DEVICES_API } from '@/services/resources';
 import { Device } from '@/services/resources/models';
 import OperationDeviceDC from '../modules/OperationDeviceDC';
+import { getDeviceStatus, DEVICE_STATUS } from '../../utils';
 
 interface IDeviceTableProps {
   productId: string;
@@ -12,8 +13,16 @@ interface IDeviceTableProps {
 }
 
 const renderState = (record: Device) => {
-  if (!record.lastActive) return <Tag>未激活</Tag>;
-  return <Tag color="green">在线</Tag>;
+  const status = getDeviceStatus(record);
+  const statusMap = {
+    [DEVICE_STATUS.inactivated]: ['#666666', '未激活'],
+    [DEVICE_STATUS.active]: ['#666666', '激活中'],
+    [DEVICE_STATUS.normal]: ['green', '运行正常'],
+    [DEVICE_STATUS.warning]: ['gold', '模块异常'],
+    [DEVICE_STATUS.abnormal]: ['#f00', '设备异常'],
+  };
+  const [color, text] = statusMap[status] || [];
+  return <Badge color={color} text={text}></Badge>;
 };
 
 const DeviceTable: React.FC<IDeviceTableProps> = props => {
@@ -41,17 +50,14 @@ const DeviceTable: React.FC<IDeviceTableProps> = props => {
     {
       title: '名称',
       dataIndex: 'name',
-      width: 100,
     },
     {
       title: '状态',
-      width: 80,
+      width: 120,
       render: (record: Device) => renderState(record),
     },
-
     {
       title: '生产厂家',
-      width: 100,
       dataIndex: 'industry',
     },
     {
