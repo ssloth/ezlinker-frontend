@@ -61,6 +61,8 @@ export interface Device extends Base {
   statuses: string;
   parameter: string;
   lastActive: string;
+  modules: Module[];
+  features: Feature[];
 }
 
 export interface User extends Base {

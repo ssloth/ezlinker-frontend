@@ -80,7 +80,11 @@ const DeviceTable: React.FC<IDeviceTableProps> = props => {
     },
   ];
 
-  return <Table rowKey="id" columns={columns} {...tableProps} />;
+  return (
+    <>
+      <Table rowKey="id" columns={columns} {...tableProps} /> {operation.render()}
+    </>
+  );
 };
 
 export default DeviceTable;

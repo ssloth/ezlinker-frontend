@@ -1,11 +1,31 @@
 .virtual-device-manage {
   position: fixed;
-  top: 20%;
+  top: 15%;
   left: 20%;
-  z-index: -9999;
+  z-index: 9999;
   width: 60%;
-  height: 500px;
-  padding: 10px;
-  background: rgba(28, 33, 38, 178);
+  height: 600px;
+  padding: 10px 0;
+  overflow: hidden;
+  background: rgb(28, 33, 38);
   border-radius: 10px;
+
+  :global {
+    .ant-layout {
+      min-height: 100%;
+      .ant-layout-sider {
+        background: rgb(28, 33, 38);
+        border-right: 1px solid #404040;
+        .ant-menu {
+          background: rgb(28, 33, 38);
+        }
+      }
+      .ant-layout-header {
+        background: rgb(28, 33, 38);
+      }
+      .ant-layout-content {
+        background: rgb(28, 33, 38);
+      }
+    }
+  }
 }

@@ -52,6 +52,12 @@ export default (config: any) => {
     ]);
   }
 
+  config.module
+    .rule('compile')
+    .test(/\.node$/)
+    .use('node')
+    .loader('node-loader');
+
   // optimize chunks
   config.optimization
     // share the same chunks across different modules
