@@ -1,6 +1,6 @@
 import React from 'react';
 import { Table, Divider, Badge, Tag } from 'antd';
-import { get } from 'lodash';
+import { Link } from 'umi';
 import { useRestful, useTable, useDrawer } from '@/hooks';
 import { DEVICES_API } from '@/services/resources';
 import { Device } from '@/services/resources/models';
@@ -8,6 +8,7 @@ import OperationDeviceDC from '../modules/OperationDeviceDC';
 import { getDeviceStatus, DEVICE_STATUS } from '../../utils';
 
 interface IDeviceTableProps {
+  projectId: string;
   productId: string;
   random: any;
 }
@@ -26,8 +27,7 @@ const renderState = (record: Device) => {
 };
 
 const DeviceTable: React.FC<IDeviceTableProps> = props => {
-  const { productId, random } = props;
-  const projectId = get(props, 'match.params.id');
+  const { productId, random, projectId } = props;
   const deviceResource = useRestful<Device>(DEVICES_API);
   const operation = useDrawer(OperationDeviceDC, {
     title: '操作设备',
@@ -36,7 +36,7 @@ const DeviceTable: React.FC<IDeviceTableProps> = props => {
 
   const { tableProps } = useTable(deviceResource, { productId, projectId, random });
 
-  const handleClick = (record: Device) => record;
+  // const handleClick = (record: Device) => record;
   const handleOperation = (record: Device) => {
     operation.show(record);
   };
@@ -79,14 +79,14 @@ const DeviceTable: React.FC<IDeviceTableProps> = props => {
       fixed: 'right',
       width: 150,
       render: (record: Device) => [
-        <a onClick={() => handleClick(record)}>查看数据</a>,
+        <Link to={`/project/${projectId}/device/${record.id}`}>查看数据</Link>,
         <Divider type="vertical"></Divider>,
         <a onClick={() => handleOperation(record)}>操作&gt;</a>,
       ],
     },
   ];
 
-  return <Table rowKey="id" columns={columns} {...tableProps} />;
+  return <Table rowKey="id" {...tableProps} columns={columns} scroll={{ x: 1500 }} />;
 };
 
 export default DeviceTable;

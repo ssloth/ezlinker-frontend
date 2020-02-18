@@ -31,6 +31,11 @@ export default {
           name: '设备管理',
           component: './project/device',
         },
+        {
+          path: './device/:did',
+          name: '设备详情',
+          component: './project/device/detail',
+        },
       ],
     },
   ],

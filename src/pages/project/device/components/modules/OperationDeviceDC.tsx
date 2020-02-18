@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import React from 'react';
-import { Button, Empty } from 'antd';
+import { Empty } from 'antd';
 import styles from './OperationDeviceDC.less';
 import { Device } from '@/services/resources/models';
 // import { dispatchAction } from '@/services/device';
@@ -19,8 +19,8 @@ const OperationDeviceDC = (props: IOperationProductDCProps) => (
   <div>
     <div>
       <Empty description="设备未激活"></Empty>
-      <Button style={{ width: '100%', marginTop: 30 }}> 模拟调试 </Button>
-      <Button style={{ width: '100%', marginTop: 15 }}> 清除调试数据 </Button>
+      {/* <Button style={{ width: '100%', marginTop: 30 }}> 模拟调试 </Button> */}
+      {/* <Button style={{ width: '100%', marginTop: 15 }}> 清除调试数据 </Button> */}
     </div>
 
     {/* <Button type="dashed" style={{ width: '100%', marginBottom: 8 }} icon="plus"></Button> */}

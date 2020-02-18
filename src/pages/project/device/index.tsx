@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { FormComponentProps } from 'antd/lib/form';
 import { get } from 'lodash';
-import { Card, Layout, Menu, Icon, Button } from 'antd';
+import { Card, Layout, Menu, Icon, Button, Spin } from 'antd';
 import { useRestful, useFormModal } from '@/hooks';
 import { PRODUCTS_API, DEVICES_API } from '@/services/resources';
 import { Product, Device } from '@/services/resources/models';
@@ -46,10 +46,6 @@ const DeviceLayout: React.FC<ManageProps> = props => {
     <PageHeaderWrapper>
       <Card className={styles.header} style={{ marginBottom: 6 }} bodyStyle={{ padding: 12 }}>
         <div className={styles.right}>
-          <Button type="primary" style={{ marginRight: 10 }}>
-            虚拟设备管理
-          </Button>
-
           <Button onClick={handleCreateDevice} type="primary">
             创建设备
           </Button>
@@ -84,7 +80,11 @@ const DeviceLayout: React.FC<ManageProps> = props => {
             </Menu>
           </Sider>
           <Content className={styles.content}>
-            <DeviceTable productId={productId} random={random} />
+            {productId ? (
+              <DeviceTable projectId={projectId} productId={productId} random={random} />
+            ) : (
+              <Spin></Spin>
+            )}
           </Content>
         </Layout>
       </Card>
