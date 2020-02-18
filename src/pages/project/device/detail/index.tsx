@@ -14,7 +14,10 @@ interface IResult {
 }
 
 const structure2columnsAdapter = (data: IResult | undefined) => {
-  const baseField = [{ title: '时间', dataIndex: 'createTime' }];
+  const baseField = [
+    { title: '时间', dataIndex: 'createTime', key: 'createTime', render: (text: string) => text },
+    { title: '操作', render: (record: any) => <a onClick={() => console.log(record)}>操作</a> },
+  ];
   if (!data) {
     return {
       device: baseField,
@@ -25,8 +28,10 @@ const structure2columnsAdapter = (data: IResult | undefined) => {
     .map((item: any) => ({
       title: item.description,
       dataIndex: `data.${item.field}`,
+      key: item.field,
+      render: (field: any) => JSON.stringify(field),
     }))
-    .concat(baseField);
+    .concat(baseField as any);
 
   const modules = data.modules.map((item: any) => ({
     name: item.module,
@@ -34,6 +39,8 @@ const structure2columnsAdapter = (data: IResult | undefined) => {
       .map((it: any) => ({
         title: it.description,
         dataIndex: `data.${it.field}`,
+        key: it.field,
+        render: (field: any) => JSON.stringify(field),
       }))
       .concat(baseField),
   }));
@@ -63,6 +70,8 @@ const DeviceDetail = (props: any) => {
       path: 'module/master',
     },
   ].concat(modules);
+
+  console.log(columns.device);
 
   return (
     <PageHeaderWrapper tabList={headerTabList}>
