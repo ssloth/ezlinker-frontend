@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Form, Input, Select, InputNumber } from 'antd';
+import { Button, Form, Input, Select, InputNumber, message } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 import TextArea from 'antd/lib/input/TextArea';
 import { Device, Feature, Structrue, StructrueType } from '@/services/resources/models';
@@ -23,9 +23,11 @@ const DispatchActionDC = (props: IDispatchActionDCProps) => {
   const { getFieldDecorator, validateFields, resetFields } = form;
 
   const handleSubmit = (reset?: boolean) => {
-    validateFields((error, value) => {
+    validateFields(async (error: any, value: any) => {
       if (error) return;
-      dispatchAction({ id: device.id, cmdKey: feature.cmdKey, cmdValues: value });
+      dispatchAction({ id: device.id, cmdKey: feature.cmdKey, cmdValues: value }).then(() => {
+        message.success('发送成功');
+      });
       if (reset) resetFields();
     });
   };
