@@ -14,9 +14,9 @@ interface dispatchActionData {
  */
 export async function dispatchAction(data: dispatchActionData): Promise<IServerResult> {
   const { id, ids, cmdKey, cmdValues } = data;
-  const rid = ids && ids.length > 0 ? ids.join(',') : id;
+  const did = ids && ids.length > 0 ? ids.join(',') : id;
 
-  return request(`/devices/${rid}/action`, {
+  return request(`/devices/${did}/action`, {
     method: 'POST',
     data: { cmdKey, cmdValues: Array.isArray(cmdValues) ? cmdValues : [cmdValues] },
   });

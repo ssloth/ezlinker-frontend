@@ -71,14 +71,12 @@ const DeviceDetail = (props: any) => {
     },
   ].concat(modules);
 
-  console.log(columns.device);
-
   return (
     <PageHeaderWrapper tabList={headerTabList}>
       <ProTable
         headerTitle="设备数据"
         rowKey="key"
-        columns={columns.device || []}
+        columns={(columns.device || []) as any}
         request={params =>
           deviceDataResource.query({ ...params, did }).then(data => tableData2ProTableAdapter(data))
         }

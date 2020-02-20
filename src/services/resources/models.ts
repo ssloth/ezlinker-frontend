@@ -7,6 +7,20 @@ export interface Base {
   updateTime: string;
 }
 
+export enum StructrueType {
+  number,
+  string,
+  boolean,
+  JSON,
+}
+
+export interface Structrue {
+  type: StructrueType;
+  field: string;
+  description: string;
+  defaultValue: string;
+}
+
 export interface Project extends Base {
   name: string;
   logo: string;

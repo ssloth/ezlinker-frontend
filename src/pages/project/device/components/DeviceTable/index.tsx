@@ -31,7 +31,7 @@ const DeviceTable: React.FC<IDeviceTableProps> = props => {
   const deviceResource = useRestful<Device>(DEVICES_API);
   const operation = useDrawer(OperationDeviceDC, {
     title: '操作设备',
-    width: 400,
+    width: 500,
   });
 
   const { tableProps } = useTable(deviceResource, { productId, projectId, random });
@@ -86,7 +86,15 @@ const DeviceTable: React.FC<IDeviceTableProps> = props => {
     },
   ];
 
-  return <Table rowKey="id" {...tableProps} columns={columns} scroll={{ x: 1500 }} />;
+  return (
+    <Table
+      style={{ width: '100%' }}
+      rowKey="id"
+      {...tableProps}
+      columns={columns}
+      scroll={{ x: 1336 }}
+    />
+  );
 };
 
 export default DeviceTable;
