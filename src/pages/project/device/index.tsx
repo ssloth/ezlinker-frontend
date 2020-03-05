@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { FormComponentProps } from '@ant-design/compatible/lib/form';
 import { get } from 'lodash';
 import { BlockOutlined } from '@ant-design/icons';
@@ -44,7 +43,7 @@ const DeviceLayout: React.FC<ManageProps> = props => {
   }, [productData]);
 
   return (
-    <PageHeaderWrapper>
+    <div>
       <Card className={styles.header} style={{ marginBottom: 6 }} bodyStyle={{ padding: 12 }}>
         <div className={styles.right}>
           <Button onClick={handleCreateDevice} type="primary">
@@ -89,7 +88,7 @@ const DeviceLayout: React.FC<ManageProps> = props => {
           </Content>
         </Layout>
       </Card>
-    </PageHeaderWrapper>
+    </div>
   );
 };
 
