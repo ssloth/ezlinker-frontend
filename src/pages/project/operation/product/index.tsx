@@ -1,4 +1,7 @@
-import { Button, Card, Form } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Button, Card } from 'antd';
 import React from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import useRestful from '@/hooks/useRestful';
@@ -17,7 +20,7 @@ const ProductTableList = () => {
             <div></div>
           </div>
           <div className={styles.tableListOperator}>
-            <Button icon="plus" type="primary">
+            <Button icon={<PlusOutlined />} type="primary">
               新建
             </Button>
           </div>

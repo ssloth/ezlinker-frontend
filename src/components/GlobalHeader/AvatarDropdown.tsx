@@ -1,4 +1,5 @@
-import { Avatar, Icon, Menu, Spin } from 'antd';
+import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
+import { Avatar, Menu, Spin } from 'antd';
 import { ClickParam } from 'antd/es/menu';
 import React from 'react';
 import { connect } from 'dva';
@@ -45,20 +46,20 @@ class AvatarDropdown extends React.Component<GlobalHeaderRightProps> {
       <Menu className={styles.menu} selectedKeys={[]} onClick={this.onMenuClick}>
         {menu && (
           <Menu.Item key="center">
-            <Icon type="user" />
+            <UserOutlined />
             个人中心
           </Menu.Item>
         )}
         {menu && (
           <Menu.Item key="settings">
-            <Icon type="setting" />
+            <SettingOutlined />
             个人设置
           </Menu.Item>
         )}
         {menu && <Menu.Divider />}
 
         <Menu.Item key="logout">
-          <Icon type="logout" />
+          <LogoutOutlined />
           退出登录
         </Menu.Item>
       </Menu>

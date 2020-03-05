@@ -1,11 +1,12 @@
 import React from 'react';
-import { Card, List, Button, Icon, Typography } from 'antd';
+import { PlusOutlined, SettingOutlined } from '@ant-design/icons';
+import { Card, List, Button, Typography } from 'antd';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import Link from 'umi/link';
-import styles from './index.less';
 import { useFormModal, useRestful } from '@/hooks';
 import { PROJECT_API } from '@/services/resources';
 import { Project } from '@/services/resources/models';
+import styles from './index.less';
 import CreateProjectFMC from './components/modules/CreateProjectFMC';
 
 const { Paragraph } = Typography;
@@ -52,11 +53,10 @@ export default (): React.ReactNode => {
                       title={
                         <div>
                           {item.name}
-                          <Icon
+                          <SettingOutlined
                             onClick={() => handleEditProject(item)}
                             style={{ float: 'right' }}
-                            type="setting"
-                          ></Icon>
+                          ></SettingOutlined>
                         </div>
                       }
                       description={
@@ -72,7 +72,7 @@ export default (): React.ReactNode => {
             return (
               <List.Item>
                 <Button onClick={handleAddProject} type="dashed" className={styles.newButton}>
-                  <Icon type="plus" /> 新增项目
+                  <PlusOutlined /> 新增项目
                 </Button>
               </List.Item>
             );

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import { FormComponentProps } from 'antd/lib/form';
+import { FormComponentProps } from '@ant-design/compatible/lib/form';
 import { get } from 'lodash';
-import { Card, Layout, Menu, Icon, Button, Spin } from 'antd';
+import { BlockOutlined } from '@ant-design/icons';
+import { Card, Layout, Menu, Button, Spin } from 'antd';
 import { useRestful, useFormModal } from '@/hooks';
 import { PRODUCTS_API, DEVICES_API } from '@/services/resources';
 import { Product, Device } from '@/services/resources/models';
@@ -65,7 +66,7 @@ const DeviceLayout: React.FC<ManageProps> = props => {
                 key="product"
                 title={
                   <span>
-                    <Icon type="block" />
+                    <BlockOutlined />
                     产品列表
                   </span>
                 }

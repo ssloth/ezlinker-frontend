@@ -1,6 +1,9 @@
 import React from 'react';
-import { Button, Card, Col, Form, Input, Radio, Row, List } from 'antd';
-import { FormComponentProps } from 'antd/es/form';
+import { PlusOutlined } from '@ant-design/icons';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Button, Card, Col, Input, Radio, Row, List } from 'antd';
+import { FormComponentProps } from '@ant-design/compatible/es/form';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { get } from 'lodash';
 import { useFormModal, useRestful, useDrawer } from '@/hooks';
@@ -9,10 +12,10 @@ import { PRODUCTS_API } from '@/services/resources';
 import { Product } from '@/services/resources/models';
 import { ITableList } from '@/typings/server';
 
+import IconFont from '@/components/IconFont';
 import styles from './style.less';
 import CreateProductFMC from './components/modules/CreateProductFMC';
 import OperationProductDC from './components/modules/OperationProductDC';
-import IconFont from '@/components/IconFont';
 
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
@@ -111,7 +114,7 @@ const Develop: React.FC<DevelopProps> = props => {
           <Button
             type="dashed"
             style={{ width: '100%', marginBottom: 8 }}
-            icon="plus"
+            icon={<PlusOutlined />}
             onClick={handleAdd}
           >
             添加

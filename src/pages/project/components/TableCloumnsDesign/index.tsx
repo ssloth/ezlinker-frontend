@@ -1,7 +1,10 @@
 import React from 'react';
-import { Form, Input, Select, Icon, Button } from 'antd';
+import { CloseOutlined, PlusOutlined } from '@ant-design/icons';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Input, Select, Button } from 'antd';
 import { useDynamicList } from '@umijs/hooks';
-import { WrappedFormUtils } from 'antd/lib/form/Form';
+import { WrappedFormUtils } from '@ant-design/compatible/lib/form/Form';
 import { enums2Options } from '@/enums/utils';
 import { CMD_VALUE } from '@/enums/product';
 import styles from './index.less';
@@ -59,7 +62,7 @@ const TableCloumnsDesign = ({
             style={{ width: '35%' }}
             addonAfter={
               <div className={styles.close} onClick={() => remove(index)}>
-                <Icon className={styles.icon} type="close"></Icon>
+                <CloseOutlined className={styles.icon}></CloseOutlined>
               </div>
             }
             placeholder="备注"
@@ -73,7 +76,7 @@ const TableCloumnsDesign = ({
     <>
       {list.map((ele, index) => TableRow(index, ele))}
       <Button type="dashed" style={{ width: '100%' }} onClick={() => push('')}>
-        <Icon type="plus" /> 新增
+        <PlusOutlined /> 新增
       </Button>
     </>
   );

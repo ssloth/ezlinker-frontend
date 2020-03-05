@@ -1,11 +1,12 @@
 import React from 'react';
-import { Button, Dropdown, Menu, Icon } from 'antd';
+import { DownOutlined, PlusOutlined } from '@ant-design/icons';
+import { Button, Dropdown, Menu } from 'antd';
 import ProTable, { ProColumns } from '@ant-design/pro-table';
 import { useRestful, useFormModal } from '@/hooks';
 import { User } from '@/services/resources/models';
 import { MANAGEMENT_USER_API } from '@/services/resources/index';
-import CreateUserFMC from './components/modules/CreateUserFMC';
 import { tableData2ProTableAdapter } from '@/utils/adapter';
+import CreateUserFMC from './components/modules/CreateUserFMC';
 
 const UserManage = () => {
   const userResource = useRestful<User>(MANAGEMENT_USER_API);
@@ -50,7 +51,7 @@ const UserManage = () => {
         columns={columns}
         request={params => userResource.query(params).then(data => tableData2ProTableAdapter(data))}
         toolBarRender={(action, { selectedRows }) => [
-          <Button icon="plus" type="primary" onClick={handleCreateUser}>
+          <Button icon={<PlusOutlined />} type="primary" onClick={handleCreateUser}>
             新建
           </Button>,
           selectedRows && selectedRows.length > 0 && (
@@ -71,7 +72,7 @@ const UserManage = () => {
               }
             >
               <Button>
-                批量操作 <Icon type="down" />
+                批量操作 <DownOutlined />
               </Button>
             </Dropdown>
           ),
@@ -79,15 +80,15 @@ const UserManage = () => {
       ></ProTable>
 
       {/* <Card className={styles.header} style={{ marginBottom: 6 }} bodyStyle={{ padding: 12 }}>
-        <div className={styles.right}>
-          <Button onClick={handleCreateUser} type="primary">
-            创建用户
-          </Button>
-        </div>
-      </Card>
-      <Card bodyStyle={{ padding: 0 }}>
-        <Table rowKey="id" columns={columns} {...tableProps}></Table>
-      </Card> */}
+      <div className={styles.right}>
+        <Button onClick={handleCreateUser} type="primary">
+          创建用户
+        </Button>
+      </div>
+    </Card>
+    <Card bodyStyle={{ padding: 0 }}>
+      <Table rowKey="id" columns={columns} {...tableProps}></Table>
+    </Card> */}
     </>
   );
 };

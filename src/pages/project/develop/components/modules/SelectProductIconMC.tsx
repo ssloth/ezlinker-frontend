@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Icon } from 'antd';
+import { createFromIconfontCN } from '@ant-design/icons';
 import { range } from 'lodash';
 import classNames from 'classnames/bind';
 import styles from './SelectProductIconMC.less';
 
-const IconFont = Icon.createFromIconfontCN({ scriptUrl: '/iconfont/iconfont.js' });
+const IconFont = createFromIconfontCN({ scriptUrl: '/iconfont/iconfont.js' });
 
 const iconBlacklist = [1, 2, 6]; // 因为有的图标不能用 所以加入黑名单
 const cx = classNames.bind(styles);

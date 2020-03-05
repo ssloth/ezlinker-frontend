@@ -1,6 +1,8 @@
 import React from 'react';
-import { Button, Form, Input, Select, InputNumber, message } from 'antd';
-import { FormComponentProps } from 'antd/lib/form';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Button, Input, Select, InputNumber, message } from 'antd';
+import { FormComponentProps } from '@ant-design/compatible/lib/form';
 import TextArea from 'antd/lib/input/TextArea';
 import { Device, Feature, Structrue, StructrueType } from '@/services/resources/models';
 import { dispatchAction } from '@/services/device';

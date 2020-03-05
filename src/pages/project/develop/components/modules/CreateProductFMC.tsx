@@ -1,5 +1,8 @@
 import React from 'react';
-import { Form, Input, Select, Button, Icon } from 'antd';
+import { createFromIconfontCN, PlusOutlined } from '@ant-design/icons';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Input, Select, Button } from 'antd';
 import { IFormModalContentProps } from '@/hooks/usePopup/type';
 import TableCloumnsDesign from '@/pages/project/components/TableCloumnsDesign';
 import { enums2Options } from '@/enums/utils';
@@ -7,7 +10,7 @@ import { PRODUCT_TYPE } from '@/enums/product';
 import { useModal } from '@/hooks';
 import SelectProductIconMC, { SelectProductIconMCProps } from './SelectProductIconMC';
 
-const IconFont = Icon.createFromIconfontCN({ scriptUrl: '/iconfont/iconfont.js' });
+const IconFont = createFromIconfontCN({ scriptUrl: '/iconfont/iconfont.js' });
 
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -80,7 +83,7 @@ const CreateProductFMC = (props: IFormModalContentProps) => {
               type={form.getFieldValue('logo')}
             />
           ) : (
-            <Icon type="plus" />
+            <PlusOutlined />
           )}
         </Button>
         {getFieldDecorator('logo', {

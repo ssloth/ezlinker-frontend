@@ -1,5 +1,5 @@
 import { DrawerProps } from 'antd/lib/drawer';
-import { FormComponentProps } from 'antd/lib/form';
+import { FormComponentProps } from '@ant-design/compatible/lib/form';
 import { IAction } from '@/typings/global';
 import { IUseResuful } from '../useRestful/useRestful';
 

@@ -1,10 +1,12 @@
 import * as ReactDOM from 'react-dom';
 import React, { useEffect, useState } from 'react';
-import { Button, Drawer, Form, message, Modal } from 'antd';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Button, Drawer, message, Modal } from 'antd';
 import request from '@/utils/request';
 import { IAction } from '@/typings/global';
-import { IFormPopupBoxOption, IFormPopupBoxProps, IUseFormPopupBox } from '../type';
 import { IUseResuful } from '@/hooks/useRestful/useRestful';
+import { IFormPopupBoxOption, IFormPopupBoxProps, IUseFormPopupBox } from '../type';
 
 const DrawerFooter = (props: any) => (
   <div

@@ -1,8 +1,8 @@
 import { DrawerProps } from 'antd/lib/drawer';
+import { IAction } from '@/typings/global';
 import usePopupBox from './libs/usePopupBox';
 import useFormPopupBox from './libs/useFormPopupBox';
 import { IFormPopupBoxOption } from './type';
-import { IAction } from '@/typings/global';
 import { IUseResuful } from '../useRestful/useRestful';
 
 const useFormModal = <ContentProps, UseResufulType = any>(

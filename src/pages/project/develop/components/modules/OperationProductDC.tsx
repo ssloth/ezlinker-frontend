@@ -1,11 +1,12 @@
 import classNames from 'classnames/bind';
 import React from 'react';
-import { Button, Card, Icon } from 'antd';
-import CreateModuleFDC from './CreateModuleFDC';
-import styles from './OperationProductDC.less';
+import { PlusOutlined, RightOutlined } from '@ant-design/icons';
+import { Button, Card } from 'antd';
 import { ModuleTemplate, Feature } from '@/services/resources/models';
 import { MODULES_API, FEATURES_API } from '@/services/resources/index';
 import { useFormDrawer, useRestful } from '@/hooks';
+import styles from './OperationProductDC.less';
+import CreateModuleFDC from './CreateModuleFDC';
 import CreateFeatureFDC from './CreateFeatureFDC';
 // import { useDrawer } from '@/hook';
 
@@ -57,7 +58,7 @@ const OperationProductDC = (props: IOperationProductDCProps) => {
         onClick={handleAddModule}
         type="dashed"
         style={{ width: '100%', marginBottom: 8 }}
-        icon="plus"
+        icon={<PlusOutlined />}
       >
         创建模块
       </Button>
@@ -77,7 +78,7 @@ const OperationProductDC = (props: IOperationProductDCProps) => {
                 <div className={cx('description')}>{item.description}</div>
               </div>
               <div className={cx('right')} onClick={() => handleEditModule(item)}>
-                <Icon type="right"></Icon>
+                <RightOutlined></RightOutlined>
               </div>
             </Card.Grid>
           ))}
@@ -87,7 +88,7 @@ const OperationProductDC = (props: IOperationProductDCProps) => {
         onClick={handleAddFeature}
         type="dashed"
         style={{ width: '100%', marginBottom: 8 }}
-        icon="plus"
+        icon={<PlusOutlined />}
       >
         创建功能
       </Button>

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Table, { TableProps, PaginationConfig } from 'antd/lib/table';
 import { ParsedUrlQueryInput } from 'querystring';
-import { IUseResuful } from '../useRestful/useRestful';
 import { ITableListItem } from '@/typings/server';
+import { IUseResuful } from '../useRestful/useRestful';
 
 const paginationInitial = {
   current: 1,

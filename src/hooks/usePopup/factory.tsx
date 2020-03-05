@@ -1,5 +1,7 @@
 import React from 'react';
-import { Form, Input } from 'antd';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Input } from 'antd';
 import { ValidationRule } from 'antd/lib/form';
 
 interface IFormItem {

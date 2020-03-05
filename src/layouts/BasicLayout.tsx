@@ -1,12 +1,14 @@
 import classNames from 'classnames/bind';
 import React, { useState } from 'react';
 import { getMenuData } from '@ant-design/pro-layout';
-import { Icon, Layout } from 'antd';
+import { Icon as LegacyIcon } from '@ant-design/compatible';
+import { RightOutlined } from '@ant-design/icons';
+import { Layout } from 'antd';
 import { Link } from 'umi';
 import VirtualDevice from '@/components/VirtualDevice';
 import RightContent from '@/components/GlobalHeader/RightContent';
-import styles from './BasicLayout.less';
 import { ConnectProps } from '@/models/connect';
+import styles from './BasicLayout.less';
 
 const cx = classNames.bind(styles);
 
@@ -47,7 +49,7 @@ const BasicLayout: React.SFC<ConnectProps> = props => {
                 <Link to={menuItem.path}>
                   {/* <div className={styles.name}></div> */}
                   <div className={cx('icon')}>
-                    <Icon style={{ fontSize: 22 }} type={menuItem.icon} />
+                    <LegacyIcon style={{ fontSize: 22 }} type={menuItem.icon} />
                   </div>
                 </Link>
               </div>
@@ -62,7 +64,7 @@ const BasicLayout: React.SFC<ConnectProps> = props => {
             onClick={() => setCollapsed(!collapsed)}
           >
             <div className={cx('navbar-collapse')}>
-              <Icon className={cx('icon')} type="right"></Icon>
+              <RightOutlined className={cx('icon')}></RightOutlined>
             </div>
           </div>
         </Sider>

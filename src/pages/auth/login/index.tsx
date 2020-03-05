@@ -2,14 +2,14 @@ import { Alert, Checkbox } from 'antd';
 import React, { Component } from 'react';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { Dispatch, AnyAction } from 'redux';
-import { FormComponentProps } from 'antd/es/form';
+import { FormComponentProps } from '@ant-design/compatible/es/form';
 import { connect } from 'dva';
 import { Link } from 'umi';
 import { StateType } from '@/models/login';
-import LoginComponents from './components/Login';
-import styles from './style.less';
 import { LoginType } from '@/services/login';
 import { ConnectState } from '@/models/connect';
+import LoginComponents from './components/Login';
+import styles from './style.less';
 
 const { UserName, Password, Submit } = LoginComponents;
 interface LoginProps {

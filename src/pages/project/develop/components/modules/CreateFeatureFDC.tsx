@@ -1,11 +1,13 @@
 import React from 'react';
-import { Form, Input, Divider, Select } from 'antd';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Input, Divider, Select } from 'antd';
 import classNames from 'classnames/bind';
 import { IFormDrawerContentProps } from '@/hooks/usePopup/type';
-import styles from './CreateModuleFDC.less';
 import { FEATURE_TYPE } from '@/enums/product';
 import { enums2Options } from '@/enums/utils';
 import TableCloumnsDesign from '@/pages/project/components/TableCloumnsDesign';
+import styles from './CreateModuleFDC.less';
 
 const cx = classNames.bind(styles);
 const FormItem = Form.Item;

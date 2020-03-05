@@ -1,4 +1,5 @@
-import { AutoComplete, Icon, Input } from 'antd';
+import { SearchOutlined } from '@ant-design/icons';
+import { AutoComplete, Input } from 'antd';
 import { AutoCompleteProps, DataSourceItemType } from 'antd/es/auto-complete';
 import React, { Component } from 'react';
 
@@ -26,6 +27,8 @@ interface HeaderSearchState {
 }
 
 export default class HeaderSearch extends Component<HeaderSearchProps, HeaderSearchState> {
+  private inputRef: Input | null = null;
+
   static defaultProps = {
     defaultActiveFirstOption: false,
     onPressEnter: () => {},
@@ -46,8 +49,6 @@ export default class HeaderSearch extends Component<HeaderSearchProps, HeaderSea
     }
     return null;
   }
-
-  private inputRef: Input | null = null;
 
   constructor(props: HeaderSearchProps) {
     super(props);
@@ -122,7 +123,7 @@ export default class HeaderSearch extends Component<HeaderSearchProps, HeaderSea
           }
         }}
       >
-        <Icon type="search" key="Icon" />
+        <SearchOutlined key="Icon" />
         <AutoComplete
           key="AutoComplete"
           {...restProps}

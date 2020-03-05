@@ -1,6 +1,8 @@
 import React from 'react';
-import { Form, Input, Select } from 'antd';
-import { FormComponentProps } from 'antd/es/form';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Input, Select } from 'antd';
+import { FormComponentProps } from '@ant-design/compatible/es/form';
 import { Device, Product } from '@/services/resources/models';
 
 const FormItem = Form.Item;

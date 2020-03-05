@@ -1,14 +1,15 @@
-import { Form } from 'antd';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
 import React, { Component } from 'react';
-import { FormComponentProps } from 'antd/es/form';
+import { FormComponentProps } from '@ant-design/compatible/es/form';
 import classNames from 'classnames';
+import { LoginType as LoginParamsType } from '@/services/login';
 import LoginContext, { LoginContextProps } from './LoginContext';
 import LoginItem, { LoginItemProps, LoginItemType } from './LoginItem';
 
 import LoginSubmit from './LoginSubmit';
 import LoginTab from './LoginTab';
 import styles from './index.less';
-import { LoginType as LoginParamsType } from '@/services/login';
 
 export interface LoginProps {
   defaultActiveKey?: string;
@@ -28,6 +29,7 @@ interface LoginState {
 }
 
 class Login extends Component<LoginProps, LoginState> {
+  // eslint-disable-next-line react/sort-comp
   public static Tab = LoginTab;
 
   public static Submit = LoginSubmit;
