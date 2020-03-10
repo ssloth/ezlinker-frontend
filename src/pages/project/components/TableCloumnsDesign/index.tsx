@@ -2,12 +2,29 @@ import React from 'react';
 import { CloseOutlined, PlusOutlined } from '@ant-design/icons';
 import { Form } from '@ant-design/compatible';
 import '@ant-design/compatible/assets/index.css';
-import { Input, Select, Button } from 'antd';
+import { Input, InputNumber, Select, Button } from 'antd';
 import { useDynamicList } from '@umijs/hooks';
 import { WrappedFormUtils } from '@ant-design/compatible/lib/form/Form';
 import { enums2Options } from '@/enums/utils';
 import { CMD_VALUE } from '@/enums/product';
 import styles from './index.less';
+import { validatorDefaultValue } from './util';
+
+const renderDefaultValue = (type: CMD_VALUE) => {
+  const tableMap = {
+    [CMD_VALUE.string]: <Input style={{ width: '20%' }} placeholder="默认值" />,
+    [CMD_VALUE.number]: <InputNumber style={{ width: '20%' }} placeholder="默认值" />,
+    [CMD_VALUE.JSON]: <Input style={{ width: '20%' }} placeholder="默认值" />,
+    [CMD_VALUE.boolean]: (
+      <Select style={{ width: '20%' }} placeholder="默认值">
+        <Select.Option value={0}>false</Select.Option>
+        <Select.Option value={1}>true</Select.Option>
+      </Select>
+    ),
+  };
+
+  return tableMap[type] || tableMap[CMD_VALUE.string];
+};
 
 const TableCloumnsDesign = ({
   form,
@@ -19,7 +36,7 @@ const TableCloumnsDesign = ({
   current: any[];
 }) => {
   const { list, getKey, remove, push } = useDynamicList(current || []);
-  const { getFieldDecorator } = form;
+  const { getFieldDecorator, getFieldValue } = form;
 
   const TableRow = (index: number, item: any) => (
     <Form.Item key={getKey(index)}>
@@ -48,7 +65,8 @@ const TableCloumnsDesign = ({
         )}
         {getFieldDecorator(`${field}[${getKey(index)}].defaultValue`, {
           initialValue: item.defaultValue,
-        })(<Input style={{ width: '20%' }} placeholder="默认值" />)}
+          rules: [{ validator: validatorDefaultValue, type: 'json' }],
+        })(renderDefaultValue(getFieldValue(`${field}[${getKey(index)}].type`)))}
         {getFieldDecorator(`${field}[${getKey(index)}].description`, {
           initialValue: item.description,
           rules: [

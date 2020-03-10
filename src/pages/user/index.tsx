@@ -48,6 +48,7 @@ const UserManage = () => {
       <ProTable
         headerTitle="用户管理"
         rowKey="key"
+        size="middle"
         columns={columns}
         request={params => userResource.query(params).then(data => tableData2ProTableAdapter(data))}
         toolBarRender={(action, { selectedRows }) => [

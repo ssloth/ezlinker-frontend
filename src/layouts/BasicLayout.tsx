@@ -1,10 +1,10 @@
+import { Link } from 'umi';
+import { Layout } from 'antd';
 import classNames from 'classnames/bind';
 import React, { useState } from 'react';
 import { getMenuData } from '@ant-design/pro-layout';
 import { Icon as LegacyIcon } from '@ant-design/compatible';
 import { RightOutlined } from '@ant-design/icons';
-import { Layout } from 'antd';
-import { Link } from 'umi';
 import VirtualDevice from '@/components/VirtualDevice';
 import RightContent from '@/components/GlobalHeader/RightContent';
 import { ConnectProps } from '@/models/connect';
@@ -43,13 +43,13 @@ const BasicLayout: React.SFC<ConnectProps> = props => {
               <div
                 key={menuItem.name}
                 className={cx('menu-item', {
-                  active: isActive(menuItem.path, pathname),
+                  active: isActive(menuItem ? menuItem.path || '' : '', pathname),
                 })}
               >
-                <Link to={menuItem.path}>
+                <Link to={menuItem.path || ''}>
                   {/* <div className={styles.name}></div> */}
                   <div className={cx('icon')}>
-                    <LegacyIcon style={{ fontSize: 22 }} type={menuItem.icon} />
+                    <LegacyIcon style={{ fontSize: 22 }} type={menuItem.icon as any} />
                   </div>
                 </Link>
               </div>

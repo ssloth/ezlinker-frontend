@@ -17,7 +17,7 @@ const DrawerFooter = (props: any) => (
       width: '100%',
       borderTop: '1px solid #66666666',
       padding: '10px 16px',
-      background: '@dark-bg-3',
+      // background: '@dark-bg-3',
       textAlign: 'right',
     }}
   >

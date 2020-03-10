@@ -1,10 +1,9 @@
 import React from 'react';
-import { PlusOutlined } from '@ant-design/icons';
+// import { PlusOutline } from '@ant-design/icons';
 import { Form } from '@ant-design/compatible';
 import '@ant-design/compatible/assets/index.css';
 import { Button, Card, Col, Input, Radio, Row, List } from 'antd';
 import { FormComponentProps } from '@ant-design/compatible/es/form';
-import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { get } from 'lodash';
 import { useFormModal, useRestful, useDrawer } from '@/hooks';
 import { ConnectProps } from '@/models/connect';
@@ -85,7 +84,7 @@ const Develop: React.FC<DevelopProps> = props => {
   );
 
   return (
-    <PageHeaderWrapper>
+    <div>
       <div className={styles.standardList}>
         <Card bordered={false}>
           <Row>
@@ -114,7 +113,7 @@ const Develop: React.FC<DevelopProps> = props => {
           <Button
             type="dashed"
             style={{ width: '100%', marginBottom: 8 }}
-            icon={<PlusOutlined />}
+            // icon={<PlusOutline />}
             onClick={handleAdd}
           >
             添加
@@ -147,7 +146,7 @@ const Develop: React.FC<DevelopProps> = props => {
           />
         </Card>
       </div>
-    </PageHeaderWrapper>
+    </div>
   );
 };
 
