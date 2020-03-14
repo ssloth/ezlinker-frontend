@@ -16,7 +16,7 @@ interface IResult {
 const structure2columnsAdapter = (data: IResult | undefined) => {
   const baseField = [
     { title: '时间', dataIndex: 'createTime', key: 'createTime', render: (text: string) => text },
-    { title: '操作', render: (record: any) => <a onClick={() => console.log(record)}>操作</a> },
+    { title: '操作', render: () => <a>操作</a> },
   ];
   if (!data) {
     return {
