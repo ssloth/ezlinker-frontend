@@ -1,4 +1,4 @@
 export enum PROJECT_TYPE {
-  单设备,
-  批量,
+  自由项目,
+  批量项目,
 }

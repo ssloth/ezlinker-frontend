@@ -2,9 +2,11 @@ import React from 'react';
 import { Form } from '@ant-design/compatible';
 import '@ant-design/compatible/assets/index.css';
 import { Input, Select } from 'antd';
+import RemoteImagePicker from '@/components/RemoteImagePicker';
 import { IFormModalContentProps } from '@/hooks/usePopup/type';
 import { enums2Options } from '@/enums/utils';
 import { PROJECT_TYPE } from '@/enums/project';
+import { PROJECT_ICON_API } from '@/services/resources';
 
 const formLayout = {
   labelCol: { span: 7 },
@@ -37,7 +39,7 @@ const CreateProjectFMC = (props: IFormModalContentProps) => {
       <Form.Item label="图标" {...formLayout}>
         {form.getFieldDecorator('logo', {
           initialValue: current.logo,
-        })(<Input placeholder="请选择项目图标" />)}
+        })(<RemoteImagePicker url={PROJECT_ICON_API} />)}
       </Form.Item>
     </>
   );

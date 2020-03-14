@@ -54,7 +54,7 @@ const DeviceLayout: React.FC<ManageProps> = props => {
 
       <Card className={styles.layout} bodyStyle={{ padding: 0 }}>
         <Layout>
-          <Sider className={styles.sider}>
+          <Sider width={150} className={styles.sider}>
             <Menu
               mode="inline"
               selectedKeys={[productId]}

@@ -86,7 +86,15 @@ const DeviceTable: React.FC<IDeviceTableProps> = props => {
     },
   ];
 
-  return <Table style={{ width: '100%' }} rowKey="id" columns={columns} {...tableProps} />;
+  return (
+    <Table
+      size="middle"
+      style={{ width: '100%' }}
+      rowKey="id"
+      columns={columns}
+      {...(tableProps as any)}
+    />
+  );
 };
 
 export default DeviceTable;
