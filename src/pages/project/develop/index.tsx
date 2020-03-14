@@ -12,6 +12,7 @@ import { Product } from '@/services/resources/models';
 import { ITableList } from '@/typings/server';
 
 import IconFont from '@/components/IconFont';
+import { PlusOutlined } from '@ant-design/icons';
 import styles from './style.less';
 import CreateProductFMC from './components/modules/CreateProductFMC';
 import OperationProductDC from './components/modules/OperationProductDC';
@@ -113,7 +114,7 @@ const Develop: React.FC<DevelopProps> = props => {
           <Button
             type="dashed"
             style={{ width: '100%', marginBottom: 8 }}
-            // icon={<PlusOutline />}
+            icon={<PlusOutlined />}
             onClick={handleAdd}
           >
             添加

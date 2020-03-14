@@ -22,19 +22,13 @@ const Index = () => {
         <Suspense fallback={<div />}>
           <IntroduceRow loading={!homeData} data={homeData}></IntroduceRow>
         </Suspense>
-        <Row
-          gutter={24}
-          type="flex"
-          style={{
-            marginTop: 24,
-          }}
-        >
-          <Col xl={12} lg={24} md={24} sm={24} xs={24}>
+        <Row gutter={24}>
+          <Col style={{ marginBottom: 20 }} xl={12} lg={24} md={24} sm={24} xs={24}>
             <Suspense fallback={null}>
               <ModuleLoginLogCard tableProps={moduleLogsTableProps}></ModuleLoginLogCard>
             </Suspense>
           </Col>
-          <Col xl={12} lg={24} md={24} sm={24} xs={24}>
+          <Col style={{ marginBottom: 20 }} xl={12} lg={24} md={24} sm={24} xs={24}>
             <Suspense fallback={null}>
               <UserLoginLogCard tableProps={userLogsTableProps}></UserLoginLogCard>
             </Suspense>

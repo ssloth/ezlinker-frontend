@@ -11,13 +11,6 @@ import { IFormPopupBoxOption, IFormPopupBoxProps, IUseFormPopupBox } from '../ty
 const DrawerFooter = (props: any) => (
   <div
     style={{
-      position: 'absolute',
-      right: 0,
-      bottom: 0,
-      width: '100%',
-      borderTop: '1px solid #66666666',
-      padding: '10px 16px',
-      // background: '@dark-bg-3',
       textAlign: 'right',
     }}
   >
@@ -100,22 +93,24 @@ const FormPopupBox = Form.create<IFormPopupBoxProps>()((props: IFormPopupBoxProp
       onClose={handleCancel}
       onOk={handleOk}
       visible={visible}
-      footer={[
-        <Button key="back" onClick={handleCancel}>
-          取消
-        </Button>,
-        <Button key="submit" type="primary" loading={loading} onClick={handleOk}>
-          提交
-        </Button>,
-      ]}
+      footer={
+        CustomPopupBox === Drawer ? (
+          <DrawerFooter {...props}></DrawerFooter>
+        ) : (
+          [
+            <Button key="back" onClick={handleCancel}>
+              取消
+            </Button>,
+            <Button key="submit" type="primary" loading={loading} onClick={handleOk}>
+              提交
+            </Button>,
+          ]
+        )
+      }
       {...options}
     >
       <>
         <FormPopupBoxContent form={form} {...formPopupBoxContentProps} />
-        {// 向 Drawe 中注入 footer
-        CustomPopupBox === Drawer && (
-          <DrawerFooter onOk={handleOk} loading={loading} onCancel={handleCancel}></DrawerFooter>
-        )}
       </>
     </CustomPopupBox>
   );

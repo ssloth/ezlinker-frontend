@@ -42,7 +42,7 @@ export default {
   '@text-color-dark': 'fade(@dark, 85%)',
   '@text-color-secondary-dark': 'fade(@dark, 65%)',
 
-  '@border-color-base': 'fade(@dark, 15%)', // base border outline a component
+  '@border-color-base': 'fade(@light-2, 75%)', // base border outline a component
   '@border-color-split': 'fade(@dark, 25%)', // split border inside a component
   '@border-color-inverse': '@dark',
   '@border-width-base': '1px', // width of the border for a component

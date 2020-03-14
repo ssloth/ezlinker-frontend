@@ -34,22 +34,24 @@ const usePopupBox = (
 
   const cancle = () => setVisible(false);
 
+  const defaultProps =
+    CustomPopupBox === Drawer
+      ? { onClose: cancle }
+      : {
+          onCancel: cancle,
+          onOk: cancle,
+          footer: [
+            <Button key="back" onClick={cancle}>
+              取消
+            </Button>,
+            <Button key="submit" type="primary" onClick={cancle}>
+              确定
+            </Button>,
+          ],
+        };
+
   const customPopupBox = (
-    <CustomPopupBox
-      {...drawerProps}
-      onClose={cancle}
-      onCancel={cancle}
-      onOk={cancle}
-      visible={visible}
-      footer={[
-        <Button key="back" onClick={cancle}>
-          取消
-        </Button>,
-        <Button key="submit" type="primary" onClick={cancle}>
-          确定
-        </Button>,
-      ]}
-    >
+    <CustomPopupBox {...drawerProps} {...defaultProps} visible={visible}>
       <Content {...contentProps}></Content>
     </CustomPopupBox>
   );

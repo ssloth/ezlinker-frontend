@@ -4,6 +4,8 @@ import darkTheme from './theme/dark';
 import slash from 'slash2';
 import webpackPlugin from './plugin.config';
 import routes from './routes';
+// import darkThemeVars from 'antd/dist/dark-theme';
+
 const { pwa, primaryColor } = defaultSettings;
 
 // preview.pro.ant.design only do not use in your production ;
@@ -92,7 +94,11 @@ export default {
   ignoreMomentLocale: true,
   lessLoaderOptions: {
     javascriptEnabled: true,
-    modifyVars: darkTheme,
+    modifyVars: {
+      // 'hack': `true;@import "${require.resolve('antd/lib/style/color/colorPalette.less')}";`,
+      ...darkTheme,
+      // ...darkThemeVarss,
+    },
   },
   disableRedirectHoist: true,
   cssLoaderOptions: {
