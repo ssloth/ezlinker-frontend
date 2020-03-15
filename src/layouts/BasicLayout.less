@@ -1,6 +1,6 @@
 @import '~antd/es/style/themes/default.less';
 
-@active-color: ~'#a9a3ca';
+@active-color: ~'#a9a3FF';
 
 .wrapper {
   display: flex;
@@ -23,7 +23,7 @@
       cursor: pointer;
 
       &:hover {
-        i {
+        .icon {
           color: @active-color;
         }
       }
@@ -40,12 +40,12 @@
           background: @active-color;
           content: '';
         }
-        i {
+        .icon {
           color: @active-color;
         }
       }
 
-      i {
+      .icon {
         color: #999;
       }
     }

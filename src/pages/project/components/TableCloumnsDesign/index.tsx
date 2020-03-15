@@ -10,22 +10,6 @@ import { CMD_VALUE } from '@/enums/product';
 import styles from './index.less';
 import { validatorDefaultValue } from './util';
 
-const renderDefaultValue = (type: CMD_VALUE) => {
-  const tableMap = {
-    [CMD_VALUE.string]: <Input style={{ width: '20%' }} placeholder="默认值" />,
-    [CMD_VALUE.number]: <InputNumber style={{ width: '20%' }} placeholder="默认值" />,
-    [CMD_VALUE.JSON]: <Input style={{ width: '20%' }} placeholder="默认值" />,
-    [CMD_VALUE.boolean]: (
-      <Select style={{ width: '20%' }} placeholder="默认值">
-        <Select.Option value={0}>false</Select.Option>
-        <Select.Option value={1}>true</Select.Option>
-      </Select>
-    ),
-  };
-
-  return tableMap[type] || tableMap[CMD_VALUE.string];
-};
-
 const TableCloumnsDesign = ({
   form,
   field,
@@ -36,7 +20,39 @@ const TableCloumnsDesign = ({
   current: any[];
 }) => {
   const { list, getKey, remove, push } = useDynamicList(current || []);
-  const { getFieldDecorator, getFieldValue } = form;
+  const { getFieldDecorator, getFieldValue, setFieldsValue } = form;
+
+  const handleTypeChange = (fieldName: string, type: CMD_VALUE) => {
+    const defaultValueTableMap = {
+      [CMD_VALUE.string]: 'default',
+      [CMD_VALUE.number]: 0,
+      [CMD_VALUE.JSON]: '{"key": "value"}',
+      [CMD_VALUE.boolean]: 0,
+    };
+
+    setTimeout(() => {
+      if (defaultValueTableMap[type] === undefined) return;
+      setFieldsValue({
+        [fieldName]: defaultValueTableMap[type],
+      });
+    });
+  };
+
+  const renderDefaultValue = (type: CMD_VALUE) => {
+    const tableMap = {
+      [CMD_VALUE.string]: <Input style={{ width: '20%' }} placeholder="默认值" />,
+      [CMD_VALUE.number]: <InputNumber style={{ width: '20%' }} placeholder="默认值" />,
+      [CMD_VALUE.JSON]: <Input style={{ width: '20%' }} placeholder="默认值" />,
+      [CMD_VALUE.boolean]: (
+        <Select style={{ width: '20%' }} placeholder="默认值">
+          <Select.Option value={0}>false</Select.Option>
+          <Select.Option value={1}>true</Select.Option>
+        </Select>
+      ),
+    };
+
+    return tableMap[type] || tableMap[CMD_VALUE.string];
+  };
 
   const TableRow = (index: number, item: any) => (
     <Form.Item key={getKey(index)}>
@@ -59,7 +75,13 @@ const TableCloumnsDesign = ({
             },
           ],
         })(
-          <Select style={{ width: '20%' }} placeholder="类型">
+          <Select
+            onChange={value =>
+              handleTypeChange(`${field}[${getKey(index)}].defaultValue`, value as any)
+            }
+            style={{ width: '20%' }}
+            placeholder="类型"
+          >
             {enums2Options(CMD_VALUE)}
           </Select>,
         )}

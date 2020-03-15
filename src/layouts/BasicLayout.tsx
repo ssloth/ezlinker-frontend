@@ -1,5 +1,5 @@
 import { Link } from 'umi';
-import { Layout } from 'antd';
+import { Layout, Tooltip } from 'antd';
 import classNames from 'classnames/bind';
 import React, { useState } from 'react';
 import { getMenuData } from '@ant-design/pro-layout';
@@ -40,19 +40,22 @@ const BasicLayout: React.SFC<ConnectProps> = props => {
         <Sider className={cx('main-menu-bar')} width={60}>
           <div className={cx('menu-bar')}>
             {menuData.map(menuItem => (
-              <div
-                key={menuItem.name}
-                className={cx('menu-item', {
-                  active: isActive(menuItem ? menuItem.path || '' : '', pathname),
-                })}
-              >
-                <Link to={menuItem.path || ''}>
-                  {/* <div className={styles.name}></div> */}
-                  <div className={cx('icon')}>
-                    <LegacyIcon style={{ fontSize: 22 }} type={menuItem.icon as any} />
-                  </div>
-                </Link>
-              </div>
+              <Tooltip title={menuItem.name} placement="right">
+                <div
+                  key={menuItem.name}
+                  className={cx('menu-item', {
+                    active: isActive(menuItem ? menuItem.path || '' : '', pathname),
+                  })}
+                >
+                  <Link to={menuItem.path || ''}>
+                    <LegacyIcon
+                      className={cx('icon')}
+                      style={{ fontSize: 22 }}
+                      type={menuItem.icon as any}
+                    />
+                  </Link>
+                </div>
+              </Tooltip>
             ))}
           </div>
         </Sider>
