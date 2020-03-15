@@ -102,7 +102,6 @@ const DeviceDetail = (props: any) => {
         //   //     }
         //   //   >
         //   //     <Button>
-        //   //       批量操作 <Icon type="down" />
         //   //     </Button>
         //   //   </Dropdown>
         //   // ),

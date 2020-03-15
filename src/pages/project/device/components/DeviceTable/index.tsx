@@ -1,16 +1,18 @@
-import React from 'react';
-import { Table, Divider, Badge, Tag } from 'antd';
+import React, { forwardRef, Ref } from 'react';
+import { Badge, Tag } from 'antd';
 import { Link } from 'umi';
-import { useRestful, useTable, useDrawer } from '@/hooks';
+import { useRestful, useDrawer } from '@/hooks';
 import { DEVICES_API } from '@/services/resources';
 import { Device } from '@/services/resources/models';
+import ProTable, { ProTableProps } from '@ant-design/pro-table';
+import { tableData2ProTableAdapter } from '@/utils/adapter';
 import OperationDeviceDC from '../modules/OperationDeviceDC';
 import { getDeviceStatus, DEVICE_STATUS } from '../../utils';
 
-interface IDeviceTableProps {
+interface IDeviceTableProps extends ProTableProps<any, any> {
+  ref: Ref<any>;
   projectId: string;
-  productId: string;
-  random: any;
+  productId: string | undefined;
 }
 
 const renderState = (record: Device) => {
@@ -26,15 +28,13 @@ const renderState = (record: Device) => {
   return <Badge color={color} text={text}></Badge>;
 };
 
-const DeviceTable: React.FC<IDeviceTableProps> = props => {
-  const { productId, random, projectId } = props;
+const DeviceTable: React.FC<IDeviceTableProps> = forwardRef((props, ref) => {
+  const { productId, projectId } = props;
   const deviceResource = useRestful<Device>(DEVICES_API);
   const operation = useDrawer(OperationDeviceDC, {
     title: '操作设备',
     width: 500,
   });
-
-  const { tableProps } = useTable(deviceResource, { productId, projectId, random });
 
   // const handleClick = (record: Device) => record;
   const handleOperation = (record: Device) => {
@@ -72,29 +72,35 @@ const DeviceTable: React.FC<IDeviceTableProps> = props => {
     {
       title: '标签',
       dataIndex: 'tags',
-      render: (tags: string[]) => tags.map(tag => <Tag>{tag}</Tag>),
+      render: (tags: string[]) => tags.map(tag => <Tag key={tag}>{tag}</Tag>),
     },
     {
       title: '操作',
       fixed: 'right',
-      width: 150,
+      valueType: 'option',
+      width: 200,
       render: (record: Device) => [
         <Link to={`/project/${projectId}/device/${record.id}`}>查看数据</Link>,
-        <Divider type="vertical"></Divider>,
         <a onClick={() => handleOperation(record)}>操作&gt;</a>,
       ],
     },
   ];
 
   return (
-    <Table
-      size="middle"
-      style={{ width: '100%' }}
-      rowKey="id"
+    <ProTable
+      rowKey={record => record.id}
+      actionRef={ref as any}
       columns={columns}
-      {...(tableProps as any)}
-    />
+      request={params =>
+        (productId === undefined
+          ? Promise.resolve({ data: [], current: 0, pageSize: 10 })
+          : deviceResource
+              .query({ ...params, productId, projectId })
+              .then(tableData2ProTableAdapter))
+      }
+      {...props}
+    ></ProTable>
   );
-};
+});
 
 export default DeviceTable;

@@ -40,21 +40,20 @@ const BasicLayout: React.SFC<ConnectProps> = props => {
         <Sider className={cx('main-menu-bar')} width={60}>
           <div className={cx('menu-bar')}>
             {menuData.map(menuItem => (
-              <Tooltip title={menuItem.name} placement="right">
-                <div
-                  key={menuItem.name}
-                  className={cx('menu-item', {
-                    active: isActive(menuItem ? menuItem.path || '' : '', pathname),
-                  })}
-                >
-                  <Link to={menuItem.path || ''}>
+              <Tooltip key={menuItem.name} title={menuItem.name} placement="right">
+                <Link to={menuItem.path || ''}>
+                  <div
+                    className={cx('menu-item', {
+                      active: isActive(menuItem ? menuItem.path || '' : '', pathname),
+                    })}
+                  >
                     <LegacyIcon
                       className={cx('icon')}
                       style={{ fontSize: 22 }}
                       type={menuItem.icon as any}
                     />
-                  </Link>
-                </div>
+                  </div>
+                </Link>
               </Tooltip>
             ))}
           </div>

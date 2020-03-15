@@ -79,17 +79,6 @@ const UserManage = () => {
           ),
         ]}
       ></ProTable>
-
-      {/* <Card className={styles.header} style={{ marginBottom: 6 }} bodyStyle={{ padding: 12 }}>
-      <div className={styles.right}>
-        <Button onClick={handleCreateUser} type="primary">
-          创建用户
-        </Button>
-      </div>
-    </Card>
-    <Card bodyStyle={{ padding: 0 }}>
-      <Table rowKey="id" columns={columns} {...tableProps}></Table>
-    </Card> */}
     </>
   );
 };
