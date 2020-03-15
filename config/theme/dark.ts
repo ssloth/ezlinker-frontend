@@ -76,6 +76,9 @@ export default {
 
   /// === select === ///
   '@select-border-color': '@light-1',
+  '@select-item-selected-bg': '@dark-2+',
+  '@select-item-active-bg': '@dark-2+',
+  '@select-selection-item-bg': '@dark-2+',
 
   /// === form === ///
   '@label-color': '@light-1',

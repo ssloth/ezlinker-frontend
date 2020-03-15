@@ -23,7 +23,7 @@ const CreateProjectFMC = (props: IFormModalContentProps) => {
         })(<Input placeholder="请输入项目的名称" />)}
       </Form.Item>
       <Form.Item label="类型" {...formLayout}>
-        {form.getFieldDecorator('name', {
+        {form.getFieldDecorator('type', {
           initialValue: current.type,
         })(
           <Select placeholder="请选择项目的类型" style={{ width: '100%' }}>
