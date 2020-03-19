@@ -28,6 +28,7 @@ const RemoteImagePicker = forwardRef((props: IProps, ref: any) => {
     </Button>
   ) : (
     <img
+      ref={ref}
       width={100}
       height={100}
       src={value}

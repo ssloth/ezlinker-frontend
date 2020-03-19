@@ -1,7 +1,6 @@
 import React from 'react';
 import { createFromIconfontCN, PlusOutlined } from '@ant-design/icons';
 import { Form } from '@ant-design/compatible';
-import '@ant-design/compatible/assets/index.css';
 import { Input, Select, Button } from 'antd';
 import { IFormModalContentProps } from '@/hooks/usePopup/type';
 import TableCloumnsDesign from '@/pages/project/components/TableCloumnsDesign';
@@ -9,6 +8,7 @@ import { enums2Options } from '@/enums/utils';
 import { PRODUCT_TYPE } from '@/enums/product';
 import { useModal } from '@/hooks';
 import SelectProductIconMC, { SelectProductIconMCProps } from './SelectProductIconMC';
+import '@ant-design/compatible/assets/index.css';
 
 const IconFont = createFromIconfontCN({ scriptUrl: '/iconfont/iconfont.js' });
 

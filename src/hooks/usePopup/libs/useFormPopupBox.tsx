@@ -85,28 +85,28 @@ const FormPopupBox = Form.create<IFormPopupBoxProps>()((props: IFormPopupBoxProp
     });
   };
 
-  return (
-    <CustomPopupBox
-      destroyOnClose
-      onCancel={handleCancel}
-      maskClosable={false}
-      onClose={handleCancel}
-      onOk={handleOk}
-      visible={visible}
-      footer={
-        CustomPopupBox === Drawer ? (
-          <DrawerFooter {...props}></DrawerFooter>
-        ) : (
-          [
+  const defaultProps =
+    CustomPopupBox === Drawer
+      ? { onClose: handleCancel, footer: <DrawerFooter {...props}></DrawerFooter> }
+      : {
+          onCancel: handleCancel,
+          onOk: handleOk,
+          footer: [
             <Button key="back" onClick={handleCancel}>
               取消
             </Button>,
             <Button key="submit" type="primary" loading={loading} onClick={handleOk}>
               提交
             </Button>,
-          ]
-        )
-      }
+          ],
+        };
+
+  return (
+    <CustomPopupBox
+      destroyOnClose
+      maskClosable={false}
+      visible={visible}
+      {...defaultProps}
       {...options}
     >
       <>

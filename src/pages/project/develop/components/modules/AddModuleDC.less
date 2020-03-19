@@ -1,0 +1,52 @@
+.module-list {
+  .module-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px 10px;
+    .logo {
+      flex: 50px 0 0;
+      height: 50px;
+      background: #12233445;
+      border-radius: 10px;
+      img {
+        width: 50px;
+        height: 50px;
+      }
+    }
+
+    .left {
+      flex: 1;
+      padding: 0 20px;
+      overflow: hidden;
+      .name {
+        height: 30px;
+        color: #ccc;
+        font-size: 18px;
+        line-height: 30px;
+      }
+
+      .description {
+        height: 25px;
+        color: #999;
+        font-size: 16px;
+        line-height: 25px;
+      }
+    }
+
+    .right {
+      flex: 100px 0 0;
+      color: #ccc;
+      font-weight: 300;
+      font-size: 30px;
+      line-height: 50px;
+      text-align: right;
+      transform: scaleX(0.8);
+      cursor: pointer;
+      transition: all 0.3s;
+      &:hover {
+        color: rgb(101, 199, 199);
+      }
+    }
+  }
+}

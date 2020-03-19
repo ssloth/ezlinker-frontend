@@ -7,7 +7,7 @@ import { IFormDrawerContentProps } from '@/hooks/usePopup/type';
 import { FEATURE_TYPE } from '@/enums/product';
 import { enums2Options } from '@/enums/utils';
 import TableCloumnsDesign from '@/pages/project/components/TableCloumnsDesign';
-import styles from './CreateModuleFDC.less';
+import styles from './CreateFeatureFDC.less';
 
 const cx = classNames.bind(styles);
 const FormItem = Form.Item;

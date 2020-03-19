@@ -13,8 +13,6 @@ const { Paragraph } = Typography;
 export default (): React.ReactNode => {
   const projectResource = useRestful<Project>(PROJECT_API);
   const { data } = projectResource.useSWRQuery();
-  // const error = null;
-  // const tablelist = ({ records: [] } as any) as ITableList;
 
   const createProjectModal = useFormModal(CreateProjectFMC, projectResource);
 
