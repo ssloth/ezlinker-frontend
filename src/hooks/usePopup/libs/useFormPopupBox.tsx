@@ -87,7 +87,12 @@ const FormPopupBox = Form.create<IFormPopupBoxProps>()((props: IFormPopupBoxProp
 
   const defaultProps =
     CustomPopupBox === Drawer
-      ? { onClose: handleCancel, footer: <DrawerFooter {...props}></DrawerFooter> }
+      ? {
+          onClose: handleCancel,
+          footer: (
+            <DrawerFooter onCancel={handleCancel} onOk={handleOk} loading={loading}></DrawerFooter>
+          ),
+        }
       : {
           onCancel: handleCancel,
           onOk: handleOk,

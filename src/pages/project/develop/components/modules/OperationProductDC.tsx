@@ -19,19 +19,20 @@ const OperationProductDC = (props: IOperationProductDCProps) => {
   const { data: moduleData } = module.useSWRQuery({ productId });
 
   const addModule = useDrawer(AddModuleDC, {
-    title: '选择模块',
+    title: '选择模块类型',
     width: 450,
   });
 
   const handleAddModule = () => {
     addModule.show({
       productId,
+      cancel: addModule.cancle,
     });
   };
 
   const handleEditModule = (item: any) => {
     item();
-  }
+  };
 
   return (
     <div>
@@ -52,7 +53,9 @@ const OperationProductDC = (props: IOperationProductDCProps) => {
       >
         {moduleData?.records.map(item => (
           <Card.Grid className={cx('module-item')} key={item.id}>
-            <div className={cx('logo')}></div>
+            <div className={cx('logo')}>
+              <img src={item.icon} alt="" />
+            </div>
             <div className={cx('left')}>
               <div className={cx('name')}>{item.name}</div>
               <div className={cx('description')}>{item.description}</div>

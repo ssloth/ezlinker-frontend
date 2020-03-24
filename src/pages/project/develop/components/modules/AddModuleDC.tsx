@@ -3,7 +3,7 @@ import React from 'react';
 import { RightOutlined } from '@ant-design/icons';
 import { Card } from 'antd';
 import { ModuleTemplate } from '@/services/resources/models';
-import { SYSTEM_MODULE_API } from '@/services/resources/index';
+import { SYSTEM_MODULE_API, MODULES_API } from '@/services/resources/index';
 import { useFormDrawer, useRestful } from '@/hooks';
 import styles from './AddModuleDC.less';
 import CreateModuleFDC from './CreateModuleFDC';
@@ -11,23 +11,28 @@ import CreateModuleFDC from './CreateModuleFDC';
 const cx = classNames.bind(styles);
 interface IOperationProductDCProps {
   productId: string;
+  cancel: Function;
 }
 
 const AddModuleDC = (props: IOperationProductDCProps) => {
-  const { productId } = props;
-  const module = useRestful<ModuleTemplate>(SYSTEM_MODULE_API);
-  const { data: moduleData } = module.useSWRQuery({ productId });
+  const { productId, cancel } = props;
+  const systemModule = useRestful<ModuleTemplate>(SYSTEM_MODULE_API);
+  const templateModule = useRestful<ModuleTemplate>(MODULES_API);
+  const { data: moduleData } = systemModule.useSWRQuery({ productId });
 
-  const createModule = useFormDrawer(CreateModuleFDC, module, {
+  const createModule = useFormDrawer(CreateModuleFDC, templateModule, {
     title: '模块',
     width: 530,
   });
 
   const handleSelectModule = (record: ModuleTemplate) => {
-    createModule.create({
-      productId,
-      type: record.name,
-    });
+    createModule.create(
+      {
+        productId,
+        type: record.name,
+      },
+      { callback: cancel },
+    );
   };
 
   return (
@@ -42,10 +47,10 @@ const AddModuleDC = (props: IOperationProductDCProps) => {
         {(moduleData as any)?.map((item: any) => (
           <Card.Grid className={cx('module-item')} key={item.id}>
             <div className={cx('logo')}>
-              <img src={item.icon} alt=""/>
+              <img src={item.icon} alt="" />
             </div>
             <div className={cx('left')}>
-              <div className={cx('name')}>{item.name}</div>
+              <div className={cx('name')}>{item.label}</div>
               <div className={cx('description')}>{item.description}</div>
             </div>
             <div className={cx('right')} onClick={() => handleSelectModule(item)}>

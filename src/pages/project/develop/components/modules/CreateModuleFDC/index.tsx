@@ -31,7 +31,6 @@ const CreateModuleDFC = (props: IFormDrawerContentProps) => {
       </FormItem>
       <FormItem label="描述" {...formLayout}>
         {getFieldDecorator('description', {
-          rules: [{ required: true, message: '模块描述' }],
           initialValue: current.description,
         })(<Input placeholder="请输入模块描述" />)}
       </FormItem>
