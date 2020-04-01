@@ -13,6 +13,7 @@ import { ITableList } from '@/typings/server';
 
 import IconFont from '@/components/IconFont';
 import { PlusOutlined } from '@ant-design/icons';
+import { Link } from 'umi';
 import styles from './style.less';
 import CreateProductFMC from './components/modules/CreateProductFMC';
 import OperationProductDC from './components/modules/OperationProductDC';
@@ -131,8 +132,11 @@ const Develop: React.FC<DevelopProps> = props => {
                   <a key="edit" onClick={() => handleEdit(item)}>
                     编辑
                   </a>,
+                  <Link to={`./develop/product/${item.id}/design`} >
+                    设计
+                  </Link>,
                   <a key="operation" onClick={() => handleOperation(item)}>
-                    操作
+                    模块
                   </a>,
                 ]}
               >

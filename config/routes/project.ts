@@ -13,8 +13,13 @@ export default {
       routes: [
         {
           path: './develop',
-          name: '开发模式',
+          name: '产品设计',
           component: './project/develop',
+        },
+        {
+          path: './develop/product/:productId/design',
+          name: '控制台设计',
+          component: './project/develop/design',
         },
         {
           path: './operation',

@@ -42,7 +42,7 @@ const OperationProductDC = (props: IOperationProductDCProps) => {
         style={{ width: '100%', marginBottom: 8 }}
         icon={<PlusOutlined />}
       >
-        创建模块
+        添加模块
       </Button>
       <Card
         className={cx('module-list')}
@@ -61,6 +61,7 @@ const OperationProductDC = (props: IOperationProductDCProps) => {
               <div className={cx('description')}>{item.description}</div>
             </div>
             <div className={cx('right')} onClick={() => handleEditModule(item)}>
+              编辑
               <RightOutlined></RightOutlined>
             </div>
           </Card.Grid>
