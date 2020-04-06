@@ -6,7 +6,7 @@ import classNames from 'classnames/bind';
 import { IFormDrawerContentProps } from '@/hooks/usePopup/type';
 import { FEATURE_TYPE } from '@/enums/product';
 import { enums2Options } from '@/enums/utils';
-import TableCloumnsDesign from '@/pages/project/components/TableCloumnsDesign';
+import TableColumnsDesign from '@/pages/project/components/TableColumnsDesign';
 import styles from './CreateFeatureFDC.less';
 
 const cx = classNames.bind(styles);
@@ -51,7 +51,7 @@ const CreateFeatureFDC = (props: IFormDrawerContentProps) => {
         })(<Input placeholder="指令名称" />)}
       </FormItem>
       <FormItem label="内容" {...formLayout}>
-        <TableCloumnsDesign form={form} field="cmdValues" current={current.cmdValues} />
+        <TableColumnsDesign form={form} field="cmdValues" current={current.cmdValues} />
       </FormItem>
       <Divider style={{ marginTop: 20 }} orientation="left">
         绑定模块

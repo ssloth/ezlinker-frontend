@@ -63,7 +63,7 @@ export enum MODULE_STATUS {
 export interface ModuleTemplate extends Base {
   name: string;
   description: string;
-  icon:string;
+  icon: string;
   model: string;
   type: MODULE_TYPE;
   protocol: MODULE_PROTOCOL;
@@ -77,6 +77,7 @@ export interface Module extends Base {
   type: MODULE_TYPE;
   protocol: MODULE_PROTOCOL;
   dataArea: string;
+  icon: string;
   status: 0 | 1;
   lastActiveTime: string;
 }

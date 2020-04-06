@@ -1,13 +1,13 @@
 export enum CMD_VALUE {
-  number,
-  string,
-  boolean,
-  JSON,
+  number = 1,
+  string = 2,
+  boolean = 3,
+  JSON = 4,
 }
 
 export enum FEATURE_TYPE {
   button,
-  swtich,
+  switch,
 }
 
 export enum PRODUCT_TYPE {

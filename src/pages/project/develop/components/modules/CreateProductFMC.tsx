@@ -3,7 +3,7 @@ import { createFromIconfontCN, PlusOutlined } from '@ant-design/icons';
 import { Form } from '@ant-design/compatible';
 import { Input, Select, Button } from 'antd';
 import { IFormModalContentProps } from '@/hooks/usePopup/type';
-import TableCloumnsDesign from '@/pages/project/components/TableCloumnsDesign';
+import TableColumnsDesign from '@/pages/project/components/TableColumnsDesign';
 import { enums2Options } from '@/enums/utils';
 import { PRODUCT_TYPE } from '@/enums/product';
 import { useModal } from '@/hooks';
@@ -70,7 +70,7 @@ const CreateProductFMC = (props: IFormModalContentProps) => {
         )}
       </FormItem>
       <FormItem label="属性" {...formLayout}>
-        <TableCloumnsDesign form={form} field="parameters" current={current.parameters} />
+        <TableColumnsDesign form={form} field="parameters" current={current.parameters} />
       </FormItem>
       <FormItem label="图标" {...formLayout}>
         <Button

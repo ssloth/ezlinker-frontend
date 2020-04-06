@@ -10,7 +10,7 @@ import { CMD_VALUE } from '@/enums/product';
 import styles from './index.less';
 import { validatorDefaultValue } from './util';
 
-const TableCloumnsDesign = ({
+const TableColumnsDesign = ({
   form,
   field,
   current,
@@ -122,4 +122,4 @@ const TableCloumnsDesign = ({
   );
 };
 
-export default TableCloumnsDesign;
+export default TableColumnsDesign;

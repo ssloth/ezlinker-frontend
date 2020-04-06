@@ -80,44 +80,7 @@ const DeviceDetail = (props: any) => {
         request={params =>
           deviceDataResource.query({ ...params, did }).then(data => tableData2ProTableAdapter(data))
         }
-        // toolBarRender={(action, { selectedRows }) => [
-        //   // <Button icon="plus" type="primary" onClick={handleCreateUser}>
-        //   //   新建
-        //   // </Button>,
-        //   // selectedRows && selectedRows.length > 0 && (
-        //   //   <Dropdown
-        //   //     overlay={
-        //   //       <Menu
-        //   //         onClick={async e => {
-        //   //           if (e.key === 'remove') {
-        //   //             // await handleRemove(selectedRows);
-        //   //             action.reload();
-        //   //           }
-        //   //         }}
-        //   //         selectedKeys={[]}
-        //   //       >
-        //   //         <Menu.Item key="remove">批量删除</Menu.Item>
-        //   //         <Menu.Item key="approval">批量审批</Menu.Item>
-        //   //       </Menu>
-        //   //     }
-        //   //   >
-        //   //     <Button>
-        //   //     </Button>
-        //   //   </Dropdown>
-        //   // ),
-        // ]}
       ></ProTable>
-
-      {/* <Card className={styles.header} style={{ marginBottom: 6 }} bodyStyle={{ padding: 12 }}>
-        <div className={styles.right}>
-          <Button onClick={handleCreateUser} type="primary">
-            创建用户
-          </Button>
-        </div>
-      </Card>
-      <Card bodyStyle={{ padding: 0 }}>
-        <Table rowKey="id" columns={columns} {...tableProps}></Table>
-      </Card> */}
     </PageHeaderWrapper>
   );
 };
