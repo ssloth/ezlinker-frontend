@@ -3,7 +3,7 @@ import { Badge, Tag } from 'antd';
 import { Link } from 'umi';
 import { useRestful, useDrawer } from '@/hooks';
 import { DEVICES_API } from '@/services/resources';
-import { Device } from '@/services/resources/models';
+import { IDevice } from '@/services/resources/models';
 import ProTable, { ProTableProps } from '@ant-design/pro-table';
 import { tableData2ProTableAdapter } from '@/utils/adapter';
 import OperationDeviceDC from '../modules/OperationDeviceDC';
@@ -15,7 +15,7 @@ interface IDeviceTableProps extends ProTableProps<any, any> {
   productId: string | undefined;
 }
 
-const renderState = (record: Device) => {
+const renderState = (record: IDevice) => {
   const status = getDeviceStatus(record);
   const statusMap = {
     [DEVICE_STATUS.inactivated]: ['#666666', '未激活'],
@@ -30,14 +30,14 @@ const renderState = (record: Device) => {
 
 const DeviceTable: React.FC<IDeviceTableProps> = forwardRef((props, ref) => {
   const { productId, projectId } = props;
-  const deviceResource = useRestful<Device>(DEVICES_API);
+  const deviceResource = useRestful<IDevice>(DEVICES_API);
   const operation = useDrawer(OperationDeviceDC, {
     title: '操作设备',
     width: 500,
   });
 
   // const handleClick = (record: Device) => record;
-  const handleOperation = (record: Device) => {
+  const handleOperation = (record: IDevice) => {
     operation.show(record);
   };
 
@@ -54,7 +54,7 @@ const DeviceTable: React.FC<IDeviceTableProps> = forwardRef((props, ref) => {
     {
       title: '状态',
       width: 120,
-      render: (record: Device) => renderState(record),
+      render: (record: IDevice) => renderState(record),
     },
     {
       title: '生产厂家',
@@ -79,7 +79,7 @@ const DeviceTable: React.FC<IDeviceTableProps> = forwardRef((props, ref) => {
       fixed: 'right',
       valueType: 'option',
       width: 200,
-      render: (record: Device) => [
+      render: (record: IDevice) => [
         <Link to={`/project/${projectId}/device/${record.id}`}>查看数据</Link>,
         <a onClick={() => handleOperation(record)}>操作&gt;</a>,
       ],

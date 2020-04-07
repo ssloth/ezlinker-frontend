@@ -3,7 +3,7 @@ import { Form } from '@ant-design/compatible';
 import '@ant-design/compatible/assets/index.css';
 import { Input, Select } from 'antd';
 import { FormComponentProps } from '@ant-design/compatible/es/form';
-import { Device, Product } from '@/services/resources/models';
+import { IDevice, IProduct } from '@/services/resources/models';
 
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -13,8 +13,8 @@ const formLayout = {
 };
 
 export interface CreateDeviceFMCProps extends FormComponentProps {
-  current: Device;
-  productList: Product[];
+  current: IDevice;
+  productList: IProduct[];
 }
 
 const CreateDeviceFMC = (props: CreateDeviceFMCProps) => {

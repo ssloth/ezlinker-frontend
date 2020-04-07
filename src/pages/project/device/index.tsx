@@ -4,7 +4,7 @@ import { get } from 'lodash';
 import { Button, Tabs, Spin } from 'antd';
 import { useRestful, useFormModal } from '@/hooks';
 import { PRODUCTS_API, DEVICES_API } from '@/services/resources';
-import { Product, Device } from '@/services/resources/models';
+import { IProduct, IDevice } from '@/services/resources/models';
 import { ConnectProps } from '@/models/connect';
 import { PlusOutlined } from '@ant-design/icons';
 import { ActionType } from '@ant-design/pro-table';
@@ -20,8 +20,8 @@ const DeviceLayout: React.FC<ManageProps> = props => {
   const projectId = get(props, 'match.params.id');
   const ref = useRef<ActionType>();
   const [productId, setProductId] = useState<string>();
-  const productResource = useRestful<Product>(PRODUCTS_API);
-  const deviceResource = useRestful<Device>(DEVICES_API);
+  const productResource = useRestful<IProduct>(PRODUCTS_API);
+  const deviceResource = useRestful<IDevice>(DEVICES_API);
   const deviceModal = useFormModal<CreateDeviceFMCProps>(CreateDeviceFMC, deviceResource, {
     title: '创建设备',
   });

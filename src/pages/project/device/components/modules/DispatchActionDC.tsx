@@ -4,7 +4,7 @@ import '@ant-design/compatible/assets/index.css';
 import { Button, Input, Select, InputNumber, message } from 'antd';
 import { FormComponentProps } from '@ant-design/compatible/lib/form';
 import TextArea from 'antd/lib/input/TextArea';
-import { Device, Feature, Structrue, StructrueType } from '@/services/resources/models';
+import { IDevice, Feature, IStructrue, StructrueType } from '@/services/resources/models';
 import { dispatchAction } from '@/services/device';
 
 const FormItem = Form.Item;
@@ -16,7 +16,7 @@ const formLayout = {
 };
 
 interface IDispatchActionDCProps extends FormComponentProps {
-  device: Device;
+  device: IDevice;
   feature: Feature;
 }
 
@@ -34,7 +34,7 @@ const DispatchActionDC = (props: IDispatchActionDCProps) => {
     });
   };
 
-  const renderFormItem = (structure: Structrue) => {
+  const renderFormItem = (structure: IStructrue) => {
     switch (structure.type) {
       case StructrueType.boolean:
         return (
@@ -60,7 +60,7 @@ const DispatchActionDC = (props: IDispatchActionDCProps) => {
 
   return (
     <div>
-      {feature.cmdValues.map((item: Structrue) => (
+      {feature.cmdValues.map((item: IStructrue) => (
         <FormItem label={item.description} {...formLayout}>
           {getFieldDecorator(item.field, {
             initialValue: item.defaultValue,

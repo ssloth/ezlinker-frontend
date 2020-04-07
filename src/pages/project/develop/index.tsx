@@ -8,7 +8,7 @@ import { get } from 'lodash';
 import { useFormModal, useRestful, useDrawer } from '@/hooks';
 import { ConnectProps } from '@/models/connect';
 import { PRODUCTS_API } from '@/services/resources';
-import { Product } from '@/services/resources/models';
+import { IProduct } from '@/services/resources/models';
 import { ITableList } from '@/typings/server';
 
 import IconFont from '@/components/IconFont';
@@ -48,7 +48,7 @@ const ListContent = () => <div className={styles.listContent}></div>;
 
 const Develop: React.FC<DevelopProps> = props => {
   const projectId = get(props, 'match.params.id');
-  const product = useRestful<Product>(PRODUCTS_API);
+  const product = useRestful<IProduct>(PRODUCTS_API);
 
   const createProductModal = useFormModal(CreateProductFMC, product, {
     title: '创建产品',
@@ -59,17 +59,17 @@ const Develop: React.FC<DevelopProps> = props => {
   });
 
   const { data, error } = product.useSWRQuery({ projectId });
-  const list = data as ITableList<Product>;
+  const list = data as ITableList<IProduct>;
 
   const handleAdd = () => {
     createProductModal.create({ projectId });
   };
 
-  const handleEdit = (record: Product) => {
+  const handleEdit = (record: IProduct) => {
     createProductModal.edit(record);
   };
 
-  const handleOperation = (record: Product) => {
+  const handleOperation = (record: IProduct) => {
     operationProductDC.show({ productId: record.id }, { title: record.name });
   };
 

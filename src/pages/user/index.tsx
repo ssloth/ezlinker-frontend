@@ -3,20 +3,20 @@ import { DownOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Dropdown, Menu } from 'antd';
 import ProTable, { ProColumns } from '@ant-design/pro-table';
 import { useRestful, useFormModal } from '@/hooks';
-import { User } from '@/services/resources/models';
+import { IUser } from '@/services/resources/models';
 import { MANAGEMENT_USER_API } from '@/services/resources/index';
 import { tableData2ProTableAdapter } from '@/utils/adapter';
 import CreateUserFMC from './components/modules/CreateUserFMC';
 
 const UserManage = () => {
-  const userResource = useRestful<User>(MANAGEMENT_USER_API);
+  const userResource = useRestful<IUser>(MANAGEMENT_USER_API);
   const createUserModal = useFormModal(CreateUserFMC, userResource, {
     title: '创建用户',
   });
 
   const handleCreateUser = () => createUserModal.create();
 
-  const columns: ProColumns<User>[] = [
+  const columns: ProColumns<IUser>[] = [
     {
       title: '用户名',
       dataIndex: 'username',

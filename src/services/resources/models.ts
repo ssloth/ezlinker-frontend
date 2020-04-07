@@ -1,7 +1,7 @@
 /**
  * 与后端的modal层对应
  */
-export interface Base {
+export interface IBase {
   id: number;
   createTime: string;
   updateTime: string;
@@ -14,14 +14,14 @@ export enum StructrueType {
   JSON,
 }
 
-export interface Structrue {
+export interface IStructrue {
   type: StructrueType;
   field: string;
   description: string;
   defaultValue: string;
 }
 
-export interface Project extends Base {
+export interface IProject extends IBase {
   name: string;
   logo: string;
   userId: string;
@@ -29,7 +29,7 @@ export interface Project extends Base {
   description: string;
 }
 
-export interface Product extends Base {
+export interface IProduct extends IBase {
   projectId: string;
   description: string;
   name: string;
@@ -37,14 +37,6 @@ export interface Product extends Base {
   tags: string[];
   type: string;
   parameter: string;
-}
-
-export interface Feature extends Base {
-  productId: string;
-  name: string;
-  label: string;
-  cmdKey: string;
-  cmdValues: any;
 }
 
 export enum MODULE_PROTOCOL {
@@ -60,7 +52,7 @@ export enum MODULE_STATUS {
   ONLINE,
 }
 
-export interface ModuleTemplate extends Base {
+export interface IModuleTemplate extends IBase {
   name: string;
   description: string;
   icon: string;
@@ -70,7 +62,7 @@ export interface ModuleTemplate extends Base {
   dataArea: string;
 }
 
-export interface Module extends Base {
+export interface IModule extends IBase {
   name: string;
   description: string;
   model: string;
@@ -82,7 +74,7 @@ export interface Module extends Base {
   lastActiveTime: string;
 }
 
-export interface Device extends Base {
+export interface IDevice extends IBase {
   sn: string;
   productId: string;
   description: string;
@@ -92,11 +84,10 @@ export interface Device extends Base {
   type: string;
   statuses: string;
   parameter: string;
-  modules: Module[];
-  features: Feature[];
+  modules: IModule[];
 }
 
-export interface User extends Base {
+export interface IUser extends IBase {
   username: string;
   avatar: string;
   phone: string;

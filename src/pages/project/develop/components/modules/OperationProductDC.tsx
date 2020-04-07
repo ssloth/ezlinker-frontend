@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import React from 'react';
 import { PlusOutlined, RightOutlined } from '@ant-design/icons';
 import { Button, Card } from 'antd';
-import { Module } from '@/services/resources/models';
+import { IModule } from '@/services/resources/models';
 import { MODULES_API } from '@/services/resources/index';
 import { useRestful, useDrawer } from '@/hooks';
 import styles from './OperationProductDC.less';
@@ -15,7 +15,7 @@ interface IOperationProductDCProps {
 
 const OperationProductDC = (props: IOperationProductDCProps) => {
   const { productId } = props;
-  const module = useRestful<Module>(MODULES_API);
+  const module = useRestful<IModule>(MODULES_API);
   const { data: moduleData } = module.useSWRQuery({ productId });
 
   const addModule = useDrawer(AddModuleDC, {

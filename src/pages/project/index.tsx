@@ -4,14 +4,14 @@ import { Card, List, Button, Typography } from 'antd';
 import Link from 'umi/link';
 import { useFormModal, useRestful } from '@/hooks';
 import { PROJECT_API } from '@/services/resources';
-import { Project } from '@/services/resources/models';
+import { IProject } from '@/services/resources/models';
 import styles from './index.less';
 import CreateProjectFMC from './components/modules/CreateProjectFMC';
 
 const { Paragraph } = Typography;
 
 export default (): React.ReactNode => {
-  const projectResource = useRestful<Project>(PROJECT_API);
+  const projectResource = useRestful<IProject>(PROJECT_API);
   const { data } = projectResource.useSWRQuery();
 
   const createProjectModal = useFormModal(CreateProjectFMC, projectResource);
@@ -20,7 +20,7 @@ export default (): React.ReactNode => {
     createProjectModal.create({}, { title: '创建工程' });
   };
 
-  const handleEditProject = (record: Project) => {
+  const handleEditProject = (record: IProject) => {
     createProjectModal.edit(record, { title: '编辑工程' });
   };
 
@@ -28,10 +28,10 @@ export default (): React.ReactNode => {
     <div className={styles.cardList}>
       <List
         rowKey="id"
-        dataSource={[{} as Project, ...(data ? data.records : [])]}
+        dataSource={[{} as IProject, ...(data ? data.records : [])]}
         loading={!data}
         grid={{ gutter: 24, lg: 3, md: 2, sm: 1, xs: 1 }}
-        renderItem={(item: Project) => {
+        renderItem={(item: IProject) => {
           if (item && item.id) {
             return (
               <List.Item key={item.id}>

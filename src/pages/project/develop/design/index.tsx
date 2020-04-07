@@ -1,19 +1,21 @@
 import React, { useState, useReducer } from 'react';
 import { WidthProvider, Responsive } from 'react-grid-layout';
-import { Card, Layout, Button } from 'antd';
+import { Card, Layout, Button, message, Tabs } from 'antd';
 import get from 'lodash/get';
-import { useRestful } from '@/hooks';
+import { useRestful, useVisualLayout } from '@/hooks';
 import { MODULES_API } from '@/services/resources';
-import { Module } from '@/services/resources/models';
+import { IModule } from '@/services/resources/models';
 import { ConnectProps } from '@/models/connect';
 import classNamesBind from 'classnames/bind';
 import { PlusOutlined } from '@ant-design/icons';
 import renderLayout from '@/modules/render';
+import { IVisual } from '@/modules/Layout';
 import styles from './index.less';
 
 const cx = classNamesBind.bind(styles);
 
 const { Content, Sider } = Layout;
+const { TabPane } = Tabs;
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
@@ -21,15 +23,12 @@ export interface ProductDesignProps extends ConnectProps {}
 
 const ProductDesign: React.FC<ProductDesignProps> = props => {
   const productId = get(props, 'match.params.productId');
-  const [layout, dispatch] = useReducer<any>(({ type, payload }) => {}, {
-
-  });
-  const module = useRestful<Module>(MODULES_API);
+  const initLayout = '';
+  const { layoutRender, setLayout } = useVisualLayout(initLayout);
+  const module = useRestful<IModule>(MODULES_API);
   const { data: moduleData } = module.useSWRQuery({ productId });
 
-  const handleAddModule = (module_: Module) => {
-    setLayout({});
-  };
+  const handleAddModule = (module_: IModule) => {};
 
   return (
     <Card bodyStyle={{ padding: 0 }}>
@@ -59,13 +58,18 @@ const ProductDesign: React.FC<ProductDesignProps> = props => {
             title="控制台"
             extra={<Button type="primary">保存</Button>}
           >
-            <ResponsiveReactGridLayout
-              className="layout"
-              layouts={layout}
-              onLayoutChange={lay => setLayout(lay)}
-            >
-              {renderLayout(layout)}
-            </ResponsiveReactGridLayout>
+            <Tabs>
+              {layouts.map(layout => (
+                <TabPane>
+                  <ResponsiveReactGridLayout
+                    className="layout"
+                    onLayoutChange={layout => setLayout(layout.keys, layout)}
+                  >
+                    {layout.render()}
+                  </ResponsiveReactGridLayout>
+                </TabPane>
+              ))}
+            </Tabs>
           </Card>
         </Content>
       </Layout>

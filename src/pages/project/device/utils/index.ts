@@ -1,4 +1,4 @@
-import { MODULE_STATUS, MODULE_PROTOCOL, Device } from '@/services/resources/models';
+import { MODULE_STATUS, MODULE_PROTOCOL, IDevice } from '@/services/resources/models';
 
 export enum DEVICE_STATUS {
   inactivated,
@@ -9,7 +9,7 @@ export enum DEVICE_STATUS {
 }
 
 /** 获取 */
-export const getDeviceStatus = (device: Device): DEVICE_STATUS => {
+export const getDeviceStatus = (device: IDevice): DEVICE_STATUS => {
   if (device.modules.every(item => !item.lastActiveTime)) {
     return DEVICE_STATUS.inactivated;
   }
