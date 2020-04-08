@@ -1,30 +1,23 @@
-import React, { useState, useReducer } from 'react';
-import { WidthProvider, Responsive } from 'react-grid-layout';
-import { Card, Layout, Button, message, Tabs } from 'antd';
+import React from 'react';
+import { Card, Layout, Button } from 'antd';
 import get from 'lodash/get';
-import { useRestful, useVisualLayout } from '@/hooks';
+import { useRestful } from '@/hooks';
 import { MODULES_API } from '@/services/resources';
-import { IModule } from '@/services/resources/models';
+import { IModule } from '@/typings/types';
 import { ConnectProps } from '@/models/connect';
 import classNamesBind from 'classnames/bind';
 import { PlusOutlined } from '@ant-design/icons';
-import renderLayout from '@/modules/render';
-import { IVisual } from '@/modules/Layout';
 import styles from './index.less';
 
 const cx = classNamesBind.bind(styles);
 
 const { Content, Sider } = Layout;
-const { TabPane } = Tabs;
 
-const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
 export interface ProductDesignProps extends ConnectProps {}
 
 const ProductDesign: React.FC<ProductDesignProps> = props => {
   const productId = get(props, 'match.params.productId');
-  const initLayout = '';
-  const { layoutRender, setLayout } = useVisualLayout(initLayout);
   const module = useRestful<IModule>(MODULES_API);
   const { data: moduleData } = module.useSWRQuery({ productId });
 
@@ -58,18 +51,7 @@ const ProductDesign: React.FC<ProductDesignProps> = props => {
             title="控制台"
             extra={<Button type="primary">保存</Button>}
           >
-            <Tabs>
-              {layouts.map(layout => (
-                <TabPane>
-                  <ResponsiveReactGridLayout
-                    className="layout"
-                    onLayoutChange={layout => setLayout(layout.keys, layout)}
-                  >
-                    {layout.render()}
-                  </ResponsiveReactGridLayout>
-                </TabPane>
-              ))}
-            </Tabs>
+
           </Card>
         </Content>
       </Layout>

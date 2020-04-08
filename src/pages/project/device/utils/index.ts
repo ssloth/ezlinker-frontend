@@ -1,4 +1,4 @@
-import { MODULE_STATUS, MODULE_PROTOCOL, IDevice } from '@/services/resources/models';
+import { MODULE_STATUS, MODULE_PROTOCOL, IDevice } from '@/typings/types';
 
 export enum DEVICE_STATUS {
   inactivated,

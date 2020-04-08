@@ -3,7 +3,7 @@ import { DownOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Dropdown, Menu } from 'antd';
 import ProTable, { ProColumns } from '@ant-design/pro-table';
 import { useRestful, useFormModal } from '@/hooks';
-import { IUser } from '@/services/resources/models';
+import { IUser } from '@/typings/types';
 import { MANAGEMENT_USER_API } from '@/services/resources/index';
 import { tableData2ProTableAdapter } from '@/utils/adapter';
 import CreateUserFMC from './components/modules/CreateUserFMC';

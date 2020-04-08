@@ -3,7 +3,7 @@ import { Form } from '@ant-design/compatible';
 import '@ant-design/compatible/assets/index.css';
 import { Input, Select } from 'antd';
 import { FormComponentProps } from '@ant-design/compatible/es/form';
-import { IDevice, IProduct } from '@/services/resources/models';
+import { IDevice, IProduct } from '@/typings/types';
 
 const FormItem = Form.Item;
 const { Option } = Select;

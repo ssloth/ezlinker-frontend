@@ -8,7 +8,7 @@ import { get } from 'lodash';
 import { useFormModal, useRestful, useDrawer } from '@/hooks';
 import { ConnectProps } from '@/models/connect';
 import { PRODUCTS_API } from '@/services/resources';
-import { IProduct } from '@/services/resources/models';
+import { IProduct } from '@/typings/types';
 import { ITableList } from '@/typings/server';
 
 import IconFont from '@/components/IconFont';

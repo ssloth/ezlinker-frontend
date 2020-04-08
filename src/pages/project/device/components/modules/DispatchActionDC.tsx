@@ -4,7 +4,7 @@ import '@ant-design/compatible/assets/index.css';
 import { Button, Input, Select, InputNumber, message } from 'antd';
 import { FormComponentProps } from '@ant-design/compatible/lib/form';
 import TextArea from 'antd/lib/input/TextArea';
-import { IDevice, Feature, IStructrue, StructrueType } from '@/services/resources/models';
+import { IDevice, Feature, IStructrue, StructrueType } from '@/typings/types';
 import { dispatchAction } from '@/services/device';
 
 const FormItem = Form.Item;

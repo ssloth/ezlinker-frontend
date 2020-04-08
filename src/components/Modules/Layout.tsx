@@ -16,10 +16,6 @@ export interface IVisual {
   content: any;
 }
 
-export class Visual implements IVisual {
-
-}
-
 export class ControlPanel implements IControlPanel {
   public id: number;
 
@@ -53,4 +49,6 @@ export class ControlPanel implements IControlPanel {
     const index = page.visuals.findIndex(item => item.id === visual.id);
     page.visuals.splice(index, 1);
   }
+
+  public render() {}
 }

@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import React from 'react';
 import { Button, Card } from 'antd';
-import { IDevice, Feature } from '@/services/resources/models';
+import { IDevice, Feature } from '@/typings/types';
 import { useDrawer } from '@/hooks';
 import styles from './OperationDeviceDC.less';
 import DispatchActionDC from './DispatchActionDC';

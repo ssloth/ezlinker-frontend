@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import React from 'react';
 import { PlusOutlined, RightOutlined } from '@ant-design/icons';
 import { Button, Card } from 'antd';
-import { IModule } from '@/services/resources/models';
+import { IModule } from '@/typings/types';
 import { MODULES_API } from '@/services/resources/index';
 import { useRestful, useDrawer } from '@/hooks';
 import styles from './OperationProductDC.less';

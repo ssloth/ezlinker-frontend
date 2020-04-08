@@ -1,9 +1,19 @@
-const useVisualLayout = () => ({
-    addPage: {},
-    removePage: {},
+import React, { useState } from 'react';
+import { ControlPanel } from '@/components/Modules';
+
+const useVisualLayout = ({ layout }) => {
+  const [layouts, setLayouts] = useState<any[]>(layout);
+
+  const render = () => (
+    <ControlPanel onChange={(val: any) => console.log(val)} value={layouts as any[]}></ControlPanel>
+  );
+
+  return {
     addVisualBlock: {},
     removeVisualBlock: {},
-    setPageLayout: {},
-  });
+    // setLayout: {},
+    render,
+  };
+};
 
 export default useVisualLayout;

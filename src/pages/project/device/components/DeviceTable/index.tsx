@@ -3,7 +3,7 @@ import { Badge, Tag } from 'antd';
 import { Link } from 'umi';
 import { useRestful, useDrawer } from '@/hooks';
 import { DEVICES_API } from '@/services/resources';
-import { IDevice } from '@/services/resources/models';
+import { IDevice } from '@/typings/types';
 import ProTable, { ProTableProps } from '@ant-design/pro-table';
 import { tableData2ProTableAdapter } from '@/utils/adapter';
 import OperationDeviceDC from '../modules/OperationDeviceDC';

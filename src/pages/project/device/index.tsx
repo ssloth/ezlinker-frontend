@@ -4,7 +4,7 @@ import { get } from 'lodash';
 import { Button, Tabs, Spin } from 'antd';
 import { useRestful, useFormModal } from '@/hooks';
 import { PRODUCTS_API, DEVICES_API } from '@/services/resources';
-import { IProduct, IDevice } from '@/services/resources/models';
+import { IProduct, IDevice } from '@/typings/types';
 import { ConnectProps } from '@/models/connect';
 import { PlusOutlined } from '@ant-design/icons';
 import { ActionType } from '@ant-design/pro-table';

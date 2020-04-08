@@ -4,7 +4,7 @@ import { Card, List, Button, Typography } from 'antd';
 import Link from 'umi/link';
 import { useFormModal, useRestful } from '@/hooks';
 import { PROJECT_API } from '@/services/resources';
-import { IProject } from '@/services/resources/models';
+import { IProject } from '@/typings/types';
 import styles from './index.less';
 import CreateProjectFMC from './components/modules/CreateProjectFMC';
 

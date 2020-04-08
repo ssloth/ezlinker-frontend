@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import React from 'react';
 import { RightOutlined } from '@ant-design/icons';
 import { Card } from 'antd';
-import { IModuleTemplate } from '@/services/resources/models';
+import { IModuleTemplate } from '@/typings/types';
 import { SYSTEM_MODULE_API, MODULES_API } from '@/services/resources/index';
 import { useFormDrawer, useRestful } from '@/hooks';
 import styles from './AddModuleDC.less';

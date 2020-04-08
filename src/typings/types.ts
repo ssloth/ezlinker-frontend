@@ -1,3 +1,4 @@
+import { VisualType } from '../components/Modules/type';
 /**
  * 与后端的modal层对应
  */
@@ -70,6 +71,7 @@ export interface IModule extends IBase {
   protocol: MODULE_PROTOCOL;
   dataArea: string;
   icon: string;
+  visual: VisualType[];
   status: 0 | 1;
   lastActiveTime: string;
 }
