@@ -12,7 +12,6 @@ export interface IControlPanel {
 
 const ControlPanel = (props: IControlPanel) => {
   const [value, handleChange] = useControllableValue(props);
-
   const layouts = useMemo(() => value.map((item: any) => item.layouts), [value]);
 
   const handleLayoutChange = (layout_: any) => {
@@ -21,7 +20,9 @@ const ControlPanel = (props: IControlPanel) => {
 
   return (
     <ResponsiveReactGridLayout layouts={layouts} onLayoutChange={handleLayoutChange}>
-      {value.map((visualBlock: any) => renderVisual(visualBlock))}
+      {value.map((visualBlock: any) => (
+        <div key={visualBlock.key}>{renderVisual(visualBlock)}</div>
+      ))}
     </ResponsiveReactGridLayout>
   );
 };

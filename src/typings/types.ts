@@ -1,4 +1,4 @@
-import { VisualType } from '../components/Modules/type';
+import { VisualType, ModuleType } from '../components/Modules/type';
 /**
  * 与后端的modal层对应
  */
@@ -40,15 +40,11 @@ export interface IProduct extends IBase {
   parameter: string;
 }
 
-export enum MODULE_PROTOCOL {
+export enum ModuleProtocolType {
   MQTT = 1,
 }
 
-export enum MODULE_TYPE {
-  COMMON = 1,
-}
-
-export enum MODULE_STATUS {
+export enum ModuleStatusType {
   DROPPED,
   ONLINE,
 }
@@ -58,8 +54,8 @@ export interface IModuleTemplate extends IBase {
   description: string;
   icon: string;
   model: string;
-  type: MODULE_TYPE;
-  protocol: MODULE_PROTOCOL;
+  type: ModuleType;
+  protocol: ModuleProtocolType;
   dataArea: string;
 }
 
@@ -67,8 +63,8 @@ export interface IModule extends IBase {
   name: string;
   description: string;
   model: string;
-  type: MODULE_TYPE;
-  protocol: MODULE_PROTOCOL;
+  type: ModuleType;
+  protocol: ModuleProtocolType;
   dataArea: string;
   icon: string;
   visual: VisualType[];

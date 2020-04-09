@@ -1,18 +1,18 @@
 import React from 'react';
 import { Card, Layout, Button } from 'antd';
 import get from 'lodash/get';
-import { useRestful } from '@/hooks';
+import { useRestful, useVisualLayout } from '@/hooks';
 import { MODULES_API } from '@/services/resources';
 import { IModule } from '@/typings/types';
 import { ConnectProps } from '@/models/connect';
 import classNamesBind from 'classnames/bind';
 import { PlusOutlined } from '@ant-design/icons';
+import { queryModalVisual } from '@/components/Modules';
 import styles from './index.less';
 
 const cx = classNamesBind.bind(styles);
 
 const { Content, Sider } = Layout;
-
 
 export interface ProductDesignProps extends ConnectProps {}
 
@@ -20,8 +20,15 @@ const ProductDesign: React.FC<ProductDesignProps> = props => {
   const productId = get(props, 'match.params.productId');
   const module = useRestful<IModule>(MODULES_API);
   const { data: moduleData } = module.useSWRQuery({ productId });
+  const { render, addVisualBlock } = useVisualLayout([]);
 
-  const handleAddModule = (module_: IModule) => {};
+  const handleAddModule = (module_: IModule) => {
+    addVisualBlock({
+      key: Math.floor(Math.random() * 10000),
+      visual: queryModalVisual(module_.type)?.[0],
+      module: module_,
+    });
+  };
 
   return (
     <Card bodyStyle={{ padding: 0 }}>
@@ -46,12 +53,12 @@ const ProductDesign: React.FC<ProductDesignProps> = props => {
         </Sider>
         <Content>
           <Card
-            style={{ height: '100%' }}
+            style={{ height: '100%', background: '#515266' }}
             size="small"
             title="控制台"
             extra={<Button type="primary">保存</Button>}
           >
-
+            <div style={{ position: 'relative' }}>{render()}</div>
           </Card>
         </Content>
       </Layout>

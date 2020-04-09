@@ -20,15 +20,16 @@ const structure2columnsAdapter = (structure: any[] | undefined) => {
 };
 
 export interface IVisualTable extends TableProps<any> {
+  key: number | string;
   structure: any;
 }
 
 const VisualTable = (props: IVisualTable) => {
-  const { structure, ...others } = props;
+  const { key, structure, ...others } = props;
 
   const columns = structure2columnsAdapter(structure);
 
-  return <Table rowKey="key" columns={columns} {...others}></Table>;
+  return <Table key={key} size="small" rowKey="key" columns={columns} {...others}></Table>;
 };
 
 export default VisualTable;

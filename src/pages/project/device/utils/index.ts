@@ -1,4 +1,4 @@
-import { MODULE_STATUS, MODULE_PROTOCOL, IDevice } from '@/typings/types';
+import { ModuleStatusType, ModuleProtocolType, IDevice } from '@/typings/types';
 
 export enum DEVICE_STATUS {
   inactivated,
@@ -23,16 +23,16 @@ export const getDeviceStatus = (device: IDevice): DEVICE_STATUS => {
 
   if (
     device.modules
-      .filter(item => item.protocol === MODULE_PROTOCOL.MQTT)
-      .every(item => item.status === MODULE_STATUS.DROPPED)
+      .filter(item => item.protocol === ModuleProtocolType.MQTT)
+      .every(item => item.status === ModuleStatusType.DROPPED)
   ) {
     return DEVICE_STATUS.abnormal;
   }
 
   if (
     device.modules
-      .filter(item => item.protocol === MODULE_PROTOCOL.MQTT)
-      .every(item => item.status === MODULE_STATUS.ONLINE)
+      .filter(item => item.protocol === ModuleProtocolType.MQTT)
+      .every(item => item.status === ModuleStatusType.ONLINE)
   ) {
     return DEVICE_STATUS.normal;
   }
