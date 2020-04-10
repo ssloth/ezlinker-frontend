@@ -8,6 +8,7 @@ import { RightOutlined } from '@ant-design/icons';
 import VirtualDevice from '@/components/VirtualDevice';
 import RightContent from '@/components/GlobalHeader/RightContent';
 import { ConnectProps } from '@/models/connect';
+import logo from '@/assets/logo.png';
 import styles from './BasicLayout.less';
 
 const cx = classNames.bind(styles);
@@ -37,8 +38,11 @@ const BasicLayout: React.SFC<ConnectProps> = props => {
   return (
     <div className={cx('wrapper')}>
       <Layout>
-        <Sider className={cx('main-menu-bar')} width={60}>
+        <Sider className={cx('main-menu-bar')} width={80}>
           <div className={cx('menu-bar')}>
+            <div>
+              <img style={{ height: 40, margin: '15px 18px' }} src={logo} alt="" />
+            </div>
             {menuData.map(menuItem => (
               <Tooltip key={menuItem.name} title={menuItem.name} placement="right">
                 <Link to={menuItem.path || ''}>
@@ -47,11 +51,8 @@ const BasicLayout: React.SFC<ConnectProps> = props => {
                       active: isActive(menuItem ? menuItem.path || '' : '', pathname),
                     })}
                   >
-                    <LegacyIcon
-                      className={cx('icon')}
-                      style={{ fontSize: 22 }}
-                      type={menuItem.icon as any}
-                    />
+                    <LegacyIcon className={cx('icon')} type={menuItem.icon as any} />
+                    <div className={cx('text')}>{menuItem.name}</div>
                   </div>
                 </Link>
               </Tooltip>

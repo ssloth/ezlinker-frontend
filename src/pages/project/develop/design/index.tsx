@@ -31,38 +31,29 @@ const ProductDesign: React.FC<ProductDesignProps> = props => {
   };
 
   return (
-    <Card bodyStyle={{ padding: 0 }}>
-      <Layout>
-        <Sider width={250}>
-          <Card size="small" title="模块" className={cx('module-list')} extra={<Button></Button>}>
-            {moduleData?.records.map(item => (
-              <Card.Grid className={cx('module-item')} key={item.id}>
-                <div className={cx('logo')}>
-                  <img src={item.icon} alt="" />
-                </div>
-                <div className={cx('left')}>
-                  <div className={cx('name')}>{item.name}</div>
-                  <div className={cx('description')}>{item.description}</div>
-                </div>
-                <div className={cx('right')} onClick={() => handleAddModule(item)}>
-                  <PlusOutlined></PlusOutlined>
-                </div>
-              </Card.Grid>
-            ))}
-          </Card>
-        </Sider>
-        <Content>
-          <Card
-            style={{ height: '100%', background: '#515266' }}
-            size="small"
-            title="控制台"
-            extra={<Button type="primary">保存</Button>}
-          >
-            <div style={{ position: 'relative' }}>{render()}</div>
-          </Card>
-        </Content>
-      </Layout>
-    </Card>
+    <Layout>
+      <Sider className={styles.sider} width={250}>
+        <Card size="small" title="模块" className={cx('module-list')} extra={<Button></Button>}>
+          {moduleData?.records.map(item => (
+            <Card.Grid className={cx('module-item')} key={item.id}>
+              <div className={cx('logo')}>
+                <img src={item.icon} alt="" />
+              </div>
+              <div className={cx('left')}>
+                <div className={cx('name')}>{item.name}</div>
+                <div className={cx('description')}>{item.description}</div>
+              </div>
+              <div className={cx('right')} onClick={() => handleAddModule(item)}>
+                <PlusOutlined></PlusOutlined>
+              </div>
+            </Card.Grid>
+          ))}
+        </Card>
+      </Sider>
+      <Content className={styles.content}>
+        <div style={{ position: 'relative' }}>{render()}</div>
+      </Content>
+    </Layout>
   );
 };
 

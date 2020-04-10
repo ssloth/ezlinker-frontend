@@ -16,21 +16,31 @@
     box-shadow: 0 0 10px #0008;
 
     .menu-item {
-      width: 60px;
-      height: 50px;
-      margin: 10px 0;
+      width: 80px;
+      height: 65px;
+      margin-bottom: 20px;
       line-height: 50px;
       cursor: pointer;
 
+      .icon {
+        font-size: 22px;
+        color: #999;
+      }
+
+      .text {
+        color: #999;
+        line-height: 10px;
+      }
+
       &:hover {
-        .icon {
+        .icon,.text {
           color: @active-color;
         }
       }
 
       &.active {
         position: relative;
-        background: @dark-1;
+        background: @dark-2;
         &::after {
           position: absolute;
           top: 0;
@@ -40,13 +50,9 @@
           background: @active-color;
           content: '';
         }
-        .icon {
+        .text,.icon {
           color: @active-color;
         }
-      }
-
-      .icon {
-        color: #999;
       }
     }
   }
@@ -107,7 +113,7 @@
   .header {
     z-index: 1;
     display: flex;
-    height: 60px;
+    height: 70px;
     padding: 0;
     background: @dark-1;
     box-shadow: 0 0 2px @dark-1;

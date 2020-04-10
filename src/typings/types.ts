@@ -56,7 +56,7 @@ export interface IModuleTemplate extends IBase {
   model: string;
   type: ModuleType;
   protocol: ModuleProtocolType;
-  dataArea: string;
+  dataAreas: string;
 }
 
 export interface IModule extends IBase {
@@ -65,7 +65,7 @@ export interface IModule extends IBase {
   model: string;
   type: ModuleType;
   protocol: ModuleProtocolType;
-  dataArea: string;
+  dataAreas: IStructrue[];
   icon: string;
   visual: VisualType[];
   status: 0 | 1;

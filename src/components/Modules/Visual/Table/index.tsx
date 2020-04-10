@@ -1,6 +1,6 @@
 import React from 'react';
 import { Table } from 'antd';
-import { TableProps } from 'antd/lib/table';
+import { IVisualBlock } from '../../type';
 
 const structure2columnsAdapter = (structure: any[] | undefined) => {
   const baseField = [{ title: '时间', dataIndex: 'createTime', key: 'createTime' }];
@@ -19,17 +19,15 @@ const structure2columnsAdapter = (structure: any[] | undefined) => {
   return columns;
 };
 
-export interface IVisualTable extends TableProps<any> {
-  key: number | string;
-  structure: any;
+export interface IVisualTable extends IVisualBlock {
+
 }
 
 const VisualTable = (props: IVisualTable) => {
-  const { key, structure, ...others } = props;
+  const { module } = props;
+  const columns = structure2columnsAdapter(module.dataAreas);
 
-  const columns = structure2columnsAdapter(structure);
-
-  return <Table key={key} size="small" rowKey="key" columns={columns} {...others}></Table>;
+  return <Table size="small" rowKey="key" columns={columns}></Table>;
 };
 
 export default VisualTable;

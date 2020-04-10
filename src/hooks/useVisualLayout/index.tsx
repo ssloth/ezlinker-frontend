@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ControlPanel } from '@/components/Modules';
-import { IVisualBlock } from '@/components/Modules/VisualBlock';
+import { IVisualBlock } from '@/components/Modules/type';
 
 const useVisualLayout = ({ layout }: any) => {
   const [layouts, setLayouts] = useState<any[]>(layout || []);
@@ -10,7 +10,7 @@ const useVisualLayout = ({ layout }: any) => {
   };
 
   const render = () => (
-    <ControlPanel onChange={(val: any) => console.log(val)} value={layouts}></ControlPanel>
+    <ControlPanel onChange={(val: any) => ({ val })} value={layouts}></ControlPanel>
   );
 
   return {
