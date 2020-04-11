@@ -5,7 +5,7 @@ export default {
   routes: [
     {
       path: './',
-      component: './Admin',
+      component: './setting',
     },
   ],
 };
