@@ -35,7 +35,7 @@ const UserLayout: React.SFC<UserLayoutProps> = props => {
   });
 
   const links: [] = [];
-  const copyright: string = '2019 EzLinker 版权所有';
+  const copyright: string = '2020 EzLinker 版权所有';
 
   return (
     <>

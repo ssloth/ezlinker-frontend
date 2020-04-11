@@ -2,7 +2,7 @@ import React from 'react';
 // import { PlusOutline } from '@ant-design/icons';
 import { Form } from '@ant-design/compatible';
 import '@ant-design/compatible/assets/index.css';
-import { Button, Card, Col, Input, Radio, Row, List } from 'antd';
+import { Button, Card, Col, Input, Radio, Row, List, Tag } from 'antd';
 import { FormComponentProps } from '@ant-design/compatible/es/form';
 import { get } from 'lodash';
 import { useFormModal, useRestful, useDrawer } from '@/hooks';
@@ -14,6 +14,7 @@ import { ITableList } from '@/typings/server';
 import IconFont from '@/components/IconFont';
 import { PlusOutlined } from '@ant-design/icons';
 import { Link } from 'umi';
+import moment from 'moment';
 import styles from './style.less';
 import CreateProductFMC from './components/modules/CreateProductFMC';
 import OperationProductDC from './components/modules/OperationProductDC';
@@ -44,7 +45,26 @@ const Avatar = ({ logo }: { logo: string }) => (
   </div>
 );
 
-const ListContent = () => <div className={styles.listContent}></div>;
+const ListContent = ({ createdAt, tags }: any) => (
+  <div className={styles.listContent}>
+    <div className={styles.listContentItem}>
+      <span>标签</span>
+      <p>
+        {tags.map((item: any) => (
+          <Tag>{item}</Tag>
+        ))}
+      </p>
+    </div>
+
+    <div className={styles.listContentItem}>
+      <span>创建时间</span>
+      <p>{moment(createdAt).format('YYYY-MM-DD HH:mm')}</p>
+    </div>
+    <div className={styles.listContentItem}>
+      {/* <Progress percent={percent} status={status} strokeWidth={6} style={{ width: 180 }} /> */}
+    </div>
+  </div>
+);
 
 const Develop: React.FC<DevelopProps> = props => {
   const projectId = get(props, 'match.params.id');
@@ -132,9 +152,7 @@ const Develop: React.FC<DevelopProps> = props => {
                   <a key="edit" onClick={() => handleEdit(item)}>
                     编辑
                   </a>,
-                  <Link to={`./develop/product/${item.id}/design`} >
-                    设计
-                  </Link>,
+                  <Link to={`./develop/product/${item.id}/design`}>设计</Link>,
                   <a key="operation" onClick={() => handleOperation(item)}>
                     模块
                   </a>,
@@ -145,7 +163,7 @@ const Develop: React.FC<DevelopProps> = props => {
                   title={<span>{item.name}</span>}
                   description={item.description}
                 />
-                <ListContent />
+                <ListContent createdAt={item.createTime} tags={item.tags}/>
               </List.Item>
             )}
           />

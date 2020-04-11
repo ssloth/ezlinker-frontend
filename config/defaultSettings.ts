@@ -54,7 +54,7 @@ export default {
   menu: {
     locale: true,
   },
-  title: 'EzLinker',
+  title: 'EZLINKER',
   pwa: false,
   iconfontUrl: '',
 } as DefaultSettings;

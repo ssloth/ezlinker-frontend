@@ -39,7 +39,7 @@ export default (): React.ReactNode => {
                   hoverable
                   className={styles.card}
                   actions={[
-                    <Link to={`/project/${item.id}/operation`}>数据看板</Link>,
+                    // <Link to={`/project/${item.id}/operation`}>数据看板</Link>,
                     <Link to={`/project/${item.id}/device`}>设备管理</Link>,
                     <Link to={`/project/${item.id}/develop`}>产品设计</Link>,
                   ]}
