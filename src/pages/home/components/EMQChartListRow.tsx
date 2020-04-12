@@ -76,7 +76,7 @@ const columns = [
     width: 240,
     render: (historyRunningState: any) => (
       <div className={styles['load-24h-chart']}>
-        {historyRunningState.createTime.map((item, i) => (
+        {historyRunningState?.createTime.map((item, i) => (
           <div key={i.toString()}></div>
         ))}
       </div>
