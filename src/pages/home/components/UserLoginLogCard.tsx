@@ -3,7 +3,7 @@ import React, { forwardRef } from 'react';
 import { TableProps } from 'antd/lib/table';
 
 const UserLoginLogCard = forwardRef(
-  ({ tableProps }: { tableProps: TableProps<any>; height: number }) => {
+  ({ tableProps }: { tableProps: TableProps<any>}) => {
     const columns = [
       {
         title: '用户',

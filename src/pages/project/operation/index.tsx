@@ -3,7 +3,7 @@ import React from 'react';
 import classNames from 'classnames/bind';
 import { Row, Col } from 'antd';
 import styles from './style.less';
-import LineChart from '../components/BlockChart/LineChart';
+import LineChart from './components/BlockChart/LineChart';
 import OperationBlock from './components/dark/OperationBlock';
 import HealthBlock from './components/dark/HealthBlock';
 
