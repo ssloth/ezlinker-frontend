@@ -23,6 +23,10 @@ export default {
   '@light-2': '#607080',
   '@light-2+': '#607080',
 
+  '@green': '#01cea2',
+  '@orange': '#f0684b',
+  '@red': '#EA3465',
+
   '@item-hover-bg': '@dark-2',
 
   // body

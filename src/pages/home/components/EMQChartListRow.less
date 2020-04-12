@@ -1,0 +1,27 @@
+.status-color {
+  &.normal {
+    background: @red;
+  }
+
+  &.warning {
+    background: @orange;
+  }
+
+  &.warning {
+    background: @red;
+  }
+
+  &.dropped {
+    background: @dark-0;
+  }
+}
+
+.load-24h-chart {
+  display: flex;
+  & > div {
+    flex: 8;
+    height: 8px;
+    border-left: 1px solid #99999999;
+    background: @dark-3;
+  }
+}

@@ -4,7 +4,7 @@ import styles from './index.less';
 
 export interface MiniProgressProps {
   target: number;
-  targetLabel?: string;
+  targetLabel?: any;
   color?: string;
   strokeWidth?: number;
   percent?: number;
@@ -14,7 +14,7 @@ export interface MiniProgressProps {
 const MiniProgress: React.FC<MiniProgressProps> = ({
   targetLabel,
   target,
-  color = 'rgb(19, 194, 194)',
+  color = '#01cea2',
   strokeWidth,
   percent,
 }) => (
