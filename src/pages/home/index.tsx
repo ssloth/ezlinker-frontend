@@ -7,7 +7,7 @@ import {
   USER_LOGS_API,
   MODULES_LOGS_API,
   ANALYSE_RUNNING_24H_API,
-  SYSTEM_CONFIG_EMQ_CONFIG_ALL_API,
+  MONITOR_EMQ_ALL_API,
 } from '@/services/resources';
 import ModuleLoginLogCard from './components/ModuleLogCard';
 import Running24HRow from './components/Running24HRow';
@@ -19,7 +19,7 @@ const UserLoginLogCard = React.lazy(() => import('./components/UserLoginLogCard'
 const Index = () => {
   const { data: homeData } = useRestful(ANALYSE_DATA_API).useSWRQuery();
   const { data: running24HData } = useRestful(ANALYSE_RUNNING_24H_API).useSWRQuery();
-  const { data: emqListData } = useRestful(SYSTEM_CONFIG_EMQ_CONFIG_ALL_API).useSWRQuery();
+  const { data: emqListData } = useRestful(MONITOR_EMQ_ALL_API).useSWRQuery();
   const { tableProps: userLogsTableProps } = useTable(useRestful(USER_LOGS_API));
   const { tableProps: moduleLogsTableProps } = useTable(useRestful(MODULES_LOGS_API));
 
