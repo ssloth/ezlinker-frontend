@@ -8,11 +8,12 @@ export const DEVICES_DATA_API = '/devices/:did/data';
 
 export const MANAGEMENT_USER_API = '/management/users';
 
-export const ANALYSE_DATA_API = '/analyse/data';
-export const ANALYSE_RUNNING_24H_API = '/analyse/running24h'
-export const SYSTEM_CONFIG_EMQ_CONFIG_ALL_API = '/systemConfig/emqxConfig/all'
+export const BIZ_ANALYSE_OVERVIEW = '/bizAnalyse/overView';
+
+export const MONITOR_EMQX_ALL_API = '/monitor/emqx/all'
+export const MONITOR_EMQX_BROKERS_API = '/monitor/emqx/brokers';
+export const MONITOR_OS_RUNNING_24H_API = '/monitor/os/running24h'
 
 export const USER_LOGS_API = '/userLogs';
-export const MONITOR_EMQX_BROKERS_API = '/monitor/emqx/brokers';
 export const PROJECT_ICON_API = '/projects/icons';
 export const SYSTEM_MODULE_API = '/systemConfig/moduleType/all';

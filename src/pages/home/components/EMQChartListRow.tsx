@@ -11,13 +11,13 @@ const queryloadStatus = (load15: number): { color: string; text: string } => {
       color: '#444249',
     };
   }
-  if (load15 < 60) {
+  if (load15 < 80) {
     return {
       text: '正常',
       color: '#01cea2',
     };
   }
-  if (load15 < 80) {
+  if (load15 < 90) {
     return {
       text: '警告',
       color: '#f0684b',
@@ -29,12 +29,12 @@ const queryloadStatus = (load15: number): { color: string; text: string } => {
   };
 };
 
-const renderState = (state: number) => {
-  const statusMap = {
-    1: ['green', '运行'],
-    0: ['red', '掉线'],
-  };
-  const [color, text] = statusMap[state] || [];
+const renderState = (state: boolean) => {
+  const statusMap = new Map<boolean, any>([
+    [false, ['red', '掉线']],
+    [true, ['green', '运行']],
+  ])
+  const [color, text] = statusMap.get(state) || [];
   return <Badge color={color} text={text}></Badge>;
 };
 
@@ -51,9 +51,9 @@ const columns = [
   },
   {
     title: '运行状态',
-    dataIndex: 'state',
+    key: 'state',
     width: 80,
-    render: (text: number) => renderState(text),
+    render: (_: number, record: any) => renderState(!!record.currentRunningState),
   },
   {
     title: '连接数',
@@ -71,7 +71,7 @@ const columns = [
         : '00.00 / 00.00 / 00.00'),
   },
   {
-    title: '24小时负载情况',
+    title: '近24小时负载情况',
     dataIndex: 'currentRunningState',
     width: 240,
     render: (historyRunningState: any) => (
@@ -103,6 +103,10 @@ const columns = [
       ) : (
         <MiniProgress strokeWidth={10} color="#999999" target={100} percent={100} />
       )),
+  },
+  {
+    title: '运行时间',
+    dataIndex: 'createTime',
   },
   {
     title: '创建时间',
