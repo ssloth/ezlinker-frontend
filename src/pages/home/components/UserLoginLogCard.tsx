@@ -24,7 +24,7 @@ const UserLoginLogCard = forwardRef(
     ];
 
     return (
-      <Card style={{ minHeight: 300 }} title="登录日志" size="small" bodyStyle={{ padding: 0 }}>
+      <Card style={{ minHeight: 500 }} title="登录日志" size="small" bodyStyle={{ padding: 0 }}>
         <Table rowKey="id" columns={columns} size="small" {...tableProps}></Table>
       </Card>
     );

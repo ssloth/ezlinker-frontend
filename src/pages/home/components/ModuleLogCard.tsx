@@ -8,46 +8,43 @@ const renderTypeTag = (type: number) => {
     2: ['#e06c75', '掉线'],
   };
   const [color, text] = typeMap[type];
-  return <Tag style={{ color: '#fff' }} color={color}>{text}</Tag>;
+  return (
+    <Tag style={{ color: '#fff' }} color={color}>
+      {text}
+    </Tag>
+  );
 };
 
-const ModuleLoginLogCard = forwardRef(
-  ({ tableProps }: { tableProps: TableProps<any> }) => {
-    const columns = [
-      {
-        title: '编号',
-        dataIndex: 'sn',
-      },
-      {
-        title: '设备名',
-        dataIndex: 'deviceName',
-      },
-      {
-        title: '模块',
-        dataIndex: 'moduleName',
-      },
-      {
-        title: '事件',
-        dataIndex: 'type',
-        render: (type: number) => renderTypeTag(type),
-      },
-      {
-        title: '时间',
-        dataIndex: 'createTime',
-      },
-    ];
+const ModuleLoginLogCard = forwardRef(({ tableProps }: { tableProps: TableProps<any> }) => {
+  const columns = [
+    {
+      title: '编号',
+      dataIndex: 'sn',
+    },
+    {
+      title: '设备名',
+      dataIndex: 'deviceName',
+    },
+    {
+      title: '模块',
+      dataIndex: 'moduleName',
+    },
+    {
+      title: '事件',
+      dataIndex: 'type',
+      render: (type: number) => renderTypeTag(type),
+    },
+    {
+      title: '时间',
+      dataIndex: 'createTime',
+    },
+  ];
 
-    return (
-      <Card
-        style={{ minHeight: 300 }}
-        title="设备上下线日志"
-        size="small"
-        bodyStyle={{ padding: 0 }}
-      >
-        <Table rowKey="id" columns={columns} size="small" {...tableProps}></Table>
-      </Card>
-    );
-  },
-);
+  return (
+    <Card style={{ minHeight: 500 }} title="设备上下线日志" size="small" bodyStyle={{ padding: 0 }}>
+      <Table rowKey="id" columns={columns} size="small" {...tableProps}></Table>
+    </Card>
+  );
+});
 
 export default ModuleLoginLogCard;

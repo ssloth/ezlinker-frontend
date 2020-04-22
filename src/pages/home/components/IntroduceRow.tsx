@@ -1,5 +1,6 @@
 import { Col, Row } from 'antd';
 import React from 'react';
+import { UserOutlined, ProjectOutlined, TabletOutlined, CreditCardOutlined } from '@ant-design/icons';
 import { ChartCard } from './Charts';
 
 const topColResponsiveProps = {
@@ -21,6 +22,7 @@ const IntroduceRow = ({ loading, data = {} }: { loading: boolean; data: any }) =
         loading={loading}
         title="用户总数"
         total={<div>{data.users}</div>}
+        icon={<UserOutlined style={{ fontSize: 50, color: '#a9a3ff77' }}/>}
         contentHeight={46}
       ></ChartCard>
     </Col>
@@ -30,6 +32,7 @@ const IntroduceRow = ({ loading, data = {} }: { loading: boolean; data: any }) =
         loading={loading}
         title="项目总数"
         total={<div>{data.projects}</div>}
+        icon={<ProjectOutlined style={{ fontSize: 50, color: '#a9a3ff77' }} />}
         contentHeight={46}
       ></ChartCard>
     </Col>
@@ -39,6 +42,7 @@ const IntroduceRow = ({ loading, data = {} }: { loading: boolean; data: any }) =
         loading={loading}
         title="产品总数"
         total={<div>{data.products}</div>}
+        icon={<TabletOutlined style={{ fontSize: 50, color: '#a9a3ff77' }}/>}
         contentHeight={46}
       ></ChartCard>
     </Col>
@@ -48,6 +52,7 @@ const IntroduceRow = ({ loading, data = {} }: { loading: boolean; data: any }) =
         loading={loading}
         title="设备总数"
         total={<div>{data.devices}</div>}
+        icon={<CreditCardOutlined style={{ fontSize: 50, color: '#a9a3ff77' }}/>}
         contentHeight={46}
       ></ChartCard>
     </Col>

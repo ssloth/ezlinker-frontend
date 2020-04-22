@@ -2,41 +2,25 @@
 
 .chartCard {
   position: relative;
-  .chartTop {
+  display: flex;
+
+  .chartRight {
+    flex: 1;
+  }
+
+  .chartLeft {
     position: relative;
     width: 100%;
     overflow: hidden;
   }
-  .chartTopMargin {
+  .chartLeftMargin {
     margin-bottom: 12px;
   }
-  .chartTopHasMargin {
+  .chartLeftHasMargin {
     margin-bottom: 20px;
   }
   .metaWrap {
     float: left;
-  }
-  .avatar {
-    position: relative;
-    top: 4px;
-    float: left;
-    margin-right: 20px;
-    img {
-      border-radius: 100%;
-    }
-  }
-  .meta {
-    height: 22px;
-    color: @text-color-secondary;
-    font-size: @font-size-base;
-    line-height: 22px;
-  }
-  .action {
-    position: absolute;
-    top: 4px;
-    right: 0;
-    line-height: 1;
-    cursor: pointer;
   }
   .total {
     height: 38px;
