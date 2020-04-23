@@ -32,18 +32,19 @@ export interface ChartCardProps extends CardProps {
   contentHeight?: number;
   avatar?: React.ReactNode;
   style?: React.CSSProperties;
+  icon ?: React.ReactNode;
 }
 
 class ChartCard extends React.Component<ChartCardProps> {
   renderContent = () => {
-    const { contentHeight, title, avatar, action, total, footer, children, loading } = this.props;
+    const { icon, title, avatar, action, total, footer, children, loading } = this.props;
     if (loading) {
       return false;
     }
     return (
       <div className={styles.chartCard}>
         <div
-          className={classNames(styles.chartTop, {
+          className={classNames(styles.chartLeft, {
             [styles.chartTopMargin]: !children && !footer,
           })}
         >
@@ -56,20 +57,10 @@ class ChartCard extends React.Component<ChartCardProps> {
             {renderTotal(total)}
           </div>
         </div>
-        {children && (
-          <div className={styles.content} style={{ height: contentHeight || 'auto' }}>
-            <div className={contentHeight && styles.contentFixed}>{children}</div>
-          </div>
-        )}
-        {footer && (
-          <div
-            className={classNames(styles.footer, {
-              [styles.footerMargin]: !children,
-            })}
-          >
-            {footer}
-          </div>
-        )}
+
+        <div className={classNames(styles.chartRight)}>
+          {icon}
+        </div>
       </div>
     );
   };
