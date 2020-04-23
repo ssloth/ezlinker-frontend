@@ -1,21 +1,17 @@
 import { Props } from 'react';
 import { IModule } from '@/typings/types';
+import { Layout } from 'react-grid-layout';
 
-export interface ILayout {
+export interface IPageLayout {
   id: number;
   pages: IPage[];
 }
 
 export interface IPage {
   name: string;
-  visuals: IVisual[];
+  visuals: IVisualBlock[];
 }
 
-export interface IVisual {
-  id: string;
-  moduleId: string;
-  content: any;
-}
 
 export enum ModuleType {
   BUTTON = 'BUTTON',
@@ -41,9 +37,9 @@ export enum VisualType {
 }
 
 export interface IVisualBlock extends Props<any> {
-  key: number | string;
   module: IModule; // 该视图归属的模块模板
   visual: VisualType; // 视图
+  layout: Layout;
   state?: any; // 当前状态 如果是 图标类型的为列表
   record?: any[]; // 记录
 }

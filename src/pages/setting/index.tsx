@@ -15,19 +15,19 @@ const { TabPane } = Tabs;
 const Index = () => (
   <Card bodyStyle={{ paddingTop: 5 }}>
     <Tabs>
-      <TabPane style={{ paddingTop: 20 }} tab="EMQX配置节点" key="emq">
+      <TabPane style={{ paddingTop: 20 }} tab="EMQX配置节点" key="1">
         <EMQXSetting></EMQXSetting>
       </TabPane>
-      <TabPane style={{ paddingTop: 20 }} tab="EMQX配置节点" key="emq">
+      <TabPane style={{ paddingTop: 20 }} tab="EMQX配置节点" key="2">
         <EMQXSetting></EMQXSetting>
       </TabPane>
-      <TabPane style={{ paddingTop: 20 }} tab="EMQX配置节点" key="emq">
+      <TabPane style={{ paddingTop: 20 }} tab="EMQX配置节点" key="3">
         <EMQXSetting></EMQXSetting>
       </TabPane>
-      <TabPane style={{ paddingTop: 20 }} tab="EMQX配置节点" key="emq">
+      <TabPane style={{ paddingTop: 20 }} tab="EMQX配置节点" key="4">
         <EMQXSetting></EMQXSetting>
       </TabPane>
-      <TabPane style={{ paddingTop: 20 }} tab="EMQX配置节点" key="emq">
+      <TabPane style={{ paddingTop: 20 }} tab="EMQX配置节点" key="5">
         <EMQXSetting></EMQXSetting>
       </TabPane>
     </Tabs>
