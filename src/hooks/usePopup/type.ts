@@ -1,7 +1,7 @@
 import { DrawerProps } from 'antd/lib/drawer';
 import { FormComponentProps } from '@ant-design/compatible/lib/form';
 import { IAction } from '@/typings/global';
-import { IUseResuful } from '../useRestful/useRestful';
+import { ICreateUseRestful } from '../createUseRestful/createUseRestful';
 
 export interface IPopupBoxOptions {
   type: 'Drawer' | 'Modal';
@@ -20,7 +20,7 @@ export interface IFormPopupBoxContentProps extends FormComponentProps {
 }
 
 export interface IFormPopupBoxProps extends FormComponentProps {
-  action: IAction | string | IUseResuful<any>;
+  action: IAction | string | ICreateUseRestful<any>;
   formPopupBoxContentProps: any;
   options: IFormPopupBoxOption;
   FormPopupBoxContent: React.FC<IFormPopupBoxContentProps>;

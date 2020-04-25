@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { FormComponentProps } from '@ant-design/compatible/lib/form';
 import { get } from 'lodash';
 import { Button, Tabs, Spin } from 'antd';
-import { useRestful, useFormModal } from '@/hooks';
+import { createUseRestful, useFormModal } from '@/hooks';
 import { PRODUCTS_API, DEVICES_API } from '@/services/resources';
 import { IProduct, IDevice } from '@/typings/types';
 import { ConnectProps } from '@/models/connect';
@@ -20,8 +20,8 @@ const DeviceLayout: React.FC<ManageProps> = props => {
   const projectId = get(props, 'match.params.id');
   const ref = useRef<ActionType>();
   const [productId, setProductId] = useState<string>();
-  const productResource = useRestful<IProduct>(PRODUCTS_API);
-  const deviceResource = useRestful<IDevice>(DEVICES_API);
+  const productResource = createUseRestful<IProduct>(PRODUCTS_API);
+  const deviceResource = createUseRestful<IDevice>(DEVICES_API);
   const deviceModal = useFormModal<CreateDeviceFMCProps>(CreateDeviceFMC, deviceResource, {
     title: '创建设备',
   });

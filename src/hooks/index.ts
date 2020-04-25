@@ -1,6 +1,14 @@
 import { useFormModal, useDrawer, useFormDrawer, useModal } from './usePopup';
 import useVisualLayout from './useVisualLayout';
-import useRestful from './useRestful';
+import createUseRestful from './createUseRestful';
 import { useTable } from './useTable';
 
-export { useFormModal, useRestful, useDrawer, useFormDrawer, useModal, useTable, useVisualLayout };
+export {
+  useFormModal,
+  createUseRestful,
+  useDrawer,
+  useFormDrawer,
+  useModal,
+  useTable,
+  useVisualLayout,
+};

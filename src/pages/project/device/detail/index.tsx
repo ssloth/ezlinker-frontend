@@ -3,7 +3,7 @@ import ProTable from '@ant-design/pro-table';
 import { get } from 'lodash';
 import { useAsync } from '@umijs/hooks';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import { useRestful } from '@/hooks';
+import { createUseRestful } from '@/hooks';
 import { DEVICES_DATA_API } from '@/services/resources/index';
 import { tableData2ProTableAdapter } from '@/utils/adapter';
 import { queryDataStructureByDeviceId } from '@/services/device';
@@ -59,7 +59,7 @@ const getModules = (data: IResult | undefined) => {
 const DeviceDetail = (props: any) => {
   const did = get(props, 'match.params.did');
   const { data: deviceDataStructure } = useAsync<any>(() => queryDataStructureByDeviceId(did));
-  const deviceDataResource = useRestful<any>(DEVICES_DATA_API);
+  const deviceDataResource = createUseRestful<any>(DEVICES_DATA_API);
 
   const columns = structure2columnsAdapter(deviceDataStructure);
   const modules = getModules(deviceDataStructure);

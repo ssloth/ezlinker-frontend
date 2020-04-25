@@ -3,17 +3,17 @@ import { IAction } from '@/typings/global';
 import usePopupBox from './libs/usePopupBox';
 import useFormPopupBox from './libs/useFormPopupBox';
 import { IFormPopupBoxOption } from './type';
-import { IUseResuful } from '../useRestful/useRestful';
+import { ICreateUseRestful } from '../createUseRestful/createUseRestful';
 
 const useFormModal = <ContentProps, UseResufulType = any>(
   FormModalContent: React.FC<ContentProps>,
-  action: IAction | string | IUseResuful<UseResufulType>,
+  action: IAction | string | ICreateUseRestful<UseResufulType>,
   opt: IFormPopupBoxOption = {},
 ) => useFormPopupBox(FormModalContent, action, opt, 'Modal');
 
 const useFormDrawer = <ContentProps, UseResufulType = any>(
   FormDrawerContent: React.FC<ContentProps>,
-  action: IAction | string | IUseResuful<UseResufulType>,
+  action: IAction | string | ICreateUseRestful<UseResufulType>,
   opt: IFormPopupBoxOption = {},
 ) => useFormPopupBox(FormDrawerContent, action, opt, 'Drawer');
 

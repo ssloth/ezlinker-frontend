@@ -2,14 +2,14 @@ import React from 'react';
 import { DownOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Dropdown, Menu } from 'antd';
 import ProTable, { ProColumns } from '@ant-design/pro-table';
-import { useRestful, useFormModal } from '@/hooks';
+import { createUseRestful, useFormModal } from '@/hooks';
 import { IUser } from '@/typings/types';
 import { MANAGEMENT_USER_API } from '@/services/resources/index';
 import { tableData2ProTableAdapter } from '@/utils/adapter';
 import CreateUserFMC from './components/modules/CreateUserFMC';
 
 const UserManage = () => {
-  const userResource = useRestful<IUser>(MANAGEMENT_USER_API);
+  const userResource = createUseRestful<IUser>(MANAGEMENT_USER_API);
   const createUserModal = useFormModal(CreateUserFMC, userResource, {
     title: '创建用户',
   });

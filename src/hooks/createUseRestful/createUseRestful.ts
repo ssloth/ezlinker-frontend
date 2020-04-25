@@ -29,7 +29,7 @@ export type IUseSWRFind<Resource> = (
   id: ResourceId,
   params?: ResourceParams,
 ) => IUseSWRFindResult<Resource>;
-export interface IUseResuful<Resource> {
+export interface ICreateUseRestful<Resource> {
   create: ICreate<Resource>;
   remove: IRemove;
   update: IUpdate<Resource>;
@@ -55,7 +55,7 @@ const parseURL = (url: string, params: any = {}) => {
   return url;
 };
 
-const useResuful = <Resource>(url: string, config: any = {}): IUseResuful<Resource> => {
+const useResuful = <Resource>(url: string, config: any = {}): ICreateUseRestful<Resource> => {
   const { pagination } = defaultConfig;
   const { defaultParams = {} } = config;
   const URL = url;

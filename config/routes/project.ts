@@ -12,18 +12,18 @@ export default {
       hideInMenu: true,
       routes: [
         {
-          path: './develop',
+          path: './design',
           name: '产品设计',
-          component: './project/develop',
+          component: './project/design',
         },
         {
-          path: './develop/product/:productId/design',
+          path: './design/product/:productId/console',
           name: '控制台设计',
-          component: './project/develop/design',
+          component: './project/design/console',
         },
         {
           path: './operation',
-          name: '运维模式',
+          name: '运维',
           component: './project/operation',
         },
         {

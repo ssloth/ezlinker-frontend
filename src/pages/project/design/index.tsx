@@ -5,7 +5,7 @@ import '@ant-design/compatible/assets/index.css';
 import { Button, Card, Col, Input, Radio, Row, List, Tag } from 'antd';
 import { FormComponentProps } from '@ant-design/compatible/es/form';
 import { get } from 'lodash';
-import { useFormModal, useRestful, useDrawer } from '@/hooks';
+import { useFormModal, createUseRestful, useDrawer } from '@/hooks';
 import { ConnectProps } from '@/models/connect';
 import { PRODUCTS_API } from '@/services/resources';
 import { IProduct } from '@/typings/types';
@@ -68,7 +68,7 @@ const ListContent = ({ createdAt, tags }: any) => (
 
 const Develop: React.FC<DevelopProps> = props => {
   const projectId = get(props, 'match.params.id');
-  const product = useRestful<IProduct>(PRODUCTS_API);
+  const product = createUseRestful<IProduct>(PRODUCTS_API);
 
   const createProductModal = useFormModal(CreateProductFMC, product, {
     title: '创建产品',

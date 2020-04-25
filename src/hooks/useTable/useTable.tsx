@@ -1,7 +1,7 @@
 import { useAntdTable } from '@umijs/hooks';
-import { IUseResuful } from '../useRestful/useRestful';
+import { ICreateUseRestful } from '../createUseRestful/createUseRestful';
 
-function useTable<Resource>(resource: IUseResuful<any>, params: any = {}, options = {}) {
+function useTable<Resource>(resource: ICreateUseRestful<any>, params: any = {}, options = {}) {
   const result = useAntdTable<any, any>(
     () => resource.query({ ...params }),
     Object.entries(params).map(item => item[1]),

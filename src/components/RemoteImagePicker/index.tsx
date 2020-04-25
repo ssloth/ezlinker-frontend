@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 import { Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
-import { useModal, useRestful } from '@/hooks';
+import { useModal, createUseRestful } from '@/hooks';
 import { useControllableValue } from '@umijs/hooks';
 import ImageMC from './ImageMC';
 
@@ -13,7 +13,7 @@ interface IProps {
 
 const RemoteImagePicker = forwardRef((props: IProps, ref: any) => {
   const [value, onChange] = useControllableValue(props);
-  const { data } = useRestful(props.url).useSWRQuery();
+  const { data } = createUseRestful(props.url).useSWRQuery();
 
   const imageModal = useModal(ImageMC);
 

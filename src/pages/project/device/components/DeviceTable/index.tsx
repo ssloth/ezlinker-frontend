@@ -1,7 +1,7 @@
 import React, { forwardRef, Ref } from 'react';
 import { Badge, Tag } from 'antd';
 import { Link } from 'umi';
-import { useRestful, useDrawer } from '@/hooks';
+import { createUseRestful, useDrawer } from '@/hooks';
 import { DEVICES_API } from '@/services/resources';
 import { IDevice } from '@/typings/types';
 import ProTable, { ProTableProps } from '@ant-design/pro-table';
@@ -30,7 +30,7 @@ const renderState = (record: IDevice) => {
 
 const DeviceTable: React.FC<IDeviceTableProps> = forwardRef((props, ref) => {
   const { productId, projectId } = props;
-  const deviceResource = useRestful<IDevice>(DEVICES_API);
+  const deviceResource = createUseRestful<IDevice>(DEVICES_API);
   const operation = useDrawer(OperationDeviceDC, {
     title: '操作设备',
     width: 500,

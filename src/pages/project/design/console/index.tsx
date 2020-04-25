@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Layout, Button } from 'antd';
 import get from 'lodash/get';
-import { useRestful, useVisualLayout } from '@/hooks';
+import { createUseRestful, useVisualLayout } from '@/hooks';
 import { MODULES_API } from '@/services/resources';
 import { IModule } from '@/typings/types';
 import { ConnectProps } from '@/models/connect';
@@ -18,7 +18,7 @@ export interface ProductDesignProps extends ConnectProps {}
 
 const ProductDesign: React.FC<ProductDesignProps> = props => {
   const productId = get(props, 'match.params.productId');
-  const module = useRestful<IModule>(MODULES_API);
+  const module = createUseRestful<IModule>(MODULES_API);
   const { data: moduleData } = module.useSWRQuery({ productId });
   const { render, addVisualBlock } = useVisualLayout([]);
 

@@ -4,12 +4,12 @@ import '@ant-design/compatible/assets/index.css';
 import { Button, Card } from 'antd';
 import React from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import useRestful from '@/hooks/useRestful';
+import createUseRestful from '@/hooks/createUseRestful';
 import styles from './style.less';
 
 /* eslint react/no-multi-comp:0 */
 const ProductTableList = () => {
-  const result = useRestful<any>('/api/project/notice');
+  const result = createUseRestful<any>('/api/project/notice');
   const { data, error } = result.useSWRQuery();
 
   return (

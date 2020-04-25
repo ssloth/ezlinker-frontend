@@ -4,7 +4,7 @@ import { RightOutlined } from '@ant-design/icons';
 import { Card } from 'antd';
 import { IModuleTemplate } from '@/typings/types';
 import { SYSTEM_MODULE_API, MODULES_API } from '@/services/resources/index';
-import { useFormDrawer, useRestful } from '@/hooks';
+import { useFormDrawer, createUseRestful } from '@/hooks';
 import styles from './AddModuleDC.less';
 import CreateModuleFDC from './CreateModuleFDC';
 
@@ -16,8 +16,8 @@ interface IOperationProductDCProps {
 
 const AddModuleDC = (props: IOperationProductDCProps) => {
   const { productId, cancel } = props;
-  const systemModule = useRestful<IModuleTemplate>(SYSTEM_MODULE_API);
-  const templateModule = useRestful<IModuleTemplate>(MODULES_API);
+  const systemModule = createUseRestful<IModuleTemplate>(SYSTEM_MODULE_API);
+  const templateModule = createUseRestful<IModuleTemplate>(MODULES_API);
   const { data: moduleData } = systemModule.useSWRQuery({ productId });
 
   const createModule = useFormDrawer(CreateModuleFDC, templateModule, {

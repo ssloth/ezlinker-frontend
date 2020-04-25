@@ -4,7 +4,7 @@ import { PlusOutlined, RightOutlined } from '@ant-design/icons';
 import { Button, Card } from 'antd';
 import { IModule } from '@/typings/types';
 import { MODULES_API } from '@/services/resources/index';
-import { useRestful, useDrawer } from '@/hooks';
+import { createUseRestful, useDrawer } from '@/hooks';
 import styles from './OperationProductDC.less';
 import AddModuleDC from './AddModuleDC';
 
@@ -15,7 +15,7 @@ interface IOperationProductDCProps {
 
 const OperationProductDC = (props: IOperationProductDCProps) => {
   const { productId } = props;
-  const module = useRestful<IModule>(MODULES_API);
+  const module = createUseRestful<IModule>(MODULES_API);
   const { data: moduleData } = module.useSWRQuery({ productId });
 
   const addModule = useDrawer(AddModuleDC, {

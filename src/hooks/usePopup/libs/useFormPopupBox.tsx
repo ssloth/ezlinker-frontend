@@ -5,7 +5,7 @@ import '@ant-design/compatible/assets/index.css';
 import { Button, Drawer, message, Modal } from 'antd';
 import request from '@/utils/request';
 import { IAction } from '@/typings/global';
-import { IUseResuful } from '@/hooks/useRestful/useRestful';
+import { ICreateUseRestful } from '@/hooks/createUseRestful/createUseRestful';
 import { IFormPopupBoxOption, IFormPopupBoxProps, IUseFormPopupBox } from '../type';
 
 const DrawerFooter = (props: any) => (
@@ -61,7 +61,7 @@ const FormPopupBox = Form.create<IFormPopupBoxProps>()((props: IFormPopupBoxProp
         });
         // NOTE: 暂时不知道怎么优雅的处理重载 有dalao知道的话帮忙提个pr
       } else if ((action as any).URL) {
-        const ret = action as IUseResuful<any>;
+        const ret = action as ICreateUseRestful<any>;
         result = method === 'POST' ? ret.create(formValues) : ret.update(formValues.id, formValues);
         ret.mutate(formValues);
         result = result
@@ -129,7 +129,7 @@ const FormPopupBox = Form.create<IFormPopupBoxProps>()((props: IFormPopupBoxProp
  */
 const useFormPopupBox = (
   FormPopupBoxContent: React.FC<any>,
-  action: IAction | string | IUseResuful<any>,
+  action: IAction | string | ICreateUseRestful<any>,
   opt: IFormPopupBoxOption = {},
   popupBoxType: 'Modal' | 'Drawer',
 ): IUseFormPopupBox => {

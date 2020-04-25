@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 import { GridContent } from '@ant-design/pro-layout';
 import { Row, Col } from 'antd';
-import { useRestful, useTable } from '@/hooks';
+import { createUseRestful, useTable } from '@/hooks';
 import {
   BIZ_ANALYSE_OVERVIEW,
   USER_LOGS_API,
@@ -17,11 +17,11 @@ const IntroduceRow = React.lazy(() => import('./components/IntroduceRow'));
 const UserLoginLogCard = React.lazy(() => import('./components/UserLoginLogCard'));
 
 const Index = () => {
-  const { data: homeData } = useRestful(BIZ_ANALYSE_OVERVIEW).useSWRQuery();
-  const { data: running24HData } = useRestful(MONITOR_OS_RUNNING_24H_API).useSWRQuery();
-  const { data: emqListData } = useRestful(MONITOR_EMQX_ALL_API).useSWRQuery();
-  const { tableProps: userLogsTableProps } = useTable(useRestful(USER_LOGS_API));
-  const { tableProps: moduleLogsTableProps } = useTable(useRestful(MODULES_LOGS_API));
+  const { data: homeData } = createUseRestful(BIZ_ANALYSE_OVERVIEW).useSWRQuery();
+  const { data: running24HData } = createUseRestful(MONITOR_OS_RUNNING_24H_API).useSWRQuery();
+  const { data: emqListData } = createUseRestful(MONITOR_EMQX_ALL_API).useSWRQuery();
+  const { tableProps: userLogsTableProps } = useTable(createUseRestful(USER_LOGS_API));
+  const { tableProps: moduleLogsTableProps } = useTable(createUseRestful(MODULES_LOGS_API));
 
   return (
     <GridContent>

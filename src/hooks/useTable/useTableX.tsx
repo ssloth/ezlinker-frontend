@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import Table, { TableProps, PaginationConfig } from 'antd/lib/table';
+import Table, { TableProps, TablePaginationConfig } from 'antd/lib/table';
 import { ParsedUrlQueryInput } from 'querystring';
 import { ITableListItem } from '@/typings/server';
-import { IUseResuful } from '../useRestful/useRestful';
+import { ICreateUseRestful } from '../createUseRestful/createUseRestful';
 
 const paginationInitial = {
   current: 1,
@@ -13,12 +13,12 @@ const paginationInitial = {
 
 function useTable<Resource>(
   columns: Array<Object>,
-  resource: IUseResuful<any>,
+  resource: ICreateUseRestful<any>,
   params: ParsedUrlQueryInput,
   options: any,
 ) {
-  const [pagination, setPagination] = useState<PaginationConfig>(paginationInitial);
-  const { data, error } = resource.useQuery(params);
+  const [pagination, setPagination] = useState<TablePaginationConfig>(paginationInitial);
+  const { data, error } = resource.useSWRQuery(params);
   const loading: boolean = !!data || !!error;
 
   const handleTableChange: TableProps<Resource>['onChange'] = paginationRet => {

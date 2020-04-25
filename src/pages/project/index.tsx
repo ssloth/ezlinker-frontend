@@ -2,7 +2,7 @@ import React from 'react';
 import { PlusOutlined, SettingOutlined } from '@ant-design/icons';
 import { Card, List, Button, Typography } from 'antd';
 import Link from 'umi/link';
-import { useFormModal, useRestful } from '@/hooks';
+import { useFormModal, createUseRestful } from '@/hooks';
 import { PROJECT_API } from '@/services/resources';
 import { IProject } from '@/typings/types';
 import styles from './index.less';
@@ -11,7 +11,7 @@ import CreateProjectFMC from './components/modules/CreateProjectFMC';
 const { Paragraph } = Typography;
 
 export default (): React.ReactNode => {
-  const projectResource = useRestful<IProject>(PROJECT_API);
+  const projectResource = createUseRestful<IProject>(PROJECT_API);
   const { data } = projectResource.useSWRQuery();
 
   const createProjectModal = useFormModal(CreateProjectFMC, projectResource);
