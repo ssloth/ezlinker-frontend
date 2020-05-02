@@ -96,7 +96,7 @@ export default {
     javascriptEnabled: true,
     modifyVars: {
       // 'hack': `true;@import "${require.resolve('antd/lib/style/color/colorPalette.less')}";`,
-      ...darkTheme,
+      // ...darkTheme,
       // ...darkThemeVarss,
     },
   },

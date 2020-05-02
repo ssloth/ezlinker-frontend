@@ -3,9 +3,9 @@ export default {
   '@dark': '#101425',
   '@white': '@light',
 
-  '@dark-0': '#2b2c3c',
+  '@dark-0': '#171521',
   '@dark-0+': '#2b2c3c',
-  '@dark-1': '#313244',
+  '@dark-1': '#23212d',
   '@dark-1+': '#313244',
   '@dark-2': '#36374B',
   '@dark-2+': '#36374B',
@@ -30,7 +30,7 @@ export default {
   '@item-hover-bg': '@dark-2',
 
   // body
-  '@body-background': '@dark-3',
+  '@body-background': '@dark-0',
   '@layout-body-background': '@body-background',
   '@component-background': '@dark-1',
   '@component-background-light': '@dark-0',
