@@ -11,14 +11,15 @@ import CreateModuleFDC from './CreateModuleFDC';
 const cx = classNames.bind(styles);
 interface IOperationProductDCProps {
   productId: string;
+  protocolId: string;
   cancel: Function;
 }
 
 const AddModuleDC = (props: IOperationProductDCProps) => {
-  const { productId, cancel } = props;
+  const { productId, protocolId, cancel } = props;
   const systemModule = createUseRestful<IModuleTemplate>(SYSTEM_MODULE_API);
   const templateModule = createUseRestful<IModuleTemplate>(MODULES_API);
-  const { data: moduleData } = systemModule.useSWRQuery({ productId });
+  const { data: moduleData } = systemModule.useSWRQuery({ productId, protocolId });
 
   const createModule = useFormDrawer(CreateModuleFDC, templateModule, {
     title: '模块',

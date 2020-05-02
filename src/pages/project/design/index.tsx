@@ -90,7 +90,7 @@ const Develop: React.FC<DevelopProps> = props => {
   };
 
   const handleOperation = (record: IProduct) => {
-    operationProductDC.show({ productId: record.id }, { title: record.name });
+    operationProductDC.show({ productId: record.id, protocolId: record.protocol }, { title: record.name });
   };
 
   const extraContent = (
@@ -152,7 +152,7 @@ const Develop: React.FC<DevelopProps> = props => {
                   <a key="edit" onClick={() => handleEdit(item)}>
                     编辑
                   </a>,
-                  <Link to={`./develop/product/${item.id}/design`}>设计</Link>,
+                  <Link to={`./design/product/${item.id}/console`}>设计</Link>,
                   <a key="operation" onClick={() => handleOperation(item)}>
                     模块
                   </a>,

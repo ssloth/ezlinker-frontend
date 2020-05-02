@@ -5,7 +5,7 @@ import { Input, Select, Button } from 'antd';
 import { IFormModalContentProps } from '@/hooks/usePopup/type';
 import TableColumnsDesign from '@/pages/project/components/TableColumnsDesign';
 import { enums2Options } from '@/enums/utils';
-import { PRODUCT_TYPE } from '@/enums/product';
+import { PRODUCT_TYPE, PROTOCOL_TYPE } from '@/enums/product';
 import { useModal } from '@/hooks';
 import SelectProductIconMC, { SelectProductIconMCProps } from './SelectProductIconMC';
 import '@ant-design/compatible/assets/index.css';
@@ -57,6 +57,15 @@ const CreateProductFMC = (props: IFormModalContentProps) => {
                 {item}
               </Option>
             ))}
+          </Select>,
+        )}
+      </FormItem>
+      <FormItem label="协议" {...formLayout}>
+        {getFieldDecorator('protocol', {
+          initialValue: current.protocol,
+        })(
+          <Select style={{ width: '100%' }} placeholder="请选择产品的协议">
+            {enums2Options(PROTOCOL_TYPE)}
           </Select>,
         )}
       </FormItem>

@@ -11,10 +11,11 @@ import AddModuleDC from './AddModuleDC';
 const cx = classNames.bind(styles);
 interface IOperationProductDCProps {
   productId: string;
+  protocolId: string;
 }
 
 const OperationProductDC = (props: IOperationProductDCProps) => {
-  const { productId } = props;
+  const { productId, protocolId } = props;
   const module = createUseRestful<IModule>(MODULES_API);
   const { data: moduleData } = module.useSWRQuery({ productId });
 
@@ -26,6 +27,7 @@ const OperationProductDC = (props: IOperationProductDCProps) => {
   const handleAddModule = () => {
     addModule.show({
       productId,
+      protocolId,
       cancel: addModule.cancle,
     });
   };

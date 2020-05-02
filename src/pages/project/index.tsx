@@ -1,7 +1,7 @@
 import React from 'react';
 import { PlusOutlined, SettingOutlined } from '@ant-design/icons';
 import { Card, List, Button, Typography } from 'antd';
-import Link from 'umi/link';
+import {Link} from 'umi';
 import { useFormModal, createUseRestful } from '@/hooks';
 import { PROJECT_API } from '@/services/resources';
 import { IProject } from '@/typings/types';
@@ -41,7 +41,7 @@ export default (): React.ReactNode => {
                   actions={[
                     // <Link to={`/project/${item.id}/operation`}>数据看板</Link>,
                     <Link to={`/project/${item.id}/device`}>设备管理</Link>,
-                    <Link to={`/project/${item.id}/develop`}>产品设计</Link>,
+                    <Link to={`/project/${item.id}/design`}>产品设计</Link>,
                   ]}
                 >
                   <Card.Meta

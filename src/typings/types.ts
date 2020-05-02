@@ -38,6 +38,7 @@ export interface IProduct extends IBase {
   tags: string[];
   type: string;
   parameter: string;
+  protocol: number;
 }
 
 export enum ModuleProtocolType {

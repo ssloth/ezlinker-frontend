@@ -2,6 +2,7 @@
 // eslint-disable-next-line eslint-comments/abdeils - enable - pair;
 /* eslint-disable import/no-extraneous-dependencies */
 import ThemeColorReplacer from 'webpack-theme-color-replacer';
+import AntdDayjsWebpackPlugin from 'antd-dayjs-webpack-plugin';
 import generate from '@ant-design/colors/lib/generate';
 import path from 'path';
 
@@ -50,7 +51,11 @@ export default (config: any) => {
         // isJsUgly: true,
       },
     ]);
+
+    config.plugin('antd-dayjs-webpack-plugin').use(AntdDayjsWebpackPlugin);
   }
+
+  
 
   // optimize chunks
   config.optimization

@@ -10,6 +10,13 @@ export enum FEATURE_TYPE {
   switch,
 }
 
+export enum PROTOCOL_TYPE {
+  MQTT,
+  COAP,
+  HTTP,
+  TCP,
+}
+
 export enum PRODUCT_TYPE {
   通用,
 }

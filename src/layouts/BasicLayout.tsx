@@ -1,88 +1,149 @@
-import { Link } from 'umi';
-import { Layout, Tooltip } from 'antd';
-import classNames from 'classnames/bind';
-import React, { useState } from 'react';
-import { getMenuData } from '@ant-design/pro-layout';
-import { Icon as LegacyIcon } from '@ant-design/compatible';
-import { RightOutlined } from '@ant-design/icons';
-import VirtualDevice from '@/components/VirtualDevice';
+import ProLayout, {
+  MenuDataItem,
+  BasicLayoutProps as ProLayoutProps,
+  Settings,
+  DefaultFooter,
+  SettingDrawer,
+} from '@ant-design/pro-layout';
+import React, { useEffect } from 'react';
+import { Link, connect, Dispatch } from 'umi';
+import { Result, Button } from 'antd';
+import Authorized from '@/utils/Authorized';
 import RightContent from '@/components/GlobalHeader/RightContent';
-import { ConnectProps } from '@/models/connect';
-import logo from '@/assets/logo.png';
-import styles from './BasicLayout.less';
+import { ConnectState } from '@/models/connect';
+import { getAuthorityFromRouter } from '@/utils/utils';
+import logo from '../assets/logo.svg';
 
-const cx = classNames.bind(styles);
+const noMatch = (
+  <Result
+    status={403}
+    title="403"
+    subTitle="Sorry, you are not authorized to access this page."
+    extra={
+      <Button type="primary">
+        <Link to="/user/login">Go Login</Link>
+      </Button>
+    }
+  />
+);
+export interface BasicLayoutProps extends ProLayoutProps {
+  breadcrumbNameMap: {
+    [path: string]: MenuDataItem;
+  };
+  route: ProLayoutProps['route'] & {
+    authority: string[];
+  };
+  settings: Settings;
+  dispatch: Dispatch;
+}
+export type BasicLayoutContext = { [K in 'location']: BasicLayoutProps[K] } & {
+  breadcrumbNameMap: {
+    [path: string]: MenuDataItem;
+  };
+};
+/**
+ * use Authorized check all menu item
+ */
 
-const { Header, Content, Footer } = Layout;
+const menuDataRender = (menuList: MenuDataItem[]): MenuDataItem[] =>
+  menuList.map(item => {
+    const localItem = { ...item, children: item.children ? menuDataRender(item.children) : [] };
+    return Authorized.check(item.authority, localItem, null) as MenuDataItem;
+  });
 
-const { Sider } = Layout;
+const defaultFooterDom = <DefaultFooter copyright="2020 闪麟网络有限公司" />;
 
-const isActive = (activePath: string, pathname: string) =>
-  new RegExp(`^${activePath}`).test(pathname);
-
-const BasicLayout: React.SFC<ConnectProps> = props => {
-  const [collapsed, setCollapsed] = useState(true);
+const BasicLayout: React.FC<BasicLayoutProps> = props => {
   const {
-    location,
-    route = {
-      routes: [],
+    dispatch,
+    children,
+    settings,
+    location = {
+      pathname: '/',
     },
   } = props;
-  const { routes = [] } = route;
+  /**
+   * constructor
+   */
 
-  const { menuData } = getMenuData(routes);
-  // const flatMenuKeys = getFlatMenuKeys(menuData);
-  const { pathname } = location as any;
-  // Get the currently selected menu
+  useEffect(() => {
+    if (dispatch) {
+      dispatch({
+        type: 'user/fetchCurrent',
+      });
+    }
+  }, []);
+  /**
+   * init variables
+   */
 
+  const handleMenuCollapse = (payload: boolean): void => {
+    if (dispatch) {
+      dispatch({
+        type: 'global/changeLayoutCollapsed',
+        payload,
+      });
+    }
+  }; // get children authority
+
+  const authorized = getAuthorityFromRouter(
+    props.route.routes as any,
+    location.pathname || '/',
+  ) || {
+    authority: undefined,
+  };
   return (
-    <div className={cx('wrapper')}>
-      <Layout>
-        <Sider className={cx('main-menu-bar')} width={80}>
-          <div className={cx('menu-bar')}>
-            <div>
-              <img style={{ height: 40, margin: '15px 18px' }} src={logo} alt="" />
-            </div>
-            {menuData.map(menuItem => (
-              <Tooltip key={menuItem.name} title={menuItem.name} placement="right">
-                <Link to={menuItem.path || ''}>
-                  <div
-                    className={cx('menu-item', {
-                      active: isActive(menuItem ? menuItem.path || '' : '', pathname),
-                    })}
-                  >
-                    <LegacyIcon className={cx('icon')} type={menuItem.icon as any} />
-                    <div className={cx('text')}>{menuItem.name}</div>
-                  </div>
-                </Link>
-              </Tooltip>
-            ))}
-          </div>
-        </Sider>
-        <Sider className={cx('sub-menu-bar')} width={200} collapsedWidth={0} collapsed={collapsed}>
-          <div
-            className={cx('navbar-collapse-wrapper', {
-              collapsed,
-            })}
-            onClick={() => setCollapsed(!collapsed)}
-          >
-            <div className={cx('navbar-collapse')}>
-              <RightOutlined className={cx('icon')}></RightOutlined>
-            </div>
-          </div>
-        </Sider>
-        <Layout>
-          <Header className={cx('header')}>
-            <RightContent />
-          </Header>
-          <Content className={cx('content')}>{props.children}</Content>
-          <Footer className={cx('footer')}></Footer>
-        </Layout>
-      </Layout>
+    <>
+      <ProLayout
+        logo={logo}
+        siderWidth={200}
+        menuHeaderRender={(logoDom, titleDom) => (
+          <Link to="/">
+            {logoDom}
+            {titleDom}
+          </Link>
+        )}
+        theme="light"
+        onCollapse={handleMenuCollapse}
+        menuItemRender={(menuItemProps, defaultDom) => {
+          if (menuItemProps.isUrl || menuItemProps.children || !menuItemProps.path) {
+            return defaultDom;
+          }
 
-      <VirtualDevice></VirtualDevice>
-    </div>
+          return <Link to={menuItemProps.path}>{defaultDom}</Link>;
+        }}
+        itemRender={(route, params, routes, paths) => {
+          const first = routes.indexOf(route) === 0;
+          return first ? (
+            <Link to={paths.join('/')}>{route.breadcrumbName}</Link>
+          ) : (
+            <span>{route.breadcrumbName}</span>
+          );
+        }}
+        footerRender={() => defaultFooterDom}
+        menuDataRender={menuDataRender}
+        rightContentRender={() => <RightContent />}
+        {...props}
+        {...settings}
+      >
+        <Authorized authority={authorized!.authority} noMatch={noMatch}>
+          {children}
+        </Authorized>
+      </ProLayout>
+      <SettingDrawer
+        settings={settings}
+        onSettingChange={config =>
+          dispatch({
+            type: 'settings/changeSetting',
+            payload: config,
+          })
+        }
+      />
+    </>
   );
 };
 
-export default BasicLayout;
+export default connect(({ global, settings }: ConnectState) => ({
+  collapsed: global.collapsed,
+  settings,
+}))(BasicLayout);
