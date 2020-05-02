@@ -34,32 +34,21 @@ const UserLayout: React.SFC<UserLayoutProps> = props => {
     ...props,
   });
 
-  const links: [] = [];
   const copyright: string = '2020 EzLinker 版权所有';
 
   return (
     <>
-      <Helmet>
-        <title>{title}</title>
-        <meta name="description" content={title} />
-      </Helmet>
-
       <div className={styles.container}>
         {/* <div className={styles.lang}>
           <SelectLang />
         </div> */}
         <div className={styles.content}>
           <div className={styles.top}>
-            <div className={styles.header}>
-              <Link to="#">
-                <img alt="logo" className={styles.logo} src={logo} />
-              </Link>
-            </div>
-            <div className={styles.desc}></div>
+            <div className={styles.header} />
+            <div className={styles.desc} />
           </div>
           {children}
         </div>
-        <DefaultFooter links={links} copyright={copyright} />
       </div>
     </>
   );
