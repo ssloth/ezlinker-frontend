@@ -1,57 +1,26 @@
-import { DefaultFooter, MenuDataItem, getMenuData, getPageTitle } from '@ant-design/pro-layout';
-import { Helmet } from 'react-helmet';
-import { Link } from 'umi';
-import React from 'react';
+/* eslint-disable no-plusplus */
+import React, { useLayoutEffect } from 'react';
 import { connect } from 'dva';
 // import SelectLang from '@/components/SelectLang';
-import { ConnectProps, ConnectState } from '@/models/connect';
-import logo from '../assets/logo.svg';
 import styles from './UserLayout.less';
+import { createLoginEffect } from './loginEffect';
 
-export interface UserLayoutProps extends ConnectProps {
-  breadcrumbNameMap: {
-    [path: string]: MenuDataItem;
-  };
-}
+const UserLayout: React.SFC<any> = (props: any) => {
+  // const copyright: string = '2020 EzLinker 版权所有';
+  const { children } = props;
 
-const UserLayout: React.SFC<UserLayoutProps> = props => {
-  const {
-    route = {
-      routes: [],
-    },
-  } = props;
-  const { routes = [] } = route;
-  const {
-    children,
-    location = {
-      pathname: '',
-    },
-  } = props;
-  const { breadcrumb } = getMenuData(routes);
-  const title = getPageTitle({
-    pathname: location.pathname,
-    breadcrumb,
-    ...props,
+  useLayoutEffect(() => {
+    setTimeout(() => {
+      createLoginEffect();
+    }, 500);
   });
-
-  const copyright: string = '2020 EzLinker 版权所有';
 
   return (
     <>
-      <div className={styles.container}>
-        {/* <div className={styles.lang}>
-          <SelectLang />
-        </div> */}
-        <div className={styles.content}>
-          <div className={styles.top}>
-            <div className={styles.header} />
-            <div className={styles.desc} />
-          </div>
-          {children}
-        </div>
-      </div>
+      <div id="login-container" />
+      <div className={styles.container}>{children}</div>
     </>
   );
 };
 
-export default connect(({ settings }: ConnectState) => ({ ...settings }))(UserLayout);
+export default connect(({ settings }: { settings: any }) => ({ ...settings }))(UserLayout);
