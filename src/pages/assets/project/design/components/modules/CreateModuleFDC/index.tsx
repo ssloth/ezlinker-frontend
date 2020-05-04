@@ -4,7 +4,7 @@ import '@ant-design/compatible/assets/index.css';
 import { Input, Divider } from 'antd';
 import classNames from 'classnames/bind';
 import { IFormDrawerContentProps } from '@/hooks/usePopup/type';
-import TableColumnsDesign from '@/pages/project/components/TableColumnsDesign';
+import TableColumnsDesign from '../../../../components/TableColumnsDesign';
 import styles from './index.less';
 
 const cx = classNames.bind(styles);

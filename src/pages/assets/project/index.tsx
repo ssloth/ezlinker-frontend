@@ -5,8 +5,8 @@ import {Link} from 'umi';
 import { useFormModal, createUseRestful } from '@/hooks';
 import { PROJECT_API } from '@/services/resources';
 import { IProject } from '@/typings/types';
-import styles from './index.less';
 import CreateProjectFMC from './components/modules/CreateProjectFMC';
+import styles from './index.less';
 
 const { Paragraph } = Typography;
 
@@ -40,8 +40,8 @@ export default (): React.ReactNode => {
                   className={styles.card}
                   actions={[
                     // <Link to={`/project/${item.id}/operation`}>数据看板</Link>,
-                    <Link to={`/project/${item.id}/device`}>设备管理</Link>,
-                    <Link to={`/project/${item.id}/design`}>产品设计</Link>,
+                    <Link to={`/assets/project/${item.id}/device`}>设备管理</Link>,
+                    <Link to={`/assets/project/${item.id}/design`}>产品设计</Link>,
                   ]}
                 >
                   <Card.Meta
@@ -52,7 +52,7 @@ export default (): React.ReactNode => {
                         <SettingOutlined
                           onClick={() => handleEditProject(item)}
                           style={{ float: 'right' }}
-                        ></SettingOutlined>
+                         />
                       </div>
                     }
                     description={

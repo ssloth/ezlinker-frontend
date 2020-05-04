@@ -1,5 +1,6 @@
-import home from './home';
-import projects from './project';
+import overview from './overview';
+import assets from './assets';
+import advanced from './advanced';
 import user from './user';
 import setting from './setting';
 
@@ -24,10 +25,11 @@ export default [
         component: '../layouts/BasicLayout',
         routes: [
           { path: '/', redirect: '/home' },
-          { ...home },
-          { ...projects },
-          { ...user },
+          { ...overview },
+          { ...assets },
+          { ...advanced },
           { ...setting },
+          { ...user },
           { component: './404' },
         ],
       },

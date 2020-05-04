@@ -16,7 +16,7 @@ import EMQChartListRow from './components/EMQChartListRow';
 const IntroduceRow = React.lazy(() => import('./components/IntroduceRow'));
 const UserLoginLogCard = React.lazy(() => import('./components/UserLoginLogCard'));
 
-const Index = () => {
+const Overview = () => {
   const { data: homeData } = createUseRestful(BIZ_ANALYSE_OVERVIEW).useSWRQuery();
   const { data: running24HData } = createUseRestful(MONITOR_OS_RUNNING_24H_API).useSWRQuery();
   const { data: emqListData } = createUseRestful(MONITOR_EMQX_ALL_API).useSWRQuery();
@@ -27,23 +27,23 @@ const Index = () => {
     <GridContent>
       <React.Fragment>
         <Suspense fallback={<div />}>
-          <IntroduceRow loading={!homeData} data={homeData}></IntroduceRow>
+          <IntroduceRow loading={!homeData} data={homeData} />
         </Suspense>
         <Suspense fallback={<div />}>
-          <Running24HRow loading={!running24HData} data={running24HData}></Running24HRow>
+          <Running24HRow loading={!running24HData} data={running24HData as any} />
         </Suspense>
         <Suspense fallback={<div />}>
-          <EMQChartListRow loading={!emqListData} data={emqListData}></EMQChartListRow>
+          <EMQChartListRow loading={!emqListData} data={emqListData} />
         </Suspense>
         <Row gutter={24}>
           <Col style={{ marginBottom: 20 }} xl={12} lg={24} md={24} sm={24} xs={24}>
             <Suspense fallback={<div />}>
-              <ModuleLoginLogCard tableProps={moduleLogsTableProps as any}></ModuleLoginLogCard>
+              <ModuleLoginLogCard tableProps={moduleLogsTableProps as any} />
             </Suspense>
           </Col>
           <Col style={{ marginBottom: 20 }} xl={12} lg={24} md={24} sm={24} xs={24}>
             <Suspense fallback={<div />}>
-              <UserLoginLogCard tableProps={userLogsTableProps as any}></UserLoginLogCard>
+              <UserLoginLogCard tableProps={userLogsTableProps as any} />
             </Suspense>
           </Col>
         </Row>
@@ -52,4 +52,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Overview;

@@ -3,10 +3,10 @@ import { createFromIconfontCN, PlusOutlined } from '@ant-design/icons';
 import { Form } from '@ant-design/compatible';
 import { Input, Select, Button } from 'antd';
 import { IFormModalContentProps } from '@/hooks/usePopup/type';
-import TableColumnsDesign from '@/pages/project/components/TableColumnsDesign';
 import { enums2Options } from '@/enums/utils';
 import { PRODUCT_TYPE, PROTOCOL_TYPE } from '@/enums/product';
 import { useModal } from '@/hooks';
+import TableColumnsDesign from "../../../components/TableColumnsDesign";
 import SelectProductIconMC, { SelectProductIconMCProps } from './SelectProductIconMC';
 import '@ant-design/compatible/assets/index.css';
 

@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React from 'react';
-import { Card, List, Badge, Progress, Table } from 'antd';
+import { Card, Badge, Table } from 'antd';
 import MiniProgress from './Charts/MiniProgress/index';
 import styles from './EMQChartListRow.less';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const queryloadStatus = (load15: number): { color: string; text: string } => {
   if (load15) {
     return {
@@ -35,7 +36,7 @@ const renderState = (state: boolean) => {
     [true, ['green', '运行']],
   ])
   const [color, text] = statusMap.get(state) || [];
-  return <Badge color={color} text={text}></Badge>;
+  return <Badge color={color} text={text} />;
 };
 
 const columns = [
@@ -76,8 +77,8 @@ const columns = [
     width: 240,
     render: (historyRunningState: any) => (
       <div className={styles['load-24h-chart']}>
-        {historyRunningState?.createTime.map((item, i) => (
-          <div key={i.toString()}></div>
+        {historyRunningState?.createTime.map((item: number, i:number) => (
+          <div key={i.toString()} />
         ))}
       </div>
     ),
@@ -129,7 +130,7 @@ const EMQChartListRow = ({ loading, data }: { loading: boolean; data: any }) => 
       columns={columns}
       dataSource={data}
       loading={!data}
-    ></Table>
+     />
   </Card>
 );
 
