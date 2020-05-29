@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { PlusOutlined, SettingOutlined } from '@ant-design/icons';
 import { Card, List, Button, Typography } from 'antd';
-import {Link} from 'umi';
-import { useFormModal, createUseRestful } from '@/hooks';
+import { Link } from 'umi';
+import { createUseRestful } from '@/hooks';
 import { PROJECT_API } from '@/services/resources';
 import { IProject } from '@/typings/types';
-import CreateProjectFMC from './components/modules/CreateProjectFMC';
+import { useBoolean } from '@umijs/hooks';
+import CreateProjectModal from './modals/CreateProjectModal';
 import styles from './index.less';
 
 const { Paragraph } = Typography;
@@ -13,16 +14,8 @@ const { Paragraph } = Typography;
 export default (): React.ReactNode => {
   const projectResource = createUseRestful<IProject>(PROJECT_API);
   const { data } = projectResource.useSWRQuery();
-
-  const createProjectModal = useFormModal(CreateProjectFMC, projectResource);
-
-  const handleAddProject = () => {
-    createProjectModal.create({}, { title: '创建工程' });
-  };
-
-  const handleEditProject = (record: IProject) => {
-    createProjectModal.edit(record, { title: '编辑工程' });
-  };
+  const modalControl = useBoolean();
+  const [current, setCurrent] = useState<any>({});
 
   return (
     <div className={styles.cardList}>
@@ -50,9 +43,12 @@ export default (): React.ReactNode => {
                       <div>
                         {item.name}
                         <SettingOutlined
-                          onClick={() => handleEditProject(item)}
+                          onClick={() => {
+                            modalControl.setTrue()
+                            setCurrent(item);
+                          }}
                           style={{ float: 'right' }}
-                         />
+                        />
                       </div>
                     }
                     description={
@@ -67,13 +63,14 @@ export default (): React.ReactNode => {
           }
           return (
             <List.Item>
-              <Button onClick={handleAddProject} type="dashed" className={styles.newButton}>
+              <Button onClick={() => modalControl.setTrue()} type="dashed" className={styles.newButton}>
                 <PlusOutlined /> 新增项目
               </Button>
             </List.Item>
           );
         }}
       />
+      <CreateProjectModal visible={modalControl.state} control={modalControl} current={current} />
     </div>
   );
 };
